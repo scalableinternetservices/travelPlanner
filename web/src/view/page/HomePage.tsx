@@ -1,12 +1,12 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { ColorName, Colors } from '../../../../common/src/colors'
-import { H1, H2, H3 } from '../../style/header'
+import { H1, H2 } from '../../style/header'
 import { Spacer } from '../../style/spacer'
 import { style } from '../../style/styled'
 import { BodyText } from '../../style/text'
 import { Link } from '../nav/Link'
-import { AppRouteParams, getPath, Route } from '../nav/route'
+import { AppRouteParams } from '../nav/route'
 import { Page } from './Page'
 
 interface HomePageProps extends RouteComponentProps, AppRouteParams {}
@@ -16,50 +16,26 @@ export function HomePage(props: HomePageProps) {
   return (
     <Page>
       <Hero>
-        <H1>CS 188</H1>
-        <H3>Scalable Internet Services</H3>
-        <H3>UCLA, Fall 2020</H3>
+      <H1>Travel Planner</H1>
       </Hero>
       <Content>
-        <LContent>
-          <Section>
-            <H2>About CS 188</H2>
-            <Spacer $h4 />
-            <BodyText>
-              ☝️ This course explores advanced topics in highly scalable internet services and their underlying
-              architecture.
-            </BodyText>
-            <Spacer $h4 />
-            <BodyText>
-              Software today is increasingly delivered as a service: accessible globally via web browsers and mobile
-              applications and backed by millions of servers. Modern technologies and platforms are making it easier to
-              build and deploy these systems. Yet despite these advances, some concerns just don't go away. Building
-              scalable services today still requires an understanding of topics like concurrency, caching, load
-              balancing, and observability. In this course we will examine the state of the art.
-            </BodyText>
-          </Section>
-          <Section>
-            <H2>Getting Started</H2>
-            <Spacer $h4 />
-            <BodyText>In the first week of class, please complete the following:</BodyText>
-            <Spacer $h4 />
-            <BodyText>
-              <ul className="pl4">
-                <li>
-                  Follow the <Link href="https://github.com/rothfels/bespin#quickstart">project Quickstart</Link> to
-                  configure your dev environment.
-                </li>
-                <li>
-                  Find a project team. See <Link to={getPath(Route.PROJECTS)}>Projects</Link> for details.
-                </li>
-                <li>
-                  Join the <Link href="https://piazza.com/ucla/fall2020/cs188">CS188 Piazza</Link>.
-                </li>
-              </ul>
-            </BodyText>
-          </Section>
-        </LContent>
         <RContent>
+          <Section>
+            <H2>About Us</H2>
+            <Spacer $h4 />
+            <BodyText>
+              Welcome to Travel Planner! This is a platform for you to manage
+              all your travel plans. Travelling to a new country, but don't know where to
+              start? Travelling on a budget? Want to hit all the popular spots,
+              but you are short on time? Don't worry. We got you. Simply let us know what places you'd
+              like to visit, and we'll generate an itinerary for you telling
+              you exactly how to get from one place to the next, while also keeping your budget
+              and time preferences in mind :)
+            </BodyText>
+            <Spacer $h4 />
+          </Section>
+        </RContent>
+        <LContent>
           <Section>
             <H2>Course Information</H2>
             <Spacer $h4 />
@@ -151,15 +127,15 @@ export function HomePage(props: HomePageProps) {
               </ul>
             </BodyText>
           </Section>
-        </RContent>
+        </LContent>
       </Content>
     </Page>
   )
 }
 
 const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-  borderLeftColor: Colors.lemon + '!important',
-  borderRightColor: Colors.lemon + '!important',
+  borderLeftColor: Colors.mint + '!important',
+  borderRightColor: Colors.coral + '!important',
   borderLeftWidth: '4px',
   borderRightWidth: '4px',
 })

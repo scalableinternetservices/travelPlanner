@@ -52311,18 +52311,18 @@ var Link_1 = require("./Link");
 var route_1 = require("./route");
 
 var title = {
-  name: 'CS188',
+  name: 'Travel Planner',
   path: route_1.getPath(route_1.Route.HOME),
   title: true
 };
 var otherTabs = [{
-  name: 'lectures',
+  name: 'My Itineraries',
   path: route_1.getPath(route_1.Route.LECTURES)
 }, {
-  name: 'projects',
+  name: 'My Reviews',
   path: route_1.getPath(route_1.Route.PROJECTS)
 }, {
-  name: 'playground',
+  name: 'Explore',
   path: route_1.getPath(route_1.Route.PLAYGROUND)
 }];
 
@@ -52568,29 +52568,15 @@ var text_1 = require("../../style/text");
 
 var Link_1 = require("../nav/Link");
 
-var route_1 = require("../nav/route");
-
 var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 
 function HomePage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Hero, null, /*#__PURE__*/React.createElement(header_1.H1, null, "CS 188"), /*#__PURE__*/React.createElement(header_1.H3, null, "Scalable Internet Services"), /*#__PURE__*/React.createElement(header_1.H3, null, "UCLA, Fall 2020")), /*#__PURE__*/React.createElement(Content, null, /*#__PURE__*/React.createElement(LContent, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "About CS 188"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Hero, null, /*#__PURE__*/React.createElement(header_1.H1, null, "Travel Planner")), /*#__PURE__*/React.createElement(Content, null, /*#__PURE__*/React.createElement(RContent, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "About Us"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, "\u261D\uFE0F This course explores advanced topics in highly scalable internet services and their underlying architecture."), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, "Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, "Software today is increasingly delivered as a service: accessible globally via web browsers and mobile applications and backed by millions of servers. Modern technologies and platforms are making it easier to build and deploy these systems. Yet despite these advances, some concerns just don't go away. Building scalable services today still requires an understanding of topics like concurrency, caching, load balancing, and observability. In this course we will examine the state of the art.")), /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Getting Started"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, "In the first week of class, please complete the following:"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("ul", {
-    className: "pl4"
-  }, /*#__PURE__*/React.createElement("li", null, "Follow the ", /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://github.com/rothfels/bespin#quickstart"
-  }, "project Quickstart"), " to configure your dev environment."), /*#__PURE__*/React.createElement("li", null, "Find a project team. See ", /*#__PURE__*/React.createElement(Link_1.Link, {
-    to: route_1.getPath(route_1.Route.PROJECTS)
-  }, "Projects"), " for details."), /*#__PURE__*/React.createElement("li", null, "Join the ", /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://piazza.com/ucla/fall2020/cs188"
-  }, "CS188 Piazza"), "."))))), /*#__PURE__*/React.createElement(RContent, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Course Information"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  }))), /*#__PURE__*/React.createElement(LContent, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Course Information"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
   }), /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement(TD, null, "\uD83D\uDC68\u200D\uD83C\uDFEB"), /*#__PURE__*/React.createElement(TD, null, "John Rothfels")), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement(TD, null, "\u2709\uFE0F"), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement(Link_1.Link, {
     href: "mailto://rothfels@cs.ucla.edu"
@@ -52629,8 +52615,8 @@ function HomePage(props) {
 
 exports.HomePage = HomePage;
 var Hero = styled_1.style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-  borderLeftColor: colors_1.Colors.lemon + '!important',
-  borderRightColor: colors_1.Colors.lemon + '!important',
+  borderLeftColor: colors_1.Colors.mint + '!important',
+  borderRightColor: colors_1.Colors.coral + '!important',
   borderLeftWidth: '4px',
   borderRightWidth: '4px'
 });
@@ -52648,7 +52634,7 @@ var TD = styled_1.style('td', 'pa1', function (p) {
     color: p.$theme.textColor()
   };
 });
-},{"react":"../../node_modules/react/index.js","../../../../common/src/colors":"../../common/src/colors.ts","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","../nav/Link":"view/nav/Link.tsx","../nav/route":"view/nav/route.ts","./Page":"view/page/Page.tsx"}],"view/page/LecturesPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/colors":"../../common/src/colors.ts","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","../nav/Link":"view/nav/Link.tsx","./Page":"view/page/Page.tsx"}],"view/page/LecturesPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
