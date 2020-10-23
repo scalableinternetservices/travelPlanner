@@ -35,6 +35,16 @@ export function HomePage(props: HomePageProps) {
             <Spacer $h4 />
           </Section>
         </RContent>
+        <Section>
+          <div id="searchWrapper">
+            <input
+              type="text"
+              name="searchBar"
+              id="searchBar"
+              placeholder="search for a place"
+            />
+          </div>
+        </Section>
         <LContent>
           <Section>
             <H2>Course Information</H2>
