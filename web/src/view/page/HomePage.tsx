@@ -1,166 +1,288 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import { ColorName, Colors } from '../../../../common/src/colors'
-import { H1, H2 } from '../../style/header'
-import { Spacer } from '../../style/spacer'
 import { style } from '../../style/styled'
-import { BodyText } from '../../style/text'
-import { Link } from '../nav/Link'
 import { AppRouteParams } from '../nav/route'
 import { Page } from './Page'
 
-interface HomePageProps extends RouteComponentProps, AppRouteParams {}
+interface HomePageProps extends RouteComponentProps, AppRouteParams { }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function HomePage(props: HomePageProps) {
   return (
     <Page>
-      <Hero>
-      <H1>Travel Planner</H1>
-      </Hero>
-      <Content>
-        <RContent>
-          <Section>
-            <H2>About Us</H2>
-            <Spacer $h4 />
-            <BodyText>
-              Welcome to Travel Planner! This is a platform for you to manage
-              all your travel plans. Travelling to a new country, but don't know where to
-              start? Travelling on a budget? Want to hit all the popular spots,
-              but you are short on time? Don't worry. We got you. Simply let us know what places you'd
-              like to visit, and we'll generate an itinerary for you telling
-              you exactly how to get from one place to the next, while also keeping your budget
-              and time preferences in mind :)
-            </BodyText>
-            <Spacer $h4 />
-          </Section>
-        </RContent>
-        <Section>
-          <div id="searchWrapper">
-            <input
-              type="text"
-              name="searchBar"
-              id="searchBar"
-              placeholder="search for a place"
-            />
-          </div>
-        </Section>
-        <LContent>
-          <Section>
-            <H2>Course Information</H2>
-            <Spacer $h4 />
-            <BodyText>
-              <table>
-                <tbody>
-                  <tr>
-                    <TD>👨‍🏫</TD>
-                    <TD>John Rothfels</TD>
-                  </tr>
-                  <tr>
-                    <TD>✉️</TD>
-                    <TD>
-                      <Link href="mailto://rothfels@cs.ucla.edu">rothfels@cs.ucla.edu</Link>
-                    </TD>
-                  </tr>
-                  <tr>
-                    <TD>⏯</TD>
-                    <TD>
-                      <Link href="https://ucla.zoom.us/j/92470409406?pwd=eFpyYWFQZGRtcVUzWC9HYlhSakRxZz09">Zoom</Link>
-                    </TD>
-                  </tr>
-                  <tr>
-                    <TD>🕒</TD>
-                    <TD>
-                      <div>
-                        <b>Tue, Thu</b> · 8:00 - 9:50am
-                      </div>
-                    </TD>
-                  </tr>
-                  <tr>
-                    <TD></TD>
-                    <TD>
-                      <div>
-                        <b>Fri</b> · 12:00 - 1:50pm
-                      </div>
-                      <div>
-                        <b>Fri</b> · 2:00 - 3:50pm
-                      </div>
-                    </TD>
-                  </tr>
-                </tbody>
-              </table>
-            </BodyText>
-          </Section>
-          <Section>
-            <H2>Resources</H2>
-            <Spacer $h4 />
-            <BodyText>
-              <ul className="ml4">
-                <li>
-                  <Link block href="https://www.typescriptlang.org/docs/handbook/intro.html">
-                    TypeScript handbook
-                  </Link>
-                  <Link block href="https://basarat.gitbook.io/typescript/">
-                    TypeScript deep-dive
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="https://www.typescriptlang.org/play">
-                    TypeScript playground
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="https://reactjs.org/tutorial/tutorial.html">
-                    React tutorial
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="https://reactjs.org/docs/hello-world.html">
-                    React docs
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="https://www.apollographql.com/docs/react/data/queries/">
-                    Apollo client docs
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">
-                    <code>fetch</code> docs
-                  </Link>
-                </li>
-                <li>
-                  <Link block href="#">
-                    Project troubleshooting
-                  </Link>
-                </li>
-              </ul>
-            </BodyText>
-          </Section>
-        </LContent>
-      </Content>
+      <Welcome> Welcome to Travel Planner  </Welcome>
+      <br />
+      <CircularDiv bgColor='#81BEF7' para='About Us'> </CircularDiv>
+      <CircularDiv bgColor='#F78181' para='Login'> </CircularDiv>
+      <CircularDiv bgColor='#A4A4A4' para='Search'></CircularDiv>
+      <AboutUs  ></AboutUs>
+      <UserLogin></UserLogin>
     </Page>
   )
 }
 
-const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-  borderLeftColor: Colors.mint + '!important',
-  borderRightColor: Colors.coral + '!important',
-  borderLeftWidth: '4px',
-  borderRightWidth: '4px',
+// const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
+//   borderLeftColor: Colors.mint + '!important',
+//   borderRightColor: Colors.coral + '!important',
+//   borderLeftWidth: '4px',
+//   borderRightWidth: '4px',
+// })
+
+// const Content = style('div', 'flex-l')
+
+
+const Welcome = style('div', 'welcomeboard', {
+  backgroundColor: '#FAAC58',
+  margin: '5px',
+  textAlign: 'center',
+  color: 'white',
+
+  width: '1000px',
+  height: '200px',
+  // border: "1px solid red",
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  fontSize: '70px',
+  lineHeight: '3em',
+
+
 })
 
-const Content = style('div', 'flex-l')
+const AboutUs = () => {
 
-const LContent = style('div', 'flex-grow-0 w-70-l mr4-l')
 
-const RContent = style('div', 'flex-grow-0  w-30-l')
 
-const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
-  borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
-  borderLeftWidth: '3px',
-}))
+  const AboutUsStyle = style('div', 'About us', {
+    width: '500px',
+    height: '800px',
+    borderRadius: '7%',
+    backgroundColor: '#81BEF7',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "left",
+    visibility: 'hidden',
+    position: 'relative',
+    wordWrap: 'break-word',
+    padding: '30px',
+    marginTop: '5px',
 
-const TD = style('td', 'pa1', p => ({
-  color: p.$theme.textColor(),
-}))
+  })
+  return (
+    <React.Fragment>
+
+      <AboutUsStyle>
+        Welcome to Travel Planner! This is a platform for you to manage
+        all your travel plans. Travelling to a new country, but don't know where to
+        start? Travelling on a budget? Want to hit all the popular spots,
+        but you are short on time? Don't worry. We got you. Simply let us know what places you'd
+        like to visit, and we'll generate an itinerary for you telling
+        you exactly how to get from one place to the next, while also keeping your budget
+        and time preferences in mind :)
+        </AboutUsStyle>
+
+
+    </React.Fragment>
+
+  )
+}
+const UserLogin = () => {
+
+
+  const UserLogStyle = style('div', 'Login', {
+    width: '900px',
+    height: '400px',
+    borderRadius: '5%',
+    backgroundColor: '#F78181',
+    lineHeight: '3em',
+    visibility: 'visible',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '10px',
+  })
+
+  const FromStyle = style('form', 'Login', {
+    marginTop: '50px',
+    fontSize: '29px',
+    color: 'white',
+    textAlign: 'right',
+    lineHeight: '3em',
+    position: 'absolute',
+
+  })
+
+  const InputStyle = style('input', 'Login', {
+    border: "1px solid #FA5858",
+    width: '500px',
+    marginleft: '10px',
+    backgroundColor: '#F6CECE',
+  })
+
+  const LabelStyle = style('label', 'Login', {
+    marginLeft: '100px',
+
+  })
+
+  const SubmitStyle = style('button', 'Login', {
+    color: "white",
+    position: 'static',
+    alignSelf: 'left',
+    border: '1px solid #FA5858',
+
+
+  })
+
+  return (
+    <React.Fragment>
+      <UserLogStyle>
+        <FromStyle>
+          <LabelStyle>Username</LabelStyle>
+          <InputStyle type="text" />
+          <br />
+          <LabelStyle> Password</LabelStyle>
+          <InputStyle type="password" />
+          <br />
+          <SubmitStyle type='submit'>Submit</SubmitStyle>
+        </FromStyle>
+      </UserLogStyle>
+    </React.Fragment>
+
+  )
+
+}
+
+// const SearchBar = style('div', 'About us', {
+//   width: '200px',
+//   height: '200px',
+//   borderRadius: '50%',
+//   backgroundColor: '#A4A4A4',
+//   fontSize: '30px',
+//   color: 'white',
+//   textAlign: 'center',
+//   lineHeight: '6em',
+//   float: "left",
+//   marginLeft: '100px',
+
+//   // marginLeft: 'auto',
+//   // marginRight: 'auto',
+//   wordWrap: 'break-word',
+
+// })
+
+
+
+
+const CircularDiv = (props: any) => {
+
+  const CircularStyle = style('div', 'CirularDiv', {
+    width: '200px',
+    height: '200px',
+    borderRadius: '50%',
+    backgroundColor: props.bgColor,
+    fontSize: '30px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '6em',
+    float: "left",
+    marginLeft: '100px',
+    wordWrap: 'break-word',
+
+  })
+
+  function clickHandler() {
+
+    let x = Array.from(document.getElementsByClassName("About Us") as HTMLCollectionOf<HTMLElement>)
+    let y = Array.from(document.getElementsByClassName("Login") as HTMLCollectionOf<HTMLElement>)
+    let z = Array.from(document.getElementsByClassName("Search") as HTMLCollectionOf<HTMLElement>)
+
+
+    if (props.para == "About Us") {
+      console.log(x);
+
+      for (let i = 0; i < x.length; i++) {
+
+        if (x[i].style.visibility == 'hidden') {
+          x[i].style.visibility = 'visible'
+
+          for (let j = 0; j < y.length; j++) {
+            y[i].style.visibility = 'hidden'
+          }
+          for (let j = 0; j < z.length; j++) {
+            z[i].style.visibility = 'hidden'
+          }
+
+        }
+        else {
+          x[i].style.visibility = 'hidden'
+        }
+      }
+
+    }
+    if (props.para == 'Login') {
+
+      for (let i = 0; i < y.length; i++) {
+
+        if (y[i].style.visibility == 'hidden') {
+          y[i].style.visibility = 'visible'
+
+          for (let j = 0; j < y.length; j++) {
+            x[i].style.visibility = 'hidden'
+          }
+          for (let j = 0; j < z.length; j++) {
+            z[i].style.visibility = 'hidden'
+          }
+
+        }
+        else {
+          y[i].style.visibility = 'hidden'
+        }
+      }
+    }
+    if (props.para = 'Search') {
+
+      for (let i = 0; i < z.length; i++) {
+
+        if (z[i].style.visibility == 'hidden') {
+          z[i].style.visibility = 'visible'
+
+          for (let j = 0; j < y.length; j++) {
+            y[i].style.visibility = 'hidden'
+          }
+          for (let j = 0; j < z.length; j++) {
+            x[i].style.visibility = 'hidden'
+          }
+
+        }
+        else {
+          z[i].style.visibility = 'hidden'
+        }
+      }
+
+    }
+  }
+
+  return (
+    <React.Fragment>
+      <button onClick={clickHandler}>
+        <CircularStyle>
+          {props.para}
+        </CircularStyle>
+      </button>
+    </React.Fragment>
+
+  )
+
+}
+
+// const LContent = style('div', 'flex-grow-0 w-70-l mr4-l')
+
+// const RContent = style('div', 'flex-grow-0  w-30-l')
+
+// const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+//   borderLeftColor: '#0B2161 ' + '!important',
+//   borderLeftWidth: '10px',
+
+
+// }))
+

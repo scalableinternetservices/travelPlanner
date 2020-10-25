@@ -50428,557 +50428,7 @@ function routeParams(params) {
 }
 
 exports.routeParams = routeParams;
-},{}],"style/fonts.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Fonts = void 0;
-exports.Fonts = {
-  sansHeader: "'SF Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  sansBody: "'SF Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  mono: "'SF Mono', monospace"
-};
-},{}],"style/header.tsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.H5 = exports.H4 = exports.H3 = exports.H2 = exports.H1 = void 0;
-
-var colors_1 = require("../../../common/src/colors");
-
-var fonts_1 = require("./fonts");
-
-var styled_1 = require("./styled");
-
-exports.H1 = styled_1.style('h1', function (p) {
-  return headerStyle(1, p);
-});
-exports.H2 = styled_1.style('h2', function (p) {
-  return headerStyle(2, p);
-});
-exports.H3 = styled_1.style('h3', 'i', function (p) {
-  return headerStyle(3, p);
-});
-exports.H4 = styled_1.style('h4', function (p) {
-  return headerStyle(4, p);
-});
-exports.H5 = styled_1.style('h5', function (p) {
-  return headerStyle(5, p);
-});
-
-function headerStyle(level, p) {
-  return {
-    color: p.$color ? colors_1.Colors[p.$color] : p.$theme.headerColor(),
-    fontFamily: fonts_1.Fonts.sansHeader,
-    fontSize: fontSize(level),
-    fontWeight: fontWeight(level),
-    lineHeight: lineHeight(level),
-    textTransform: level === 4 ? 'uppercase' : undefined
-  };
-}
-
-function fontSize(level) {
-  switch (level) {
-    case 1:
-      return '32px';
-
-    case 2:
-      return '24px';
-
-    case 3:
-      return '21px';
-
-    default:
-      return '16px';
-  }
-}
-
-function fontWeight(level) {
-  switch (level) {
-    case 1:
-      return 800;
-
-    case 2:
-      return 600;
-
-    case 3:
-      return 400;
-
-    default:
-      return 'normal';
-  }
-}
-
-function lineHeight(level) {
-  switch (level) {
-    case 1:
-      return 1.5;
-
-    case 2:
-      return 1.33;
-
-    case 3:
-      return '27px';
-
-    case 5:
-      return 1.5;
-
-    default:
-      return undefined;
-  }
-}
-},{"../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"style/spacer.tsx":[function(require,module,exports) {
-"use strict";
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Spacer = void 0;
-
-var React = __importStar(require("react"));
-
-var styled_1 = require("./styled");
-
-function Spacer(props) {
-  return /*#__PURE__*/React.createElement(Div, props);
-}
-
-exports.Spacer = Spacer;
-var Div = styled_1.style('div', function (p) {
-  return {
-    width: getWidth(p) ? getWidth(p) + 'px' : 'auto',
-    height: getHeight(p) ? getHeight(p) + 'px' : 'auto',
-    display: getWidth(p) ? 'inline-block' : 'block'
-  };
-});
-
-function getWidth(p) {
-  if (p.$w1) {
-    return p.$theme.layout.space[1];
-  }
-
-  if (p.$w2) {
-    return p.$theme.layout.space[2];
-  }
-
-  if (p.$w3) {
-    return p.$theme.layout.space[3];
-  }
-
-  if (p.$w4) {
-    return p.$theme.layout.space[4];
-  }
-
-  if (p.$w5) {
-    return p.$theme.layout.space[5];
-  }
-
-  if (p.$w6) {
-    return p.$theme.layout.space[6];
-  }
-
-  if (p.$w7) {
-    return p.$theme.layout.space[7];
-  }
-
-  if (p.$w8) {
-    return p.$theme.layout.space[8];
-  }
-
-  if (p.$w9) {
-    return p.$theme.layout.space[9];
-  }
-
-  return 0;
-}
-
-function getHeight(p) {
-  if (p.$h1) {
-    return p.$theme.layout.space[1];
-  }
-
-  if (p.$h2) {
-    return p.$theme.layout.space[2];
-  }
-
-  if (p.$h3) {
-    return p.$theme.layout.space[3];
-  }
-
-  if (p.$h4) {
-    return p.$theme.layout.space[4];
-  }
-
-  if (p.$h5) {
-    return p.$theme.layout.space[5];
-  }
-
-  if (p.$h6) {
-    return p.$theme.layout.space[6];
-  }
-
-  if (p.$h7) {
-    return p.$theme.layout.space[7];
-  }
-
-  if (p.$h8) {
-    return p.$theme.layout.space[8];
-  }
-
-  if (p.$h9) {
-    return p.$theme.layout.space[9];
-  }
-
-  return 0;
-}
-},{"react":"../../node_modules/react/index.js","./styled":"style/styled.tsx"}],"style/text.tsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ErrorText = exports.SmallText = exports.BodyText = exports.IntroText = void 0;
-
-var colors_1 = require("../../../common/src/colors");
-
-var fonts_1 = require("./fonts");
-
-var styled_1 = require("./styled");
-
-exports.IntroText = styled_1.style('div', 'lh-title sans-serif f5', function (p) {
-  return textStyle('intro', p);
-});
-exports.BodyText = styled_1.style('div', 'lh-copy sans-serif f5', function (p) {
-  return textStyle('body', p);
-});
-exports.SmallText = styled_1.style('div', 'lh-copy sans-serif f6', function (p) {
-  return textStyle('small', p);
-});
-exports.ErrorText = styled_1.style('div', 'lh-copy sans-serif f5', function (p) {
-  return textStyle('error', p);
-});
-
-function textStyle(type, p) {
-  return {
-    color: p.$color ? colors_1.Colors[p.$color] : p.$theme.textColor(type === 'error'),
-    fontFamily: p.$monospace ? fonts_1.Fonts.mono : fonts_1.Fonts.sansBody,
-    display: p.$inline ? 'inline-block' : 'block',
-    fontWeight: 'normal',
-    fontFeatureSettings: 'inherit',
-    whiteSpace: p.$monospace ? 'pre-wrap' : undefined
-  };
-}
-},{"../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"view/toast/toast.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.removeToastListener = exports.addToastListener = exports.toastErr = exports.toast = exports.ToastType = void 0;
-var ToastType;
-
-(function (ToastType) {
-  ToastType[ToastType["INFO"] = 0] = "INFO";
-  ToastType[ToastType["ERROR"] = 1] = "ERROR";
-})(ToastType = exports.ToastType || (exports.ToastType = {}));
-
-var latest = undefined;
-var listeners = [];
-
-function addToast(message, type) {
-  type = type || ToastType.INFO;
-  latest = {
-    message: message,
-    type: type
-  };
-
-  for (var _i = 0, listeners_1 = listeners; _i < listeners_1.length; _i++) {
-    var listener = listeners_1[_i];
-    listener(latest);
-  }
-}
-
-function toast(message) {
-  addToast(message);
-}
-
-exports.toast = toast;
-
-function toastErr(message) {
-  addToast(message, ToastType.ERROR);
-}
-
-exports.toastErr = toastErr;
-
-function addToastListener(func) {
-  listeners.push(func);
-}
-
-exports.addToastListener = addToastListener;
-
-function removeToastListener(func) {
-  var ix = listeners.indexOf(func);
-
-  if (ix < 0) {
-    throw new Error('Listener not found');
-  }
-
-  listeners.splice(ix, 1);
-}
-
-exports.removeToastListener = removeToastListener;
-},{}],"view/toast/error.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.handleError = void 0;
-
-var toast_1 = require("./toast");
-
-function summarizeError(errs) {
-  if (errs == null || errs.length === 0) {
-    return '';
-  }
-
-  return errs.map(function (err) {
-    return err.message;
-  }).join(', ');
-}
-
-function handleError(err) {
-  var message = err.message,
-      graphQLErrors = err.graphQLErrors,
-      networkError = err.networkError,
-      extraInfo = err.extraInfo;
-  console.error({
-    message: message,
-    graphQLErrors: graphQLErrors,
-    networkError: networkError,
-    extraInfo: extraInfo
-  });
-  var errMsg = summarizeError(graphQLErrors) || message;
-  toast_1.toastErr(errMsg);
-}
-
-exports.handleError = handleError;
-},{"./toast":"view/toast/toast.ts"}],"view/nav/Link.tsx":[function(require,module,exports) {
-"use strict";
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) {
-        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-      }
-    };
-
-    return _extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    _extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-var __rest = this && this.__rest || function (s, e) {
-  var t = {};
-
-  for (var p in s) {
-    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
-  }
-
-  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
-  }
-  return t;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.link = exports.Link = void 0;
-
-var router_1 = require("@reach/router");
-
-var React = __importStar(require("react"));
-
-var styled_1 = require("../../style/styled");
-
-var error_1 = require("../toast/error");
-
-var Link =
-/** @class */
-function (_super) {
-  __extends(Link, _super);
-
-  function Link() {
-    var _this = _super !== null && _super.apply(this, arguments) || this;
-
-    _this.onClick = function (e) {
-      var to = _this.props.to;
-
-      if (!e.ctrlKey && !e.metaKey) {
-        e.preventDefault();
-
-        if (to) {
-          if (to.startsWith('http')) {
-            window.open(to);
-          } else {
-            router_1.navigate(to).catch(error_1.handleError);
-          }
-        }
-      }
-    };
-
-    return _this;
-  }
-
-  Link.prototype.render = function () {
-    var _a = this.props,
-        to = _a.to,
-        href = _a.href,
-        title = _a.title,
-        onClick = _a.onClick,
-        noTab = _a.noTab,
-        children = _a.children,
-        block = _a.block,
-        Component = _a.Component,
-        rest = __rest(_a, ["to", "href", "title", "onClick", "noTab", "children", "block", "Component"]);
-
-    var hrefUrl = href || to;
-    var clickHandler = onClick || (to == null ? null : this.onClick);
-    var A = Component || DefaultAnchor;
-    return /*#__PURE__*/React.createElement(A, _extends({
-      target: "_blank",
-      rel: "noopener",
-      title: title || undefined,
-      href: hrefUrl,
-      onClick: clickHandler || undefined,
-      tabIndex: noTab ? -1 : undefined,
-      style: {
-        display: block ? 'block' : 'inline-block'
-      }
-    }, rest), children);
-  };
-
-  return Link;
-}(React.PureComponent);
-
-exports.Link = Link;
-/**
- * "link"-ifies any component.
- */
-
-function link(Component) {
-  return function LinkWrap(props) {
-    var to = props.to,
-        href = props.href,
-        noTab = props.noTab,
-        rest = __rest(props, ["to", "href", "noTab"]);
-
-    var normalizedTo = to ? to.startsWith('/') ? to : '/' + to : undefined;
-    return /*#__PURE__*/React.createElement(Link, _extends({
-      Component: Component,
-      to: normalizedTo,
-      href: href,
-      noTab: noTab
-    }, rest), props.children);
-  };
-}
-
-exports.link = link;
-var DefaultAnchor = styled_1.style('a', 'link dim', function (p) {
-  return {
-    color: p.$theme.linkColor()
-  };
-});
-},{"@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","../../style/styled":"style/styled.tsx","../toast/error":"view/toast/error.ts"}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
+},{}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
 var define;
 !function (root, factory) {
   "object" == typeof exports && "object" == typeof module ? module.exports = factory(require("react")) : "function" == typeof define && define.amd ? define(["react"], factory) : "object" == typeof exports ? exports.MediaQuery = factory(require("react")) : root.MediaQuery = factory(root.React);
@@ -52236,7 +51686,279 @@ function MenuIcon(props) {
 }
 
 exports.MenuIcon = MenuIcon;
-},{"react":"../../node_modules/react/index.js"}],"view/nav/NavBar.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"view/toast/toast.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.removeToastListener = exports.addToastListener = exports.toastErr = exports.toast = exports.ToastType = void 0;
+var ToastType;
+
+(function (ToastType) {
+  ToastType[ToastType["INFO"] = 0] = "INFO";
+  ToastType[ToastType["ERROR"] = 1] = "ERROR";
+})(ToastType = exports.ToastType || (exports.ToastType = {}));
+
+var latest = undefined;
+var listeners = [];
+
+function addToast(message, type) {
+  type = type || ToastType.INFO;
+  latest = {
+    message: message,
+    type: type
+  };
+
+  for (var _i = 0, listeners_1 = listeners; _i < listeners_1.length; _i++) {
+    var listener = listeners_1[_i];
+    listener(latest);
+  }
+}
+
+function toast(message) {
+  addToast(message);
+}
+
+exports.toast = toast;
+
+function toastErr(message) {
+  addToast(message, ToastType.ERROR);
+}
+
+exports.toastErr = toastErr;
+
+function addToastListener(func) {
+  listeners.push(func);
+}
+
+exports.addToastListener = addToastListener;
+
+function removeToastListener(func) {
+  var ix = listeners.indexOf(func);
+
+  if (ix < 0) {
+    throw new Error('Listener not found');
+  }
+
+  listeners.splice(ix, 1);
+}
+
+exports.removeToastListener = removeToastListener;
+},{}],"view/toast/error.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleError = void 0;
+
+var toast_1 = require("./toast");
+
+function summarizeError(errs) {
+  if (errs == null || errs.length === 0) {
+    return '';
+  }
+
+  return errs.map(function (err) {
+    return err.message;
+  }).join(', ');
+}
+
+function handleError(err) {
+  var message = err.message,
+      graphQLErrors = err.graphQLErrors,
+      networkError = err.networkError,
+      extraInfo = err.extraInfo;
+  console.error({
+    message: message,
+    graphQLErrors: graphQLErrors,
+    networkError: networkError,
+    extraInfo: extraInfo
+  });
+  var errMsg = summarizeError(graphQLErrors) || message;
+  toast_1.toastErr(errMsg);
+}
+
+exports.handleError = handleError;
+},{"./toast":"view/toast/toast.ts"}],"view/nav/Link.tsx":[function(require,module,exports) {
+"use strict";
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __rest = this && this.__rest || function (s, e) {
+  var t = {};
+
+  for (var p in s) {
+    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+  }
+
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.link = exports.Link = void 0;
+
+var router_1 = require("@reach/router");
+
+var React = __importStar(require("react"));
+
+var styled_1 = require("../../style/styled");
+
+var error_1 = require("../toast/error");
+
+var Link =
+/** @class */
+function (_super) {
+  __extends(Link, _super);
+
+  function Link() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.onClick = function (e) {
+      var to = _this.props.to;
+
+      if (!e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+
+        if (to) {
+          if (to.startsWith('http')) {
+            window.open(to);
+          } else {
+            router_1.navigate(to).catch(error_1.handleError);
+          }
+        }
+      }
+    };
+
+    return _this;
+  }
+
+  Link.prototype.render = function () {
+    var _a = this.props,
+        to = _a.to,
+        href = _a.href,
+        title = _a.title,
+        onClick = _a.onClick,
+        noTab = _a.noTab,
+        children = _a.children,
+        block = _a.block,
+        Component = _a.Component,
+        rest = __rest(_a, ["to", "href", "title", "onClick", "noTab", "children", "block", "Component"]);
+
+    var hrefUrl = href || to;
+    var clickHandler = onClick || (to == null ? null : this.onClick);
+    var A = Component || DefaultAnchor;
+    return /*#__PURE__*/React.createElement(A, _extends({
+      target: "_blank",
+      rel: "noopener",
+      title: title || undefined,
+      href: hrefUrl,
+      onClick: clickHandler || undefined,
+      tabIndex: noTab ? -1 : undefined,
+      style: {
+        display: block ? 'block' : 'inline-block'
+      }
+    }, rest), children);
+  };
+
+  return Link;
+}(React.PureComponent);
+
+exports.Link = Link;
+/**
+ * "link"-ifies any component.
+ */
+
+function link(Component) {
+  return function LinkWrap(props) {
+    var to = props.to,
+        href = props.href,
+        noTab = props.noTab,
+        rest = __rest(props, ["to", "href", "noTab"]);
+
+    var normalizedTo = to ? to.startsWith('/') ? to : '/' + to : undefined;
+    return /*#__PURE__*/React.createElement(Link, _extends({
+      Component: Component,
+      to: normalizedTo,
+      href: href,
+      noTab: noTab
+    }, rest), props.children);
+  };
+}
+
+exports.link = link;
+var DefaultAnchor = styled_1.style('a', 'link dim', function (p) {
+  return {
+    color: p.$theme.linkColor()
+  };
+});
+},{"@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","../../style/styled":"style/styled.tsx","../toast/error":"view/toast/error.ts"}],"view/nav/NavBar.tsx":[function(require,module,exports) {
 "use strict";
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -52556,85 +52278,490 @@ exports.HomePage = void 0;
 
 var React = __importStar(require("react"));
 
-var colors_1 = require("../../../../common/src/colors");
-
-var header_1 = require("../../style/header");
-
-var spacer_1 = require("../../style/spacer");
-
 var styled_1 = require("../../style/styled");
-
-var text_1 = require("../../style/text");
-
-var Link_1 = require("../nav/Link");
 
 var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 
 function HomePage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Hero, null, /*#__PURE__*/React.createElement(header_1.H1, null, "Travel Planner")), /*#__PURE__*/React.createElement(Content, null, /*#__PURE__*/React.createElement(RContent, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "About Us"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, "Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }))), /*#__PURE__*/React.createElement(LContent, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Course Information"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement(TD, null, "\uD83D\uDC68\u200D\uD83C\uDFEB"), /*#__PURE__*/React.createElement(TD, null, "John Rothfels")), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement(TD, null, "\u2709\uFE0F"), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "mailto://rothfels@cs.ucla.edu"
-  }, "rothfels@cs.ucla.edu"))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement(TD, null, "\u23EF"), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://ucla.zoom.us/j/92470409406?pwd=eFpyYWFQZGRtcVUzWC9HYlhSakRxZz09"
-  }, "Zoom"))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement(TD, null, "\uD83D\uDD52"), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Tue, Thu"), " \xB7 8:00 - 9:50am"))), /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement(TD, null), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Fri"), " \xB7 12:00 - 1:50pm"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, "Fri"), " \xB7 2:00 - 3:50pm"))))))), /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Resources"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("ul", {
-    className: "ml4"
-  }, /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "https://www.typescriptlang.org/docs/handbook/intro.html"
-  }, "TypeScript handbook"), /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "https://basarat.gitbook.io/typescript/"
-  }, "TypeScript deep-dive")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "https://www.typescriptlang.org/play"
-  }, "TypeScript playground")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "https://reactjs.org/tutorial/tutorial.html"
-  }, "React tutorial")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "https://reactjs.org/docs/hello-world.html"
-  }, "React docs")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "https://www.apollographql.com/docs/react/data/queries/"
-  }, "Apollo client docs")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch"
-  }, /*#__PURE__*/React.createElement("code", null, "fetch"), " docs")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement(Link_1.Link, {
-    block: true,
-    href: "#"
-  }, "Project troubleshooting"))))))));
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Welcome, null, " Welcome to Travel Planner  "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(CircularDiv, {
+    bgColor: "#81BEF7",
+    para: "About Us"
+  }, " "), /*#__PURE__*/React.createElement(CircularDiv, {
+    bgColor: "#F78181",
+    para: "Login"
+  }, " "), /*#__PURE__*/React.createElement(CircularDiv, {
+    bgColor: "#A4A4A4",
+    para: "Search"
+  }), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement(UserLogin, null));
 }
 
-exports.HomePage = HomePage;
-var Hero = styled_1.style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-  borderLeftColor: colors_1.Colors.mint + '!important',
-  borderRightColor: colors_1.Colors.coral + '!important',
-  borderLeftWidth: '4px',
-  borderRightWidth: '4px'
+exports.HomePage = HomePage; // const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
+//   borderLeftColor: Colors.mint + '!important',
+//   borderRightColor: Colors.coral + '!important',
+//   borderLeftWidth: '4px',
+//   borderRightWidth: '4px',
+// })
+// const Content = style('div', 'flex-l')
+
+var Welcome = styled_1.style('div', 'welcomeboard', {
+  backgroundColor: '#FAAC58',
+  margin: '5px',
+  textAlign: 'center',
+  color: 'white',
+  width: '1000px',
+  height: '200px',
+  // border: "1px solid red",
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  fontSize: '70px',
+  lineHeight: '3em'
 });
-var Content = styled_1.style('div', 'flex-l');
-var LContent = styled_1.style('div', 'flex-grow-0 w-70-l mr4-l');
-var RContent = styled_1.style('div', 'flex-grow-0  w-30-l');
-var Section = styled_1.style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', function (p) {
+
+var AboutUs = function AboutUs() {
+  var AboutUsStyle = styled_1.style('div', 'About us', {
+    width: '500px',
+    height: '800px',
+    borderRadius: '7%',
+    backgroundColor: '#81BEF7',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "left",
+    visibility: 'hidden',
+    position: 'relative',
+    wordWrap: 'break-word',
+    padding: '30px',
+    marginTop: '5px'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(AboutUsStyle, null, "Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
+};
+
+var UserLogin = function UserLogin() {
+  var UserLogStyle = styled_1.style('div', 'Login', {
+    width: '900px',
+    height: '400px',
+    borderRadius: '5%',
+    backgroundColor: '#F78181',
+    lineHeight: '3em',
+    visibility: 'visible',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '10px'
+  });
+  var FromStyle = styled_1.style('form', 'Login', {
+    marginTop: '50px',
+    fontSize: '29px',
+    color: 'white',
+    textAlign: 'right',
+    lineHeight: '3em',
+    position: 'absolute'
+  });
+  var InputStyle = styled_1.style('input', 'Login', {
+    border: "1px solid #FA5858",
+    width: '500px',
+    marginleft: '10px',
+    backgroundColor: '#F6CECE'
+  });
+  var LabelStyle = styled_1.style('label', 'Login', {
+    marginLeft: '100px'
+  });
+  var SubmitStyle = styled_1.style('button', 'Login', {
+    color: "white",
+    position: 'static',
+    alignSelf: 'left',
+    border: '1px solid #FA5858'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(UserLogStyle, null, /*#__PURE__*/React.createElement(FromStyle, null, /*#__PURE__*/React.createElement(LabelStyle, null, "Username"), /*#__PURE__*/React.createElement(InputStyle, {
+    type: "text"
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(LabelStyle, null, " Password"), /*#__PURE__*/React.createElement(InputStyle, {
+    type: "password"
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SubmitStyle, {
+    type: "submit"
+  }, "Submit"))));
+}; // const SearchBar = style('div', 'About us', {
+//   width: '200px',
+//   height: '200px',
+//   borderRadius: '50%',
+//   backgroundColor: '#A4A4A4',
+//   fontSize: '30px',
+//   color: 'white',
+//   textAlign: 'center',
+//   lineHeight: '6em',
+//   float: "left",
+//   marginLeft: '100px',
+//   // marginLeft: 'auto',
+//   // marginRight: 'auto',
+//   wordWrap: 'break-word',
+// })
+
+
+var CircularDiv = function CircularDiv(props) {
+  var CircularStyle = styled_1.style('div', 'CirularDiv', {
+    width: '200px',
+    height: '200px',
+    borderRadius: '50%',
+    backgroundColor: props.bgColor,
+    fontSize: '30px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '6em',
+    float: "left",
+    marginLeft: '100px',
+    wordWrap: 'break-word'
+  });
+
+  function clickHandler() {
+    var x = Array.from(document.getElementsByClassName("About Us"));
+    var y = Array.from(document.getElementsByClassName("Login"));
+    var z = Array.from(document.getElementsByClassName("Search"));
+
+    if (props.para == "About Us") {
+      console.log(x);
+
+      for (var i = 0; i < x.length; i++) {
+        if (x[i].style.visibility == 'hidden') {
+          x[i].style.visibility = 'visible';
+
+          for (var j = 0; j < y.length; j++) {
+            y[i].style.visibility = 'hidden';
+          }
+
+          for (var j = 0; j < z.length; j++) {
+            z[i].style.visibility = 'hidden';
+          }
+        } else {
+          x[i].style.visibility = 'hidden';
+        }
+      }
+    }
+
+    if (props.para == 'Login') {
+      for (var i = 0; i < y.length; i++) {
+        if (y[i].style.visibility == 'hidden') {
+          y[i].style.visibility = 'visible';
+
+          for (var j = 0; j < y.length; j++) {
+            x[i].style.visibility = 'hidden';
+          }
+
+          for (var j = 0; j < z.length; j++) {
+            z[i].style.visibility = 'hidden';
+          }
+        } else {
+          y[i].style.visibility = 'hidden';
+        }
+      }
+    }
+
+    if (props.para = 'Search') {
+      for (var i = 0; i < z.length; i++) {
+        if (z[i].style.visibility == 'hidden') {
+          z[i].style.visibility = 'visible';
+
+          for (var j = 0; j < y.length; j++) {
+            y[i].style.visibility = 'hidden';
+          }
+
+          for (var j = 0; j < z.length; j++) {
+            x[i].style.visibility = 'hidden';
+          }
+        } else {
+          z[i].style.visibility = 'hidden';
+        }
+      }
+    }
+  }
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
+    onClick: clickHandler
+  }, /*#__PURE__*/React.createElement(CircularStyle, null, props.para)));
+}; // const LContent = style('div', 'flex-grow-0 w-70-l mr4-l')
+// const RContent = style('div', 'flex-grow-0  w-30-l')
+// const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+//   borderLeftColor: '#0B2161 ' + '!important',
+//   borderLeftWidth: '10px',
+// }))
+},{"react":"../../node_modules/react/index.js","../../style/styled":"style/styled.tsx","./Page":"view/page/Page.tsx"}],"style/fonts.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Fonts = void 0;
+exports.Fonts = {
+  sansHeader: "'SF Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  sansBody: "'SF Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  mono: "'SF Mono', monospace"
+};
+},{}],"style/header.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.H5 = exports.H4 = exports.H3 = exports.H2 = exports.H1 = void 0;
+
+var colors_1 = require("../../../common/src/colors");
+
+var fonts_1 = require("./fonts");
+
+var styled_1 = require("./styled");
+
+exports.H1 = styled_1.style('h1', function (p) {
+  return headerStyle(1, p);
+});
+exports.H2 = styled_1.style('h2', function (p) {
+  return headerStyle(2, p);
+});
+exports.H3 = styled_1.style('h3', 'i', function (p) {
+  return headerStyle(3, p);
+});
+exports.H4 = styled_1.style('h4', function (p) {
+  return headerStyle(4, p);
+});
+exports.H5 = styled_1.style('h5', function (p) {
+  return headerStyle(5, p);
+});
+
+function headerStyle(level, p) {
   return {
-    borderLeftColor: colors_1.Colors[p.$color || 'lemon'] + '!important',
-    borderLeftWidth: '3px'
+    color: p.$color ? colors_1.Colors[p.$color] : p.$theme.headerColor(),
+    fontFamily: fonts_1.Fonts.sansHeader,
+    fontSize: fontSize(level),
+    fontWeight: fontWeight(level),
+    lineHeight: lineHeight(level),
+    textTransform: level === 4 ? 'uppercase' : undefined
+  };
+}
+
+function fontSize(level) {
+  switch (level) {
+    case 1:
+      return '32px';
+
+    case 2:
+      return '24px';
+
+    case 3:
+      return '21px';
+
+    default:
+      return '16px';
+  }
+}
+
+function fontWeight(level) {
+  switch (level) {
+    case 1:
+      return 800;
+
+    case 2:
+      return 600;
+
+    case 3:
+      return 400;
+
+    default:
+      return 'normal';
+  }
+}
+
+function lineHeight(level) {
+  switch (level) {
+    case 1:
+      return 1.5;
+
+    case 2:
+      return 1.33;
+
+    case 3:
+      return '27px';
+
+    case 5:
+      return 1.5;
+
+    default:
+      return undefined;
+  }
+}
+},{"../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"style/spacer.tsx":[function(require,module,exports) {
+"use strict";
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Spacer = void 0;
+
+var React = __importStar(require("react"));
+
+var styled_1 = require("./styled");
+
+function Spacer(props) {
+  return /*#__PURE__*/React.createElement(Div, props);
+}
+
+exports.Spacer = Spacer;
+var Div = styled_1.style('div', function (p) {
+  return {
+    width: getWidth(p) ? getWidth(p) + 'px' : 'auto',
+    height: getHeight(p) ? getHeight(p) + 'px' : 'auto',
+    display: getWidth(p) ? 'inline-block' : 'block'
   };
 });
-var TD = styled_1.style('td', 'pa1', function (p) {
-  return {
-    color: p.$theme.textColor()
-  };
+
+function getWidth(p) {
+  if (p.$w1) {
+    return p.$theme.layout.space[1];
+  }
+
+  if (p.$w2) {
+    return p.$theme.layout.space[2];
+  }
+
+  if (p.$w3) {
+    return p.$theme.layout.space[3];
+  }
+
+  if (p.$w4) {
+    return p.$theme.layout.space[4];
+  }
+
+  if (p.$w5) {
+    return p.$theme.layout.space[5];
+  }
+
+  if (p.$w6) {
+    return p.$theme.layout.space[6];
+  }
+
+  if (p.$w7) {
+    return p.$theme.layout.space[7];
+  }
+
+  if (p.$w8) {
+    return p.$theme.layout.space[8];
+  }
+
+  if (p.$w9) {
+    return p.$theme.layout.space[9];
+  }
+
+  return 0;
+}
+
+function getHeight(p) {
+  if (p.$h1) {
+    return p.$theme.layout.space[1];
+  }
+
+  if (p.$h2) {
+    return p.$theme.layout.space[2];
+  }
+
+  if (p.$h3) {
+    return p.$theme.layout.space[3];
+  }
+
+  if (p.$h4) {
+    return p.$theme.layout.space[4];
+  }
+
+  if (p.$h5) {
+    return p.$theme.layout.space[5];
+  }
+
+  if (p.$h6) {
+    return p.$theme.layout.space[6];
+  }
+
+  if (p.$h7) {
+    return p.$theme.layout.space[7];
+  }
+
+  if (p.$h8) {
+    return p.$theme.layout.space[8];
+  }
+
+  if (p.$h9) {
+    return p.$theme.layout.space[9];
+  }
+
+  return 0;
+}
+},{"react":"../../node_modules/react/index.js","./styled":"style/styled.tsx"}],"style/text.tsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-},{"react":"../../node_modules/react/index.js","../../../../common/src/colors":"../../common/src/colors.ts","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","../nav/Link":"view/nav/Link.tsx","./Page":"view/page/Page.tsx"}],"view/page/LecturesPage.tsx":[function(require,module,exports) {
+exports.ErrorText = exports.SmallText = exports.BodyText = exports.IntroText = void 0;
+
+var colors_1 = require("../../../common/src/colors");
+
+var fonts_1 = require("./fonts");
+
+var styled_1 = require("./styled");
+
+exports.IntroText = styled_1.style('div', 'lh-title sans-serif f5', function (p) {
+  return textStyle('intro', p);
+});
+exports.BodyText = styled_1.style('div', 'lh-copy sans-serif f5', function (p) {
+  return textStyle('body', p);
+});
+exports.SmallText = styled_1.style('div', 'lh-copy sans-serif f6', function (p) {
+  return textStyle('small', p);
+});
+exports.ErrorText = styled_1.style('div', 'lh-copy sans-serif f5', function (p) {
+  return textStyle('error', p);
+});
+
+function textStyle(type, p) {
+  return {
+    color: p.$color ? colors_1.Colors[p.$color] : p.$theme.textColor(type === 'error'),
+    fontFamily: p.$monospace ? fonts_1.Fonts.mono : fonts_1.Fonts.sansBody,
+    display: p.$inline ? 'inline-block' : 'block',
+    fontWeight: 'normal',
+    fontFeatureSettings: 'inherit',
+    whiteSpace: p.$monospace ? 'pre-wrap' : undefined
+  };
+}
+},{"../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"view/page/LecturesPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {

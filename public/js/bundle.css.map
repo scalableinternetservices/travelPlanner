@@ -1,0 +1,1 @@
+{"version":3,"sources":["view/page/Hompage/stylesheet.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA","file":"bundle.css","sourceRoot":"../../web/src","sourcesContent":[".about{\n  color:orange;\n}\n.font-xl{\n  font-size: 500px;\n}"]}
