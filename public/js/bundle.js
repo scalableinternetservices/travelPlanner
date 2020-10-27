@@ -52339,47 +52339,10 @@ var AboutUs = function AboutUs() {
 };
 
 var UserLogin = function UserLogin() {
-  var UserLogStyle = styled_1.style('div', 'Login', {
-    width: '900px',
-    height: '400px',
-    borderRadius: '5%',
-    backgroundColor: '#F78181',
-    lineHeight: '3em',
-    visibility: 'visible',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '10px'
+  var LoginStyle = styled_1.style('div', 'Login', {
+    visibility: 'hidden'
   });
-  var FromStyle = styled_1.style('form', 'Login', {
-    marginTop: '50px',
-    fontSize: '29px',
-    color: 'white',
-    textAlign: 'right',
-    lineHeight: '3em',
-    position: 'absolute'
-  });
-  var InputStyle = styled_1.style('input', 'Login', {
-    border: "1px solid #FA5858",
-    width: '500px',
-    marginleft: '10px',
-    backgroundColor: '#F6CECE'
-  });
-  var LabelStyle = styled_1.style('label', 'Login', {
-    marginLeft: '100px'
-  });
-  var SubmitStyle = styled_1.style('button', 'Login', {
-    color: "white",
-    position: 'static',
-    alignSelf: 'left',
-    border: '1px solid #FA5858'
-  });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(UserLogStyle, null, /*#__PURE__*/React.createElement(FromStyle, null, /*#__PURE__*/React.createElement(LabelStyle, null, "Username"), /*#__PURE__*/React.createElement(InputStyle, {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(LabelStyle, null, " Password"), /*#__PURE__*/React.createElement(InputStyle, {
-    type: "password"
-  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SubmitStyle, {
-    type: "submit"
-  }, "Submit"))));
+  return /*#__PURE__*/React.createElement(LoginStyle, null, "Link to UserLogin");
 }; // const SearchBar = style('div', 'About us', {
 //   width: '200px',
 //   height: '200px',
@@ -52414,8 +52377,8 @@ var CircularDiv = function CircularDiv(props) {
 
   function clickHandler() {
     var x = Array.from(document.getElementsByClassName("About Us"));
-    var y = Array.from(document.getElementsByClassName("Login"));
     var z = Array.from(document.getElementsByClassName("Search"));
+    var y = Array.from(document.getElementsByClassName("Login"));
 
     if (props.para == "About Us") {
       console.log(x);
@@ -52423,10 +52386,6 @@ var CircularDiv = function CircularDiv(props) {
       for (var i = 0; i < x.length; i++) {
         if (x[i].style.visibility == 'hidden') {
           x[i].style.visibility = 'visible';
-
-          for (var j = 0; j < y.length; j++) {
-            y[i].style.visibility = 'hidden';
-          }
 
           for (var j = 0; j < z.length; j++) {
             z[i].style.visibility = 'hidden';
@@ -52442,10 +52401,6 @@ var CircularDiv = function CircularDiv(props) {
         if (y[i].style.visibility == 'hidden') {
           y[i].style.visibility = 'visible';
 
-          for (var j = 0; j < y.length; j++) {
-            x[i].style.visibility = 'hidden';
-          }
-
           for (var j = 0; j < z.length; j++) {
             z[i].style.visibility = 'hidden';
           }
@@ -52459,10 +52414,6 @@ var CircularDiv = function CircularDiv(props) {
       for (var i = 0; i < z.length; i++) {
         if (z[i].style.visibility == 'hidden') {
           z[i].style.visibility = 'visible';
-
-          for (var j = 0; j < y.length; j++) {
-            y[i].style.visibility = 'hidden';
-          }
 
           for (var j = 0; j < z.length; j++) {
             x[i].style.visibility = 'hidden';
