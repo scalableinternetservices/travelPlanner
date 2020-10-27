@@ -90,63 +90,10 @@ const AboutUs = () => {
 const UserLogin = () => {
 
 
-  const UserLogStyle = style('div', 'Login', {
-    width: '900px',
-    height: '400px',
-    borderRadius: '5%',
-    backgroundColor: '#F78181',
-    lineHeight: '3em',
-    visibility: 'visible',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '10px',
-  })
-
-  const FromStyle = style('form', 'Login', {
-    marginTop: '50px',
-    fontSize: '29px',
-    color: 'white',
-    textAlign: 'right',
-    lineHeight: '3em',
-    position: 'absolute',
-
-  })
-
-  const InputStyle = style('input', 'Login', {
-    border: "1px solid #FA5858",
-    width: '500px',
-    marginleft: '10px',
-    backgroundColor: '#F6CECE',
-  })
-
-  const LabelStyle = style('label', 'Login', {
-    marginLeft: '100px',
-
-  })
-
-  const SubmitStyle = style('button', 'Login', {
-    color: "white",
-    position: 'static',
-    alignSelf: 'left',
-    border: '1px solid #FA5858',
-
-
-  })
-
   return (
-    <React.Fragment>
-      <UserLogStyle>
-        <FromStyle>
-          <LabelStyle>Username</LabelStyle>
-          <InputStyle type="text" />
-          <br />
-          <LabelStyle> Password</LabelStyle>
-          <InputStyle type="password" />
-          <br />
-          <SubmitStyle type='submit'>Submit</SubmitStyle>
-        </FromStyle>
-      </UserLogStyle>
-    </React.Fragment>
+    <div>
+      link to Login Page
+    </div>
 
   )
 
@@ -193,7 +140,7 @@ const CircularDiv = (props: any) => {
   function clickHandler() {
 
     let x = Array.from(document.getElementsByClassName("About Us") as HTMLCollectionOf<HTMLElement>)
-    let y = Array.from(document.getElementsByClassName("Login") as HTMLCollectionOf<HTMLElement>)
+    // let y = Array.from(document.getElementsByClassName("Login") as HTMLCollectionOf<HTMLElement>)
     let z = Array.from(document.getElementsByClassName("Search") as HTMLCollectionOf<HTMLElement>)
 
 
@@ -205,9 +152,6 @@ const CircularDiv = (props: any) => {
         if (x[i].style.visibility == 'hidden') {
           x[i].style.visibility = 'visible'
 
-          for (let j = 0; j < y.length; j++) {
-            y[i].style.visibility = 'hidden'
-          }
           for (let j = 0; j < z.length; j++) {
             z[i].style.visibility = 'hidden'
           }
@@ -221,23 +165,7 @@ const CircularDiv = (props: any) => {
     }
     if (props.para == 'Login') {
 
-      for (let i = 0; i < y.length; i++) {
 
-        if (y[i].style.visibility == 'hidden') {
-          y[i].style.visibility = 'visible'
-
-          for (let j = 0; j < y.length; j++) {
-            x[i].style.visibility = 'hidden'
-          }
-          for (let j = 0; j < z.length; j++) {
-            z[i].style.visibility = 'hidden'
-          }
-
-        }
-        else {
-          y[i].style.visibility = 'hidden'
-        }
-      }
     }
     if (props.para = 'Search') {
 
@@ -246,9 +174,6 @@ const CircularDiv = (props: any) => {
         if (z[i].style.visibility == 'hidden') {
           z[i].style.visibility = 'visible'
 
-          for (let j = 0; j < y.length; j++) {
-            y[i].style.visibility = 'hidden'
-          }
           for (let j = 0; j < z.length; j++) {
             x[i].style.visibility = 'hidden'
           }
