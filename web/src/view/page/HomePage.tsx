@@ -55,15 +55,50 @@ const Search = () => {
     visibility: 'visible',
     position: 'absolute',
     wordWrap: 'break-word',
-    padding: '30px',
     marginTop: '5px',
+    border: '2px solid red'
 
   })
+
+  const LeftSerchDive = style('div', 'Search', {
+    width: '730px',
+    height: '800px',
+    borderRadius: '35px',
+    backgroundColor: '#A4A4A4',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "left",
+    visibility: 'visible',
+    border: '2px solid red'
+  })
+  const RightSerchDive = style('div', 'Search', {
+    width: '730px',
+    height: '800px',
+    borderRadius: '35px',
+    backgroundColor: '#A4A4A4',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "right",
+    visibility: 'visible',
+    border: '2px solid red'
+  })
+
 
 
   return (
     <React.Fragment>
-      <SearchDiv>this is search div</SearchDiv>
+      <SearchDiv>
+        <LeftSerchDive>
+
+        </LeftSerchDive>
+        <RightSerchDive>
+
+        </RightSerchDive>
+      </SearchDiv>
     </React.Fragment>
 
   )

@@ -52325,10 +52325,36 @@ var Search = function Search() {
     visibility: 'visible',
     position: 'absolute',
     wordWrap: 'break-word',
-    padding: '30px',
-    marginTop: '5px'
+    marginTop: '5px',
+    border: '2px solid red'
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, "this is search div"));
+  var LeftSerchDive = styled_1.style('div', 'Search', {
+    width: '730px',
+    height: '800px',
+    borderRadius: '35px',
+    backgroundColor: '#A4A4A4',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "left",
+    visibility: 'visible',
+    border: '2px solid red'
+  });
+  var RightSerchDive = styled_1.style('div', 'Search', {
+    width: '730px',
+    height: '800px',
+    borderRadius: '35px',
+    backgroundColor: '#A4A4A4',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "right",
+    visibility: 'visible',
+    border: '2px solid red'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null), /*#__PURE__*/React.createElement(RightSerchDive, null)));
 };
 
 var AboutUs = function AboutUs() {
