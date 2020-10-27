@@ -71,8 +71,10 @@ const Search = () => {
     lineHeight: '1em',
     float: "left",
     visibility: 'visible',
-    border: '2px solid red'
+    border: '2px solid red',
+    padding: '20px'
   })
+
   const RightSerchDive = style('div', 'Search', {
     width: '730px',
     height: '800px',
@@ -84,10 +86,9 @@ const Search = () => {
     lineHeight: '1em',
     float: "right",
     visibility: 'visible',
-    border: '2px solid red'
+    border: '2px solid red',
+    padding: '20px'
   })
-
-
 
   return (
     <React.Fragment>
@@ -95,11 +96,57 @@ const Search = () => {
         <LeftSerchDive>
 
         </LeftSerchDive>
-        <RightSerchDive>
 
+
+
+        <RightSerchDive>
+          <SearchForm />
         </RightSerchDive>
       </SearchDiv>
     </React.Fragment>
+
+  )
+}
+
+
+
+
+
+const SearchForm = () => {
+
+  var [place, setPlace] = React.useState('')
+
+  let x = (document.getElementById("textvalue") as HTMLInputElement).value
+
+  const InputStyle = style('input', 'Search', {
+    width: '500px',
+    padding: '12px 12px',
+    margin: '8px 10px',
+    backgroundColor: '#6E6E6E',
+    borderRadius: '13px',
+    color: 'white'
+  }
+  )
+
+
+  const InputSubmit = style('button', 'Search', {
+    width: '100px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#424242',
+    borderRadius: '5px',
+    color: 'white',
+
+  })
+  return (
+    <React.Fragment>
+      <form>
+        <InputStyle type="text" id='textvalue' />
+        <InputSubmit onClick={() => setPlace(place = x)} type="submit" >+</InputSubmit>
+        <p>{place}</p>
+      </form>
+    </React.Fragment>
+
 
   )
 }

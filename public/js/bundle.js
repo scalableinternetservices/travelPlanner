@@ -52339,7 +52339,8 @@ var Search = function Search() {
     lineHeight: '1em',
     float: "left",
     visibility: 'visible',
-    border: '2px solid red'
+    border: '2px solid red',
+    padding: '20px'
   });
   var RightSerchDive = styled_1.style('div', 'Search', {
     width: '730px',
@@ -52352,9 +52353,43 @@ var Search = function Search() {
     lineHeight: '1em',
     float: "right",
     visibility: 'visible',
-    border: '2px solid red'
+    border: '2px solid red',
+    padding: '20px'
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null), /*#__PURE__*/React.createElement(RightSerchDive, null)));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null), /*#__PURE__*/React.createElement(RightSerchDive, null, /*#__PURE__*/React.createElement(SearchForm, null))));
+};
+
+var SearchForm = function SearchForm() {
+  var _a = React.useState(''),
+      place = _a[0],
+      setPlace = _a[1];
+
+  var x = document.getElementById("textvalue").value;
+  var InputStyle = styled_1.style('input', 'Search', {
+    width: '500px',
+    padding: '12px 12px',
+    margin: '8px 10px',
+    backgroundColor: '#6E6E6E',
+    borderRadius: '13px',
+    color: 'white'
+  });
+  var InputSubmit = styled_1.style('button', 'Search', {
+    width: '100px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#424242',
+    borderRadius: '5px',
+    color: 'white'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(InputStyle, {
+    type: "text",
+    id: "textvalue"
+  }), /*#__PURE__*/React.createElement(InputSubmit, {
+    onClick: function onClick() {
+      return setPlace(place = x);
+    },
+    type: "submit"
+  }, "+"), /*#__PURE__*/React.createElement("p", null, place)));
 };
 
 var AboutUs = function AboutUs() {
