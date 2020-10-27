@@ -17,18 +17,10 @@ export function HomePage(props: HomePageProps) {
       <CircularDiv bgColor='#A4A4A4' para='Search'></CircularDiv>
       <AboutUs  ></AboutUs>
       <UserLogin></UserLogin>
+      <Search></Search>
     </Page>
   )
 }
-
-// const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-//   borderLeftColor: Colors.mint + '!important',
-//   borderRightColor: Colors.coral + '!important',
-//   borderLeftWidth: '4px',
-//   borderRightWidth: '4px',
-// })
-
-// const Content = style('div', 'flex-l')
 
 
 const Welcome = style('div', 'welcomeboard', {
@@ -47,6 +39,37 @@ const Welcome = style('div', 'welcomeboard', {
 
 
 })
+
+const Search = () => {
+
+  const SearchDiv = style('div', 'Search', {
+    width: '1500px',
+    height: '800px',
+    borderRadius: '35px',
+    backgroundColor: '#A4A4A4',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "left",
+    visibility: 'visible',
+    position: 'absolute',
+    wordWrap: 'break-word',
+    padding: '30px',
+    marginTop: '5px',
+
+  })
+
+
+  return (
+    <React.Fragment>
+      <SearchDiv>this is search div</SearchDiv>
+    </React.Fragment>
+
+  )
+}
+
+
 
 const AboutUs = () => {
 
@@ -99,27 +122,6 @@ const UserLogin = () => {
 
 }
 
-// const SearchBar = style('div', 'About us', {
-//   width: '200px',
-//   height: '200px',
-//   borderRadius: '50%',
-//   backgroundColor: '#A4A4A4',
-//   fontSize: '30px',
-//   color: 'white',
-//   textAlign: 'center',
-//   lineHeight: '6em',
-//   float: "left",
-//   marginLeft: '100px',
-
-//   // marginLeft: 'auto',
-//   // marginRight: 'auto',
-//   wordWrap: 'break-word',
-
-// })
-
-
-
-
 const CircularDiv = (props: any) => {
 
   const CircularStyle = style('div', 'CirularDiv', {
@@ -138,6 +140,7 @@ const CircularDiv = (props: any) => {
   })
 
   function clickHandler() {
+
 
     let x = Array.from(document.getElementsByClassName("About Us") as HTMLCollectionOf<HTMLElement>)
     // let y = Array.from(document.getElementsByClassName("Login") as HTMLCollectionOf<HTMLElement>)
@@ -194,6 +197,7 @@ const CircularDiv = (props: any) => {
           {props.para}
         </CircularStyle>
       </button>
+
     </React.Fragment>
 
   )

@@ -52293,17 +52293,10 @@ function HomePage(props) {
   }, " "), /*#__PURE__*/React.createElement(CircularDiv, {
     bgColor: "#A4A4A4",
     para: "Search"
-  }), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement(UserLogin, null));
+  }), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement(UserLogin, null), /*#__PURE__*/React.createElement(Search, null));
 }
 
-exports.HomePage = HomePage; // const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-//   borderLeftColor: Colors.mint + '!important',
-//   borderRightColor: Colors.coral + '!important',
-//   borderLeftWidth: '4px',
-//   borderRightWidth: '4px',
-// })
-// const Content = style('div', 'flex-l')
-
+exports.HomePage = HomePage;
 var Welcome = styled_1.style('div', 'welcomeboard', {
   backgroundColor: '#FAAC58',
   margin: '5px',
@@ -52317,6 +52310,26 @@ var Welcome = styled_1.style('div', 'welcomeboard', {
   fontSize: '70px',
   lineHeight: '3em'
 });
+
+var Search = function Search() {
+  var SearchDiv = styled_1.style('div', 'Search', {
+    width: '1500px',
+    height: '800px',
+    borderRadius: '35px',
+    backgroundColor: '#A4A4A4',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: '1em',
+    float: "left",
+    visibility: 'visible',
+    position: 'absolute',
+    wordWrap: 'break-word',
+    padding: '30px',
+    marginTop: '5px'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, "this is search div"));
+};
 
 var AboutUs = function AboutUs() {
   var AboutUsStyle = styled_1.style('div', 'About us', {
@@ -52340,22 +52353,7 @@ var AboutUs = function AboutUs() {
 
 var UserLogin = function UserLogin() {
   return /*#__PURE__*/React.createElement("div", null, "link to Login Page");
-}; // const SearchBar = style('div', 'About us', {
-//   width: '200px',
-//   height: '200px',
-//   borderRadius: '50%',
-//   backgroundColor: '#A4A4A4',
-//   fontSize: '30px',
-//   color: 'white',
-//   textAlign: 'center',
-//   lineHeight: '6em',
-//   float: "left",
-//   marginLeft: '100px',
-//   // marginLeft: 'auto',
-//   // marginRight: 'auto',
-//   wordWrap: 'break-word',
-// })
-
+};
 
 var CircularDiv = function CircularDiv(props) {
   var CircularStyle = styled_1.style('div', 'CirularDiv', {
