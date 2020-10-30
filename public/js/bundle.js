@@ -52041,10 +52041,10 @@ var otherTabs = [{
   name: 'My Itineraries',
   path: route_1.getPath(route_1.Route.LECTURES)
 }, {
-  name: 'My Reviews',
+  name: 'Explore',
   path: route_1.getPath(route_1.Route.PROJECTS)
 }, {
-  name: 'Explore',
+  name: 'My account',
   path: route_1.getPath(route_1.Route.PLAYGROUND)
 }];
 
@@ -52133,9 +52133,6 @@ function SubNav() {
   return /*#__PURE__*/React.createElement(Nav, {
     $isSubNav: true
   }, /*#__PURE__*/React.createElement(NavItem, {
-    name: "surveys",
-    path: route_1.getSurveyPath()
-  }), /*#__PURE__*/React.createElement(NavItem, {
     name: user ? 'logout' : 'login',
     path: route_1.getLoginPath()
   }));
@@ -52143,7 +52140,7 @@ function SubNav() {
 
 var Nav = styled_1.style('nav', 'flex white items-center list pa2 ph4 ph5-ns ph7-l avenir f4', function (p) {
   return {
-    background: "linear-gradient(90deg, " + '#005587' + " 0%, " + '#2774AE' + " 100%)",
+    background: "linear-gradient(90deg, " + '#e66465' + " 0%, " + '#9198e5' + " 100%)",
     opacity: '0.9',
     paddingTop: p.$isSubNav ? 0 : undefined,
     paddingBottom: p.$isSubNav ? 0 : undefined,
@@ -53396,436 +53393,7 @@ function validate(email, password, setError) {
   });
   return validEmail && validPassword;
 }
-},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/playground/fetchSurveys.ts":[function(require,module,exports) {
-"use strict";
-
-var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
-  if (Object.defineProperty) {
-    Object.defineProperty(cooked, "raw", {
-      value: raw
-    });
-  } else {
-    cooked.raw = raw;
-  }
-
-  return cooked;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchSurvey = exports.subscribeSurveys = exports.fetchSurveys = exports.fragmentSurveyQuestion = exports.fragmentSurvey = void 0;
-
-var client_1 = require("@apollo/client");
-
-exports.fragmentSurvey = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  fragment Survey on Survey {\n    id\n    name\n    isStarted\n    isCompleted\n    currentQuestion {\n      ...SurveyQuestion\n    }\n  }\n"], ["\n  fragment Survey on Survey {\n    id\n    name\n    isStarted\n    isCompleted\n    currentQuestion {\n      ...SurveyQuestion\n    }\n  }\n"])));
-exports.fragmentSurveyQuestion = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  fragment SurveyQuestion on SurveyQuestion {\n    id\n    prompt\n    choices\n    answers {\n      answer\n    }\n  }\n"], ["\n  fragment SurveyQuestion on SurveyQuestion {\n    id\n    prompt\n    choices\n    answers {\n      answer\n    }\n  }\n"])));
-exports.fetchSurveys = client_1.gql(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  query FetchSurveys {\n    surveys {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  query FetchSurveys {\n    surveys {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), exports.fragmentSurvey, exports.fragmentSurveyQuestion);
-exports.subscribeSurveys = client_1.gql(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  subscription SurveySubscription($surveyId: Int!) {\n    surveyUpdates(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  subscription SurveySubscription($surveyId: Int!) {\n    surveyUpdates(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), exports.fragmentSurvey, exports.fragmentSurveyQuestion);
-exports.fetchSurvey = client_1.gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  query FetchSurvey($surveyId: Int!) {\n    survey(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  query FetchSurvey($surveyId: Int!) {\n    survey(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), exports.fragmentSurvey, exports.fragmentSurveyQuestion);
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5;
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js"}],"view/playground/mutateSurveys.ts":[function(require,module,exports) {
-"use strict";
-
-var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
-  if (Object.defineProperty) {
-    Object.defineProperty(cooked, "raw", {
-      value: raw
-    });
-  } else {
-    cooked.raw = raw;
-  }
-
-  return cooked;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.nextSurveyQuestion = exports.answerSurveyQuestion = void 0;
-
-var client_1 = require("@apollo/client");
-
-var apolloClient_1 = require("../../graphql/apolloClient");
-
-var fetchSurveys_1 = require("./fetchSurveys");
-
-var answerSurveyQuestionMutation = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  mutation AnswerSurveyQuestion($input: SurveyInput!) {\n    answerSurvey(input: $input)\n  }\n"], ["\n  mutation AnswerSurveyQuestion($input: SurveyInput!) {\n    answerSurvey(input: $input)\n  }\n"])));
-var nextSurveyQuestionMutation = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  mutation NextSurveyQuestion($surveyId: Int!) {\n    nextSurveyQuestion(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  mutation NextSurveyQuestion($surveyId: Int!) {\n    nextSurveyQuestion(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), fetchSurveys_1.fragmentSurvey, fetchSurveys_1.fragmentSurveyQuestion);
-
-function answerSurveyQuestion(client, input) {
-  return client.mutate({
-    mutation: answerSurveyQuestionMutation,
-    variables: {
-      input: input
-    }
-  });
-}
-
-exports.answerSurveyQuestion = answerSurveyQuestion;
-
-function nextSurveyQuestion(surveyId) {
-  return apolloClient_1.getApolloClient().mutate({
-    mutation: nextSurveyQuestionMutation,
-    variables: {
-      surveyId: surveyId
-    }
-  });
-}
-
-exports.nextSurveyQuestion = nextSurveyQuestion;
-var templateObject_1, templateObject_2;
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js","../../graphql/apolloClient":"graphql/apolloClient.ts","./fetchSurveys":"view/playground/fetchSurveys.ts"}],"view/playground/Surveys.tsx":[function(require,module,exports) {
-"use strict";
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Survey = exports.Surveys = void 0;
-
-var client_1 = require("@apollo/client");
-
-var router_1 = require("@reach/router");
-
-var React = __importStar(require("react"));
-
-var react_1 = require("react");
-
-var util_1 = require("../../../../common/src/util");
-
-var apolloClient_1 = require("../../graphql/apolloClient");
-
-var button_1 = require("../../style/button");
-
-var header_1 = require("../../style/header");
-
-var input_1 = require("../../style/input");
-
-var spacer_1 = require("../../style/spacer");
-
-var text_1 = require("../../style/text");
-
-var user_1 = require("../auth/user");
-
-var Link_1 = require("../nav/Link");
-
-var route_1 = require("../nav/route");
-
-var error_1 = require("../toast/error");
-
-var toast_1 = require("../toast/toast");
-
-var fetchSurveys_1 = require("./fetchSurveys");
-
-var mutateSurveys_1 = require("./mutateSurveys");
-
-function Surveys() {
-  var location = router_1.useLocation();
-
-  var _a = (location.search || '').split('?surveyId='),
-      surveyId = _a[1];
-
-  return surveyId ? /*#__PURE__*/React.createElement(Survey, {
-    surveyId: Number(surveyId)
-  }) : /*#__PURE__*/React.createElement(SurveyList, null);
-}
-
-exports.Surveys = Surveys;
-
-function SurveyList() {
-  var _a = client_1.useQuery(fetchSurveys_1.fetchSurveys),
-      loading = _a.loading,
-      data = _a.data;
-
-  if (loading) {
-    return /*#__PURE__*/React.createElement("div", null, "loading...");
-  }
-
-  if (!data || data.surveys.length === 0) {
-    return /*#__PURE__*/React.createElement("div", null, "no surveys");
-  }
-
-  return /*#__PURE__*/React.createElement("div", {
-    className: "mw6"
-  }, data.surveys.map(function (s, i) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: i,
-      className: "pa3 br2 mb2 bg-black-10 flex items-center"
-    }, /*#__PURE__*/React.createElement(HeaderLink, {
-      className: "link dim pointer",
-      $color: "sky",
-      to: route_1.getSurveyPath(s.id)
-    }, s.name), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-      $w5: true
-    }), /*#__PURE__*/React.createElement(text_1.BodyText, {
-      $color: s.isStarted && !s.isCompleted ? 'coral' : undefined
-    }, surveyLabel(s)));
-  }));
-}
-
-var HeaderLink = Link_1.link(header_1.H2);
-
-function Survey(_a) {
-  var _b;
-
-  var surveyId = _a.surveyId;
-  var user = react_1.useContext(user_1.UserContext);
-
-  var _c = client_1.useQuery(fetchSurveys_1.fetchSurvey, {
-    variables: {
-      surveyId: surveyId
-    }
-  }),
-      loading = _c.loading,
-      data = _c.data,
-      refetch = _c.refetch;
-
-  var _d = react_1.useState((_b = data === null || data === void 0 ? void 0 : data.survey) === null || _b === void 0 ? void 0 : _b.currentQuestion),
-      currQuestion = _d[0],
-      setCurrQuestion = _d[1];
-
-  react_1.useEffect(function () {
-    var _a;
-
-    setCurrQuestion((_a = data === null || data === void 0 ? void 0 : data.survey) === null || _a === void 0 ? void 0 : _a.currentQuestion);
-  }, [data]);
-  var sub = client_1.useSubscription(fetchSurveys_1.subscribeSurveys, {
-    variables: {
-      surveyId: surveyId
-    }
-  });
-  react_1.useEffect(function () {
-    var _a;
-
-    if ((_a = sub.data) === null || _a === void 0 ? void 0 : _a.surveyUpdates) {
-      setCurrQuestion(sub.data.surveyUpdates.currentQuestion);
-    }
-  }, [sub.data]);
-
-  if (loading) {
-    return /*#__PURE__*/React.createElement("div", null, "loading...");
-  }
-
-  if (!data || !data.survey) {
-    return /*#__PURE__*/React.createElement("div", null, "no survey");
-  }
-
-  function handleNextQuestion() {
-    mutateSurveys_1.nextSurveyQuestion(surveyId).then(function () {
-      return refetch();
-    }).catch(error_1.handleError);
-  }
-
-  return /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-column mw6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center"
-  }, /*#__PURE__*/React.createElement(header_1.H1, null, data.survey.name), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $w4: true
-  }), user.isAdmin() && /*#__PURE__*/React.createElement(button_1.Button, {
-    onClick: handleNextQuestion
-  }, "Next")), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
-  }), currQuestion ? /*#__PURE__*/React.createElement(SurveyInput, {
-    currentQuestion: currQuestion
-  }) : /*#__PURE__*/React.createElement("div", null, surveyLabel(data.survey)), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
-  }), currQuestion && /*#__PURE__*/React.createElement(SurveyHistogram, {
-    answers: currQuestion.answers
-  }));
-}
-
-exports.Survey = Survey;
-
-function SurveyInput(props) {
-  var _a;
-
-  var question = props.currentQuestion;
-
-  var _b = react_1.useState({
-    submitting: false,
-    submitted: false
-  }),
-      _c = _b[0],
-      submitted = _c.submitted,
-      submitting = _c.submitting,
-      setSubmitted = _b[1];
-
-  react_1.useEffect(function () {
-    setSubmitted({
-      submitting: false,
-      submitted: false
-    });
-  }, [question.id]);
-
-  function handleSubmit(val) {
-    setSubmitted({
-      submitting: true,
-      submitted: false
-    });
-    mutateSurveys_1.answerSurveyQuestion(apolloClient_1.getApolloClient(), {
-      answer: val,
-      questionId: question.id
-    }).then(function () {
-      toast_1.toast('submitted!');
-      setSubmitted({
-        submitted: true,
-        submitting: false
-      });
-    }).catch(function (err) {
-      error_1.handleError(err);
-      setSubmitted({
-        submitted: false,
-        submitting: false
-      });
-    });
-  }
-
-  if (submitted) {
-    return null;
-  }
-
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", null, question.prompt), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-column"
-  }, (_a = question.choices) === null || _a === void 0 ? void 0 : _a.map(function (choice, i) {
-    return /*#__PURE__*/React.createElement(react_1.Fragment, {
-      key: i
-    }, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-      $h3: true
-    }), /*#__PURE__*/React.createElement(button_1.Button, {
-      $block: true,
-      onClick: function onClick() {
-        return handleSubmit(choice);
-      }
-    }, choice));
-  })), !question.choices && /*#__PURE__*/React.createElement(input_1.Input, {
-    disabled: submitting,
-    $onSubmit: handleSubmit
-  }));
-}
-
-function SurveyHistogram(_a) {
-  var answers = _a.answers;
-  var answerBuckets = {};
-  answers.forEach(function (a) {
-    var norm = a.answer.toLowerCase().trim();
-    answerBuckets[norm] = answerBuckets[norm] || 0;
-    answerBuckets[norm]++;
-  });
-  var pairs = [];
-
-  for (var _i = 0, _b = Object.keys(answerBuckets); _i < _b.length; _i++) {
-    var answer = _b[_i];
-    pairs.push({
-      answer: answer,
-      count: answerBuckets[answer]
-    });
-  }
-
-  var sorted = pairs.sort(function (a, b) {
-    return b.count - a.count;
-  });
-
-  if (sorted.length === 0) {
-    return null;
-  }
-
-  return /*#__PURE__*/React.createElement("div", {
-    className: "flex"
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1
-    },
-    className: "tr"
-  }, sorted.map(function (pair, i) {
-    return /*#__PURE__*/React.createElement(text_1.SmallText, {
-      key: i,
-      $monospace: true
-    }, /*#__PURE__*/React.createElement(text_1.SmallText, {
-      title: pair.answer,
-      $monospace: true
-    }, util_1.strutil.truncate(pair.answer, 17)), new Array(Math.floor(pair.count / 15)).fill(' ').map(function (str, i) {
-      return /*#__PURE__*/React.createElement(text_1.SmallText, {
-        key: i
-      }, str);
-    }));
-  })), /*#__PURE__*/React.createElement("div", null, sorted.map(function (pair, i) {
-    return /*#__PURE__*/React.createElement(text_1.SmallText, {
-      key: i,
-      $monospace: true
-    }, new Array(Math.floor(pair.count / 15) + 1).fill(' ║ ').map(function (str, i) {
-      return /*#__PURE__*/React.createElement(text_1.SmallText, {
-        key: i
-      }, str);
-    }));
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1
-    }
-  }, sorted.map(function (pair, i) {
-    return /*#__PURE__*/React.createElement(text_1.SmallText, {
-      key: i,
-      $monospace: true
-    }, new Array(Math.floor(pair.count / 15)).fill(histBar(15)).map(function (str, i) {
-      return /*#__PURE__*/React.createElement(text_1.SmallText, {
-        key: i
-      }, str);
-    }), /*#__PURE__*/React.createElement(text_1.SmallText, null, histBar(pair.count % 15), " ", pair.count));
-  })));
-}
-
-function histBar(n) {
-  return new Array(Math.min(n, 15)).fill('=').join('');
-}
-
-function surveyLabel(s) {
-  if (s.isCompleted) {
-    return 'completed';
-  }
-
-  if (s.isStarted) {
-    return 'in progress';
-  }
-
-  return 'waiting to begin';
-}
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js","@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../graphql/apolloClient":"graphql/apolloClient.ts","../../style/button":"style/button.tsx","../../style/header":"style/header.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../../style/text":"style/text.tsx","../auth/user":"view/auth/user.ts","../nav/Link":"view/nav/Link.tsx","../nav/route":"view/nav/route.ts","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./fetchSurveys":"view/playground/fetchSurveys.ts","./mutateSurveys":"view/playground/mutateSurveys.ts"}],"view/page/PlaygroundPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/page/PlaygroundPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -53873,8 +53441,6 @@ var Login_1 = require("../auth/Login");
 
 var route_1 = require("../nav/route");
 
-var Surveys_1 = require("../playground/Surveys");
-
 var Page_1 = require("./Page");
 
 function PlaygroundPage(props) {
@@ -53889,9 +53455,6 @@ function getPlaygroundApp(app) {
   }
 
   switch (app) {
-    case route_1.PlaygroundApp.SURVEYS:
-      return /*#__PURE__*/React.createElement(Surveys_1.Surveys, null);
-
     case route_1.PlaygroundApp.LOGIN:
       return /*#__PURE__*/React.createElement(Login_1.Login, null);
 
@@ -53899,7 +53462,7 @@ function getPlaygroundApp(app) {
       throw new Error('no app found');
   }
 }
-},{"react":"../../node_modules/react/index.js","../auth/Login":"view/auth/Login.tsx","../nav/route":"view/nav/route.ts","../playground/Surveys":"view/playground/Surveys.tsx","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../auth/Login":"view/auth/Login.tsx","../nav/route":"view/nav/route.ts","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -55815,7 +55378,7 @@ function AppBody() {
   }), /*#__PURE__*/React.createElement(router_1.Redirect, {
     noThrow: true,
     from: "app/playground",
-    to: "surveys"
+    to: "login"
   }), /*#__PURE__*/React.createElement(HomePage_1.HomePage, {
     path: route_1.Route.HOME
   }), /*#__PURE__*/React.createElement(LecturesPage_1.LecturesPage, {

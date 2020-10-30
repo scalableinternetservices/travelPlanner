@@ -9,7 +9,7 @@ import { style } from '../../style/styled'
 import { UserContext } from '../auth/user'
 import { addToastListener, removeToastListener, Toast, ToastType } from '../toast/toast'
 import { link } from './Link'
-import { getLoginPath, getPath, getSurveyPath, Route } from './route'
+import { getLoginPath, getPath, Route } from './route'
 
 const title = {
   name: 'Travel Planner',
@@ -23,11 +23,11 @@ const otherTabs = [
     path: getPath(Route.LECTURES),
   },
   {
-    name: 'My Reviews',
+    name: 'Explore',
     path: getPath(Route.PROJECTS),
   },
   {
-    name: 'Explore',
+    name: 'My account',
     path: getPath(Route.PLAYGROUND),
   },
 ]
@@ -109,7 +109,6 @@ function SubNav() {
   }
   return (
     <Nav $isSubNav>
-      <NavItem name="surveys" path={getSurveyPath()} />
       <NavItem name={user ? 'logout' : 'login'} path={getLoginPath()} />
     </Nav>
   )
@@ -119,7 +118,7 @@ const Nav = style(
   'nav',
   'flex white items-center list pa2 ph4 ph5-ns ph7-l avenir f4',
   (p: { $isSubNav?: boolean }) => ({
-    background: `linear-gradient(90deg, ${'#005587'} 0%, ${'#2774AE'} 100%)`,
+    background: `linear-gradient(90deg, ${'#e66465'} 0%, ${'#9198e5'} 100%)`,
     opacity: '0.9',
     paddingTop: p.$isSubNav ? 0 : undefined,
     paddingBottom: p.$isSubNav ? 0 : undefined,
