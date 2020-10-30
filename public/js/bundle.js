@@ -50320,7 +50320,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.routeParams = exports.getPath = exports.getPlaygroundPath = exports.getLoginPath = exports.getSurveyPath = exports.PlaygroundApp = exports.Route = void 0;
+exports.routeParams = exports.getPath = exports.getPlaygroundPath = exports.getReviewsPath = exports.getLoginPath = exports.getSurveyPath = exports.PlaygroundApp = exports.Route = void 0;
 /**
  * All of our CC URL routes. You may navigate to any route by providing the route
  * and an argument specifying all it's route params, e.g. { taskId: 1, contactId: 3}.
@@ -50343,6 +50343,7 @@ var PlaygroundApp;
 (function (PlaygroundApp) {
   PlaygroundApp["SURVEYS"] = "surveys";
   PlaygroundApp["LOGIN"] = "login";
+  PlaygroundApp["REVIEWS"] = "reviews";
 })(PlaygroundApp = exports.PlaygroundApp || (exports.PlaygroundApp = {}));
 
 function getSurveyPath(surveyId) {
@@ -50361,6 +50362,14 @@ function getLoginPath() {
 }
 
 exports.getLoginPath = getLoginPath;
+
+function getReviewsPath() {
+  return getPath(Route.PLAYGROUND_APP, {
+    app: PlaygroundApp.REVIEWS
+  });
+}
+
+exports.getReviewsPath = getReviewsPath;
 
 function getPlaygroundPath() {
   return getPath(Route.PLAYGROUND);
@@ -52138,6 +52147,9 @@ function SubNav() {
   }), /*#__PURE__*/React.createElement(NavItem, {
     name: user ? 'logout' : 'login',
     path: route_1.getLoginPath()
+  }), /*#__PURE__*/React.createElement(NavItem, {
+    name: "reviews",
+    path: route_1.getReviewsPath()
   }));
 }
 
@@ -53869,6 +53881,8 @@ exports.PlaygroundPage = void 0;
 
 var React = __importStar(require("react"));
 
+var spacer_1 = require("../../style/spacer");
+
 var Login_1 = require("../auth/Login");
 
 var route_1 = require("../nav/route");
@@ -53895,11 +53909,78 @@ function getPlaygroundApp(app) {
     case route_1.PlaygroundApp.LOGIN:
       return /*#__PURE__*/React.createElement(Login_1.Login, null);
 
+    case route_1.PlaygroundApp.REVIEWS:
+      return /*#__PURE__*/React.createElement(Reviews, null);
+
     default:
       throw new Error('no app found');
   }
 }
-},{"react":"../../node_modules/react/index.js","../auth/Login":"view/auth/Login.tsx","../nav/route":"view/nav/route.ts","../playground/Surveys":"view/playground/Surveys.tsx","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
+
+function Reviews() {
+  var itineraries = getItineraries();
+  var ret = [];
+
+  for (var _i = 0, itineraries_1 = itineraries; _i < itineraries_1.length; _i++) {
+    var itinerary = itineraries_1[_i];
+    ret.push(itinerary.transform());
+  }
+
+  return /*#__PURE__*/React.createElement("div", null, ret);
+}
+
+function getItineraries() {
+  // once database is ready, change to pulling from database
+  var placeholder = new Itinerary('joebruin', [['Santa Monica, Venice'], ['LACMA'], ['Hollywood, Griffith Park'], ['Staples Center, Little Tokyo']]);
+  var ret = [];
+
+  for (var i = 0; i < 20; i++) {
+    ret.push(placeholder);
+  }
+
+  return ret;
+}
+
+var Itinerary =
+/** @class */
+function () {
+  function Itinerary(user, schedule) {
+    this.user = user;
+    this.schedule = schedule;
+  }
+
+  Itinerary.prototype.transform = function () {
+    var days = [];
+
+    for (var dayIndex in this.schedule) {
+      var day = '';
+      var dayInput = this.schedule[dayIndex];
+
+      for (var location in dayInput) {
+        if (Number(location) < dayInput.length - 1) {
+          day += dayInput[location] + ', ';
+        } else {
+          day += dayInput[location];
+        }
+      }
+
+      days.push( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Day ", Number(dayIndex) + 1), /*#__PURE__*/React.createElement("p", null, day)), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w5: true
+      })));
+    }
+
+    return /*#__PURE__*/React.createElement("div", {
+      className: "mw6"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "pa3 br2 mb2 bg-black-10 flex items-center"
+    }, /*#__PURE__*/React.createElement("h2", null, this.user), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+      $w5: true
+    }), days));
+  };
+
+  return Itinerary;
+}();
+},{"react":"../../node_modules/react/index.js","../../style/spacer":"style/spacer.tsx","../auth/Login":"view/auth/Login.tsx","../nav/route":"view/nav/route.ts","../playground/Surveys":"view/playground/Surveys.tsx","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
