@@ -1,15 +1,14 @@
 import { useLocation } from '@reach/router'
 import * as React from 'react'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { useMediaQuery } from 'react-responsive'
 import { breakpoints } from '../../style/breakpoints'
 import { MenuIcon } from '../../style/icons'
 import { style } from '../../style/styled'
-import { UserContext } from '../auth/user'
 import { addToastListener, removeToastListener, Toast, ToastType } from '../toast/toast'
 import { link } from './Link'
-import { getLoginPath, getPath, getReviewsPath, getSurveyPath, Route } from './route'
+import { getPath, getReviewsPath, Route } from './route'
 
 const title = {
   name: 'Travel Planner',
@@ -28,7 +27,7 @@ const otherTabs = [
   },
   {
     name: 'Explore',
-    path: getPath(Route.PLAYGROUND),
+    path: getReviewsPath(),
   },
 ]
 
@@ -76,7 +75,6 @@ export function NavBar() {
 
           {isSmall && <NavMenu show={showMenu} onClick={() => setShowMenu(!showMenu)} />}
         </Nav>
-        <SubNav />
       </div>
       {toast && <ToastContainer $isError={toast.type === ToastType.ERROR}>{toast.message}</ToastContainer>}
     </>
@@ -100,21 +98,21 @@ function NavMenu(props: { show: boolean; onClick: () => void }) {
   )
 }
 
-function SubNav() {
-  const location = useLocation()
-  const { user } = useContext(UserContext)
-  if (!location.pathname.startsWith(getPath(Route.PLAYGROUND))) {
-    // only playground has subnav
-    return null
-  }
-  return (
-    <Nav $isSubNav>
-      <NavItem name="surveys" path={getSurveyPath()} />
-      <NavItem name={user ? 'logout' : 'login'} path={getLoginPath()} />
-      <NavItem name="reviews" path={getReviewsPath()} />
-    </Nav>
-  )
-}
+//function SubNav() {
+//  const location = useLocation()
+//  const { user } = useContext(UserContext)
+//  if (!location.pathname.startsWith(getPath(Route.PLAYGROUND))) {
+//    // only playground has subnav
+//    return null
+//  }
+//  return (
+//    <Nav $isSubNav>
+//      <NavItem name="surveys" path={getSurveyPath()} />
+//      <NavItem name={user ? 'logout' : 'login'} path={getLoginPath()} />
+//      <NavItem name="reviews" path={getReviewsPath()} />
+//    </Nav>
+//  )
+//}
 
 const Nav = style(
   'nav',

@@ -52033,8 +52033,6 @@ var icons_1 = require("../../style/icons");
 
 var styled_1 = require("../../style/styled");
 
-var user_1 = require("../auth/user");
-
 var toast_1 = require("../toast/toast");
 
 var Link_1 = require("./Link");
@@ -52054,7 +52052,7 @@ var otherTabs = [{
   path: route_1.getPath(route_1.Route.PROJECTS)
 }, {
   name: 'Explore',
-  path: route_1.getPath(route_1.Route.PLAYGROUND)
+  path: route_1.getReviewsPath()
 }];
 
 function NavBar() {
@@ -52113,7 +52111,7 @@ function NavBar() {
     onClick: function onClick() {
       return setShowMenu(!showMenu);
     }
-  })), /*#__PURE__*/React.createElement(SubNav, null)), toast && /*#__PURE__*/React.createElement(ToastContainer, {
+  }))), toast && /*#__PURE__*/React.createElement(ToastContainer, {
     $isError: toast.type === toast_1.ToastType.ERROR
   }, toast.message));
 }
@@ -52128,30 +52126,22 @@ function NavMenu(props) {
       key: i
     }, tab));
   }))));
-}
+} //function SubNav() {
+//  const location = useLocation()
+//  const { user } = useContext(UserContext)
+//  if (!location.pathname.startsWith(getPath(Route.PLAYGROUND))) {
+//    // only playground has subnav
+//    return null
+//  }
+//  return (
+//    <Nav $isSubNav>
+//      <NavItem name="surveys" path={getSurveyPath()} />
+//      <NavItem name={user ? 'logout' : 'login'} path={getLoginPath()} />
+//      <NavItem name="reviews" path={getReviewsPath()} />
+//    </Nav>
+//  )
+//}
 
-function SubNav() {
-  var location = router_1.useLocation();
-  var user = react_1.useContext(user_1.UserContext).user;
-
-  if (!location.pathname.startsWith(route_1.getPath(route_1.Route.PLAYGROUND))) {
-    // only playground has subnav
-    return null;
-  }
-
-  return /*#__PURE__*/React.createElement(Nav, {
-    $isSubNav: true
-  }, /*#__PURE__*/React.createElement(NavItem, {
-    name: "surveys",
-    path: route_1.getSurveyPath()
-  }), /*#__PURE__*/React.createElement(NavItem, {
-    name: user ? 'logout' : 'login',
-    path: route_1.getLoginPath()
-  }), /*#__PURE__*/React.createElement(NavItem, {
-    name: "reviews",
-    path: route_1.getReviewsPath()
-  }));
-}
 
 var Nav = styled_1.style('nav', 'flex white items-center list pa2 ph4 ph5-ns ph7-l avenir f4', function (p) {
   return {
@@ -52193,7 +52183,7 @@ var ToastContainer = styled_1.style('div', 'avenir f5 fixed bottom-0 white right
 function Modal(props) {
   return react_dom_1.default.createPortal(props.children, document.querySelector('#nav-modal'));
 }
-},{"@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-responsive":"../../node_modules/react-responsive/dist/react-responsive.js","../../style/breakpoints":"style/breakpoints.tsx","../../style/icons":"style/icons.tsx","../../style/styled":"style/styled.tsx","../auth/user":"view/auth/user.ts","../toast/toast":"view/toast/toast.ts","./Link":"view/nav/Link.tsx","./route":"view/nav/route.ts"}],"view/page/Page.tsx":[function(require,module,exports) {
+},{"@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","react-responsive":"../../node_modules/react-responsive/dist/react-responsive.js","../../style/breakpoints":"style/breakpoints.tsx","../../style/icons":"style/icons.tsx","../../style/styled":"style/styled.tsx","../toast/toast":"view/toast/toast.ts","./Link":"view/nav/Link.tsx","./route":"view/nav/route.ts"}],"view/page/Page.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
