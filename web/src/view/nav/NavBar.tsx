@@ -9,7 +9,7 @@ import { style } from '../../style/styled'
 import { UserContext } from '../auth/user'
 import { addToastListener, removeToastListener, Toast, ToastType } from '../toast/toast'
 import { link } from './Link'
-import { getLoginPath, getPath, Route } from './route'
+import { getLoginPath, getPath, getSignupPath, Route } from './route'
 
 const title = {
   name: 'Travel Planner',
@@ -110,6 +110,7 @@ function SubNav() {
   return (
     <Nav $isSubNav>
       <NavItem name={user ? 'logout' : 'login'} path={getLoginPath()} />
+      {!user && <NavItem name="signup" path={getSignupPath()} />}
     </Nav>
   )
 }

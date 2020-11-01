@@ -50320,7 +50320,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.routeParams = exports.getPath = exports.getPlaygroundPath = exports.getLoginPath = exports.getSurveyPath = exports.PlaygroundApp = exports.Route = void 0;
+exports.routeParams = exports.getPath = exports.getPlaygroundPath = exports.getSignupPath = exports.getLoginPath = exports.PlaygroundApp = exports.Route = void 0;
 /**
  * All of our CC URL routes. You may navigate to any route by providing the route
  * and an argument specifying all it's route params, e.g. { taskId: 1, contactId: 3}.
@@ -50341,18 +50341,9 @@ var Route;
 var PlaygroundApp;
 
 (function (PlaygroundApp) {
-  PlaygroundApp["SURVEYS"] = "surveys";
   PlaygroundApp["LOGIN"] = "login";
+  PlaygroundApp["SIGNUP"] = "signup";
 })(PlaygroundApp = exports.PlaygroundApp || (exports.PlaygroundApp = {}));
-
-function getSurveyPath(surveyId) {
-  var path = getPath(Route.PLAYGROUND_APP, {
-    app: PlaygroundApp.SURVEYS
-  });
-  return path + (surveyId ? "?surveyId=" + surveyId : '');
-}
-
-exports.getSurveyPath = getSurveyPath;
 
 function getLoginPath() {
   return getPath(Route.PLAYGROUND_APP, {
@@ -50361,6 +50352,14 @@ function getLoginPath() {
 }
 
 exports.getLoginPath = getLoginPath;
+
+function getSignupPath() {
+  return getPath(Route.PLAYGROUND_APP, {
+    app: PlaygroundApp.SIGNUP
+  });
+}
+
+exports.getSignupPath = getSignupPath;
 
 function getPlaygroundPath() {
   return getPath(Route.PLAYGROUND);
@@ -52135,6 +52134,9 @@ function SubNav() {
   }, /*#__PURE__*/React.createElement(NavItem, {
     name: user ? 'logout' : 'login',
     path: route_1.getLoginPath()
+  }), !user && /*#__PURE__*/React.createElement(NavItem, {
+    name: "signup",
+    path: route_1.getSignupPath()
   }));
 }
 
@@ -53353,7 +53355,7 @@ function Login() {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: login
-  }, "Sign Up")));
+  }, "Sign In")));
 }
 
 exports.Login = Login;
@@ -53393,7 +53395,184 @@ function validate(email, password, setError) {
   });
   return validEmail && validPassword;
 }
-},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/page/PlaygroundPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/auth/Signup.tsx":[function(require,module,exports) {
+"use strict";
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Signup = void 0;
+
+var React = __importStar(require("react"));
+
+var react_1 = require("react");
+
+var util_1 = require("../../../../common/src/util");
+
+var button_1 = require("../../style/button");
+
+var input_1 = require("../../style/input");
+
+var toast_1 = require("../toast/toast");
+
+function Signup() {
+  var _a = react_1.useState(''),
+      email = _a[0],
+      setEmail = _a[1];
+
+  var _b = react_1.useState(''),
+      password = _b[0],
+      setPassword = _b[1];
+
+  var _c = react_1.useState({
+    email: false,
+    password: false
+  }),
+      err = _c[0],
+      setError = _c[1]; // reset error when email/password change
+
+
+  react_1.useEffect(function () {
+    return setError(__assign(__assign({}, err), {
+      email: !validateEmail(email)
+    }));
+  }, [email]);
+  react_1.useEffect(function () {
+    return setError(__assign(__assign({}, err), {
+      password: false
+    }));
+  }, [password]);
+
+  function login() {
+    if (!validate(email, password, setError)) {
+      toast_1.toastErr('invalid email/password');
+      return;
+    }
+
+    fetch('/auth/createUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    }).then(function (res) {
+      util_1.check(res.ok, 'response status ' + res.status);
+      return res.text();
+    }).then(function () {
+      return window.location.replace('/');
+    }).catch(function (err) {
+      toast_1.toastErr(err.toString());
+      setError({
+        email: true,
+        password: true
+      });
+    });
+  }
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "db fw4 lh-copy f6",
+    htmlFor: "email"
+  }, "Email address"), /*#__PURE__*/React.createElement(input_1.Input, {
+    $hasError: err.email,
+    $onChange: setEmail,
+    $onSubmit: login,
+    name: "email",
+    type: "email"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "db fw4 lh-copy f6",
+    htmlFor: "password"
+  }, "Password (Minimum eight characters, at least one letter and one number)"), /*#__PURE__*/React.createElement(input_1.Input, {
+    $hasError: err.password,
+    $onChange: setPassword,
+    $onSubmit: login,
+    name: "password"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement(button_1.Button, {
+    onClick: login
+  }, "Sign Up")));
+}
+
+exports.Signup = Signup;
+
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+function validatePassword(password) {
+  var re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  return re.test(String(password).toLowerCase());
+}
+
+function validate(email, password, setError) {
+  var validEmail = validateEmail(email);
+  var validPassword = validatePassword(password);
+  console.log('valid', validEmail, validPassword);
+  setError({
+    email: !validEmail,
+    password: !validPassword
+  });
+  return validEmail && validPassword;
+}
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../toast/toast":"view/toast/toast.ts"}],"view/page/PlaygroundPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -53439,6 +53618,8 @@ var React = __importStar(require("react"));
 
 var Login_1 = require("../auth/Login");
 
+var Signup_1 = require("../auth/Signup");
+
 var route_1 = require("../nav/route");
 
 var Page_1 = require("./Page");
@@ -53458,11 +53639,14 @@ function getPlaygroundApp(app) {
     case route_1.PlaygroundApp.LOGIN:
       return /*#__PURE__*/React.createElement(Login_1.Login, null);
 
+    case route_1.PlaygroundApp.SIGNUP:
+      return /*#__PURE__*/React.createElement(Signup_1.Signup, null);
+
     default:
       throw new Error('no app found');
   }
 }
-},{"react":"../../node_modules/react/index.js","../auth/Login":"view/auth/Login.tsx","../nav/route":"view/nav/route.ts","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../auth/Login":"view/auth/Login.tsx","../auth/Signup":"view/auth/Signup.tsx","../nav/route":"view/nav/route.ts","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {

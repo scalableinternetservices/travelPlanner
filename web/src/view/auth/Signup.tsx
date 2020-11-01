@@ -1,18 +1,14 @@
 import * as React from 'react'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { check } from '../../../../common/src/util'
 import { Button } from '../../style/button'
 import { Input } from '../../style/input'
-import { Spacer } from '../../style/spacer'
-import { handleError } from '../toast/error'
 import { toastErr } from '../toast/toast'
-import { UserContext } from './user'
 
-export function Login() {
+export function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [err, setError] = useState({ email: false, password: false })
-  const { user } = useContext(UserContext)
 
   // reset error when email/password change
   useEffect(() => setError({ ...err, email: !validateEmail(email) }), [email])
@@ -24,7 +20,7 @@ export function Login() {
       return
     }
 
-    fetch('/auth/login', {
+    fetch('/auth/createUser', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -33,15 +29,11 @@ export function Login() {
         check(res.ok, 'response status ' + res.status)
         return res.text()
       })
-      .then(() => window.location.reload())
+      .then(() => window.location.replace('/'))
       .catch(err => {
         toastErr(err.toString())
         setError({ email: true, password: true })
       })
-  }
-
-  if (user) {
-    return <Logout />
   }
 
   return (
@@ -54,34 +46,13 @@ export function Login() {
       </div>
       <div className="mt3">
         <label className="db fw4 lh-copy f6" htmlFor="password">
-          Password
+          Password (Minimum eight characters, at least one letter and one number)
         </label>
-        <Input $hasError={err.password} $onChange={setPassword} $onSubmit={login} name="password" type="password" />
+        <Input $hasError={err.password} $onChange={setPassword} $onSubmit={login} name="password" />
       </div>
       <div className="mt3">
-        <Button onClick={login}>Sign In</Button>
+        <Button onClick={login}>Sign Up</Button>
       </div>
-    </>
-  )
-}
-
-function Logout() {
-  function logout() {
-    return fetch('/auth/logout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then(res => {
-        check(res.ok, 'response status ' + res.status)
-        window.location.reload()
-      })
-      .catch(handleError)
-  }
-
-  return (
-    <>
-      <Spacer $h5 />
-      <Button onClick={logout}>Logout</Button>
     </>
   )
 }
@@ -91,13 +62,18 @@ function validateEmail(email: string) {
   return re.test(String(email).toLowerCase())
 }
 
+function validatePassword(password: string) {
+  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+  return re.test(String(password).toLowerCase())
+}
+
 function validate(
   email: string,
   password: string,
   setError: React.Dispatch<React.SetStateAction<{ email: boolean; password: boolean }>>
 ) {
   const validEmail = validateEmail(email)
-  const validPassword = Boolean(password)
+  const validPassword = validatePassword(password)
   console.log('valid', validEmail, validPassword)
   setError({ email: !validEmail, password: !validPassword })
   return validEmail && validPassword
