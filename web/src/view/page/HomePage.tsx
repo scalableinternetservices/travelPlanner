@@ -1,8 +1,12 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
+import { useState } from 'react'
+import { Input } from '../../style/input'
 import { style } from '../../style/styled'
 import { AppRouteParams } from '../nav/route'
 import { Page } from './Page'
+
+
 
 interface HomePageProps extends RouteComponentProps, AppRouteParams { }
 
@@ -40,68 +44,77 @@ const Welcome = style('div', 'welcomeboard', {
 
 })
 
+
+
+const LeftSerchDive = style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#F5A9A9',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "left",
+  visibility: 'visible',
+  border: '2px solid red',
+  padding: '20px'
+})
+
+const RightSerchDive = style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#A4A4A4',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "right",
+  visibility: 'visible',
+  border: '2px solid red',
+  padding: '20px'
+})
+
+
+const SearchDiv = style('div', 'Search', {
+  width: '1500px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#A4A4A4',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "left",
+  visibility: 'visible',
+  position: 'absolute',
+  wordWrap: 'break-word',
+  marginTop: '5px',
+  border: '2px solid red'
+
+})
+
 const Search = () => {
 
-  const SearchDiv = style('div', 'Search', {
-    width: '1500px',
-    height: '800px',
-    borderRadius: '35px',
-    backgroundColor: '#A4A4A4',
-    fontSize: '35px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
-    float: "left",
-    visibility: 'visible',
-    position: 'absolute',
-    wordWrap: 'break-word',
-    marginTop: '5px',
-    border: '2px solid red'
-
-  })
-
-  const LeftSerchDive = style('div', 'Search', {
-    width: '730px',
-    height: '800px',
-    borderRadius: '35px',
-    backgroundColor: '#A4A4A4',
-    fontSize: '35px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
-    float: "left",
-    visibility: 'visible',
-    border: '2px solid red',
-    padding: '20px'
-  })
-
-  const RightSerchDive = style('div', 'Search', {
-    width: '730px',
-    height: '800px',
-    borderRadius: '35px',
-    backgroundColor: '#A4A4A4',
-    fontSize: '35px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
-    float: "right",
-    visibility: 'visible',
-    border: '2px solid red',
-    padding: '20px'
-  })
+  const [places, setPlaces] = useState([''])
 
   return (
     <React.Fragment>
       <SearchDiv>
-        <LeftSerchDive>
 
+        <LeftSerchDive>
+          <DaysAndPlaces places={places} />
         </LeftSerchDive>
 
 
 
+
+
         <RightSerchDive>
-          <SearchForm />
+          <SearchForm onPlaceAdded={(place) => setPlaces(places.concat(place))} />
         </RightSerchDive>
+
       </SearchDiv>
     </React.Fragment>
 
@@ -111,21 +124,21 @@ const Search = () => {
 
 
 
+const SearchForm = (props: { onPlaceAdded: (place: string) => void }) => {
 
-const SearchForm = () => {
 
-  var [place, setPlace] = React.useState('')
+  const [place1, setPlace] = useState('')
 
-  let x = (document.getElementById("textvalue") as HTMLInputElement).value
 
-  const InputStyle = style('input', 'Search', {
-    width: '500px',
-    padding: '12px 12px',
-    margin: '8px 10px',
-    backgroundColor: '#6E6E6E',
-    borderRadius: '13px',
-    color: 'white'
+  const SearchDone = style('button', 'search', {
+    width: '150px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#1C1C1C',
+    borderRadius: '5px',
+    color: 'white',
   }
+
   )
 
 
@@ -138,24 +151,81 @@ const SearchForm = () => {
     color: 'white',
 
   })
+
+
   return (
     <React.Fragment>
       <form>
-        <InputStyle type="text" id='textvalue' />
-        <InputSubmit onClick={() => setPlace(place = x)} type="submit" >+</InputSubmit>
-        <p>{place}</p>
+        <Input $onChange={setPlace} name="email" type="text" />
+
+        <InputSubmit onClick={() => props.onPlaceAdded(place1)} >+</InputSubmit>
+        <br></br>
+        <SearchDone >Done</SearchDone>
+        <div>
+          {place1}
+        </div> <br />
+
+
       </form>
+
+
     </React.Fragment>
-
-
   )
 }
 
 
 
+const DaysAndPlaces = (props: any) => {
+
+  const DayBlock = style('div', 'Search', {
+    width: '500px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#5882FA',
+    boxShadow: '3px 3px #A9A9F5',
+    borderRadius: '5px',
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
+    lineHeight: '2em',
+
+  })
+
+
+  const ListPlaces = style('li', 'Search', {
+    textAlign: 'left',
+    margin: '30px 60px',
+    visiblilty: 'visible',
+
+  })
+
+
+
+  return (
+    <React.Fragment>
+      <DayBlock>Day 1 Schdule</DayBlock>
+      <ul>
+        <ListPlaces > {props.places[2]}</ListPlaces>
+        <ListPlaces > {props.places[3]}</ListPlaces>
+        <ListPlaces > {props.places[4]}</ListPlaces>
+        <ListPlaces > {props.places[5]}</ListPlaces>
+        <ListPlaces > {props.places[6]}</ListPlaces>
+
+
+      </ul>
+
+
+    </React.Fragment>
+  )
+
+}
+
+
+
+
+
 const AboutUs = () => {
-
-
 
   const AboutUsStyle = style('div', 'About us', {
     width: '500px',
@@ -230,7 +300,6 @@ const CircularDiv = (props: any) => {
 
 
     if (props.para == "About Us") {
-      console.log(x);
 
       for (let i = 0; i < x.length; i++) {
 
@@ -286,14 +355,5 @@ const CircularDiv = (props: any) => {
 
 }
 
-// const LContent = style('div', 'flex-grow-0 w-70-l mr4-l')
 
-// const RContent = style('div', 'flex-grow-0  w-30-l')
-
-// const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
-//   borderLeftColor: '#0B2161 ' + '!important',
-//   borderLeftWidth: '10px',
-
-
-// }))
 

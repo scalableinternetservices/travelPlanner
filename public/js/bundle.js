@@ -50428,7 +50428,108 @@ function routeParams(params) {
 }
 
 exports.routeParams = routeParams;
-},{}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
+},{}],"style/fonts.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Fonts = void 0;
+exports.Fonts = {
+  sansHeader: "'SF Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  sansBody: "'SF Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  mono: "'SF Mono', monospace"
+};
+},{}],"style/input.tsx":[function(require,module,exports) {
+"use strict";
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Input = void 0;
+
+var React = __importStar(require("react"));
+
+var react_1 = require("react");
+
+var colors_1 = require("../../../common/src/colors");
+
+var fonts_1 = require("./fonts");
+
+var styled_1 = require("./styled");
+
+var InputBase = styled_1.style('input', 'pa2 input-reset ba bg-transparent w-100 measure', function (p) {
+  return {
+    fontFamily: fonts_1.Fonts.sansBody,
+    border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal),
+    ':focus': {
+      border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal)
+    }
+  };
+});
+
+function Input(props) {
+  var inputRef = react_1.useRef(null);
+
+  function handleEnterKey(e) {
+    if (e.keyCode === 13 && props.$onSubmit) {
+      // enter
+      props.$onSubmit(inputRef.current.value);
+    }
+  }
+
+  function handleChange() {
+    if (props.$onChange) {
+      props.$onChange(inputRef.current.value);
+    }
+  }
+
+  return /*#__PURE__*/React.createElement(InputBase, _extends({
+    ref: inputRef
+  }, props, {
+    onChange: handleChange,
+    onKeyDown: handleEnterKey
+  }));
+}
+
+exports.Input = Input;
+},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
 var define;
 !function (root, factory) {
   "object" == typeof exports && "object" == typeof module ? module.exports = factory(require("react")) : "function" == typeof define && define.amd ? define(["react"], factory) : "object" == typeof exports ? exports.MediaQuery = factory(require("react")) : root.MediaQuery = factory(root.React);
@@ -52278,6 +52379,10 @@ exports.HomePage = void 0;
 
 var React = __importStar(require("react"));
 
+var react_1 = require("react");
+
+var input_1 = require("../../style/input");
+
 var styled_1 = require("../../style/styled");
 
 var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52310,67 +52415,76 @@ var Welcome = styled_1.style('div', 'welcomeboard', {
   fontSize: '70px',
   lineHeight: '3em'
 });
+var LeftSerchDive = styled_1.style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#F5A9A9',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "left",
+  visibility: 'visible',
+  border: '2px solid red',
+  padding: '20px'
+});
+var RightSerchDive = styled_1.style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#A4A4A4',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "right",
+  visibility: 'visible',
+  border: '2px solid red',
+  padding: '20px'
+});
+var SearchDiv = styled_1.style('div', 'Search', {
+  width: '1500px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#A4A4A4',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "left",
+  visibility: 'visible',
+  position: 'absolute',
+  wordWrap: 'break-word',
+  marginTop: '5px',
+  border: '2px solid red'
+});
 
 var Search = function Search() {
-  var SearchDiv = styled_1.style('div', 'Search', {
-    width: '1500px',
-    height: '800px',
-    borderRadius: '35px',
-    backgroundColor: '#A4A4A4',
-    fontSize: '35px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
-    float: "left",
-    visibility: 'visible',
-    position: 'absolute',
-    wordWrap: 'break-word',
-    marginTop: '5px',
-    border: '2px solid red'
-  });
-  var LeftSerchDive = styled_1.style('div', 'Search', {
-    width: '730px',
-    height: '800px',
-    borderRadius: '35px',
-    backgroundColor: '#A4A4A4',
-    fontSize: '35px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
-    float: "left",
-    visibility: 'visible',
-    border: '2px solid red',
-    padding: '20px'
-  });
-  var RightSerchDive = styled_1.style('div', 'Search', {
-    width: '730px',
-    height: '800px',
-    borderRadius: '35px',
-    backgroundColor: '#A4A4A4',
-    fontSize: '35px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
-    float: "right",
-    visibility: 'visible',
-    border: '2px solid red',
-    padding: '20px'
-  });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null), /*#__PURE__*/React.createElement(RightSerchDive, null, /*#__PURE__*/React.createElement(SearchForm, null))));
+  var _a = react_1.useState(['']),
+      places = _a[0],
+      setPlaces = _a[1];
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null, /*#__PURE__*/React.createElement(DaysAndPlaces, {
+    places: places
+  })), /*#__PURE__*/React.createElement(RightSerchDive, null, /*#__PURE__*/React.createElement(SearchForm, {
+    onPlaceAdded: function onPlaceAdded(place) {
+      return setPlaces(places.concat(place));
+    }
+  }))));
 };
 
-var SearchForm = function SearchForm() {
-  var _a = React.useState(''),
-      place = _a[0],
+var SearchForm = function SearchForm(props) {
+  var _a = react_1.useState(''),
+      place1 = _a[0],
       setPlace = _a[1];
 
-  var x = document.getElementById("textvalue").value;
-  var InputStyle = styled_1.style('input', 'Search', {
-    width: '500px',
-    padding: '12px 12px',
-    margin: '8px 10px',
-    backgroundColor: '#6E6E6E',
-    borderRadius: '13px',
+  var SearchDone = styled_1.style('button', 'search', {
+    width: '150px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#1C1C1C',
+    borderRadius: '5px',
     color: 'white'
   });
   var InputSubmit = styled_1.style('button', 'Search', {
@@ -52381,15 +52495,37 @@ var SearchForm = function SearchForm() {
     borderRadius: '5px',
     color: 'white'
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(InputStyle, {
-    type: "text",
-    id: "textvalue"
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(input_1.Input, {
+    $onChange: setPlace,
+    name: "email",
+    type: "text"
   }), /*#__PURE__*/React.createElement(InputSubmit, {
     onClick: function onClick() {
-      return setPlace(place = x);
-    },
-    type: "submit"
-  }, "+"), /*#__PURE__*/React.createElement("p", null, place)));
+      return props.onPlaceAdded(place1);
+    }
+  }, "+"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SearchDone, null, "Done"), /*#__PURE__*/React.createElement("div", null, place1), " ", /*#__PURE__*/React.createElement("br", null)));
+};
+
+var DaysAndPlaces = function DaysAndPlaces(props) {
+  var DayBlock = styled_1.style('div', 'Search', {
+    width: '500px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#5882FA',
+    boxShadow: '3px 3px #A9A9F5',
+    borderRadius: '5px',
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
+    lineHeight: '2em'
+  });
+  var ListPlaces = styled_1.style('li', 'Search', {
+    textAlign: 'left',
+    margin: '30px 60px',
+    visiblilty: 'visible'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, null, "Day 1 Schdule"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[6])));
 };
 
 var AboutUs = function AboutUs() {
@@ -52437,8 +52573,6 @@ var CircularDiv = function CircularDiv(props) {
     var z = Array.from(document.getElementsByClassName("Search"));
 
     if (props.para == "About Us") {
-      console.log(x);
-
       for (var i = 0; i < x.length; i++) {
         if (x[i].style.visibility == 'hidden') {
           x[i].style.visibility = 'visible';
@@ -52472,25 +52606,8 @@ var CircularDiv = function CircularDiv(props) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
     onClick: clickHandler
   }, /*#__PURE__*/React.createElement(CircularStyle, null, props.para)));
-}; // const LContent = style('div', 'flex-grow-0 w-70-l mr4-l')
-// const RContent = style('div', 'flex-grow-0  w-30-l')
-// const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
-//   borderLeftColor: '#0B2161 ' + '!important',
-//   borderLeftWidth: '10px',
-// }))
-},{"react":"../../node_modules/react/index.js","../../style/styled":"style/styled.tsx","./Page":"view/page/Page.tsx"}],"style/fonts.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Fonts = void 0;
-exports.Fonts = {
-  sansHeader: "'SF Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  sansBody: "'SF Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  mono: "'SF Mono', monospace"
 };
-},{}],"style/header.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../style/input":"style/input.tsx","../../style/styled":"style/styled.tsx","./Page":"view/page/Page.tsx"}],"style/header.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53098,96 +53215,7 @@ var ButtonBase = styled_1.style('a', 'pointer link dim br3 ph3 pv2 black', funct
     backgroundColor: colors_1.Colors[p.$color || 'lemon']
   };
 });
-},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./styled":"style/styled.tsx"}],"style/input.tsx":[function(require,module,exports) {
-"use strict";
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Input = void 0;
-
-var React = __importStar(require("react"));
-
-var react_1 = require("react");
-
-var colors_1 = require("../../../common/src/colors");
-
-var fonts_1 = require("./fonts");
-
-var styled_1 = require("./styled");
-
-var InputBase = styled_1.style('input', 'pa2 input-reset ba bg-transparent w-100 measure', function (p) {
-  return {
-    fontFamily: fonts_1.Fonts.sansBody,
-    border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal),
-    ':focus': {
-      border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal)
-    }
-  };
-});
-
-function Input(props) {
-  var inputRef = react_1.useRef(null);
-
-  function handleEnterKey(e) {
-    if (e.keyCode === 13 && props.$onSubmit) {
-      // enter
-      props.$onSubmit(inputRef.current.value);
-    }
-  }
-
-  function handleChange() {
-    if (props.$onChange) {
-      props.$onChange(inputRef.current.value);
-    }
-  }
-
-  return /*#__PURE__*/React.createElement(InputBase, _extends({
-    ref: inputRef
-  }, props, {
-    onChange: handleChange,
-    onKeyDown: handleEnterKey
-  }));
-}
-
-exports.Input = Input;
-},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"view/auth/Login.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./styled":"style/styled.tsx"}],"view/auth/Login.tsx":[function(require,module,exports) {
 "use strict";
 
 var __assign = this && this.__assign || function () {
