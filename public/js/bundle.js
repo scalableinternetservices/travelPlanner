@@ -52821,122 +52821,64 @@ var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/n
 
 
 function LecturesPage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Lectures"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(header_1.H2, null, "My Itineraries"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.IntroText, null, "Lecture slides and code will be posted regularly. Schedule subject to change."), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  }), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
-  }), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 1",
-    title: "Course intro",
-    href: "#",
-    description: "Course overview. Demo: how a web app fails."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 6",
-    title: "HTTP, HTML, CSS",
-    href: "#",
-    description: "HTTP protocol in depth. Demo: building on the web with HTML and CSS.",
-    requiredReading: [{
-      title: 'High Performance Browser Networking, chapter 1',
-      href: 'https://hpbn.co/primer-on-latency-and-bandwidth/'
+  }), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(Itinerary, {
+    title: "Trip1 Sample Itinerary",
+    days: [{
+      name: "Day1",
+      schedule: [{
+        name: "UCLA",
+        coordinates: "34.0689° N, 118.4452° W",
+        departure: "09:00"
+      }, {
+        name: "Bus",
+        duration: "80 minutes",
+        cost: "$3.25"
+      }]
     }, {
-      title: 'High Performance Browser Networking, chapter 2',
-      href: 'https://hpbn.co/building-blocks-of-tcp/'
+      name: "Day2",
+      schedule: [{
+        name: "UCB",
+        coordinates: "34.0689° N, 118.4452° W",
+        departure: "09:00 AM"
+      }, {
+        name: "Bus",
+        duration: "80 minutes",
+        cost: "$3.25"
+      }]
     }]
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 8",
-    title: "Shipping software in real life",
-    href: "#",
-    description: "Working with other people & shipping like a pro. Demo: `git` and CI/CD."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 13",
-    title: "Application server architecture",
-    href: "#",
-    description: "Building an efficient appserver. Demo: survey of appservers."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 15",
-    title: "Vertical and horizontal scaling",
-    href: "#",
-    description: "Using bigger and more appservers. Demo: scaling the course website."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 20",
-    title: "High availability, AWS",
-    href: "#",
-    description: "Making sure your server is always online. Demo: using Amazon Web Services."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 22",
-    title: "Server and client side caching",
-    href: "#",
-    description: "Caching data on the server and client. Demo: adding caching to the course website."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 27",
-    title: "Load testing",
-    href: "#",
-    description: "Writing load tests. Demo: load testing the course website."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 29",
-    title: "Scaling relational databases",
-    href: "#",
-    description: "Using sharding, services, and read-slaves to scale MySQL. Demo: scaling RDS."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 3",
-    title: "Beyond relational databases",
-    href: "#",
-    description: "Scaling databases without SQL. Demo: survey of NoSQL databases."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 5",
-    title: "Client-side rendering",
-    href: "#",
-    description: "Drawing HTML in the browser. Demo: survey of client-side rendering."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 10",
-    title: "API design, GraphQL",
-    href: "#",
-    description: "Designing an API. Demo: course website interactive GraphQL explorer."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 12",
-    title: "Serverless computing",
-    href: "#",
-    description: "Scaling code without servers. Demo: Firebase, AWS Lambda."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 17",
-    title: "Monitoring and observability",
-    href: "#",
-    description: "Measuring how your server is working. Demo: using Honeycomb."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 19",
-    title: "Microservices, containers, and Kubernetes",
-    href: "#",
-    description: "Decomposing and deploying services with Docker and Kubernetes. Demo: inside a Kubernetes cluster."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 24",
-    title: "Intelligent systems",
-    href: "#",
-    description: "Using ML in your internet service. Guest lecture: Andrew Mutz."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 26",
-    title: "Thanksgiving (no lecture)"
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Dec 1",
-    title: "Fetching data, publishing data",
-    href: "#",
-    description: "Updating your app with new data in real time. Demo: polling, GraphQL subscriptions."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Dec 3",
-    title: "High performance networking",
-    href: "#",
-    description: "Using HTTP/2, CDNs, and edge computing. Demo: Next.js, Netlify."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Dec 8",
-    title: "Course conclusion",
-    href: "#",
-    description: "Reviewing the scaling toolset."
   }), /*#__PURE__*/React.createElement(Lecture, {
     day: "Thu Dec 10",
     title: "Project Presentations"
-  })))));
+  }))));
 }
 
 exports.LecturesPage = LecturesPage;
+
+function Itinerary(props) {
+  return /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement(TR, null, props.days && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+    $h4: true
+  }), /*#__PURE__*/React.createElement("ul", {
+    className: "ml4"
+  }, /*#__PURE__*/React.createElement(TD, null, props.days.map(function (rr, i) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: i
+    }, /*#__PURE__*/React.createElement("b", null, rr.name), /*#__PURE__*/React.createElement("ul", null, rr.schedule.map(function (r2, j) {
+      return /*#__PURE__*/React.createElement("li", {
+        key: j
+      }, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $h2: true
+      }), /*#__PURE__*/React.createElement("b", null, r2.name), r2.coordinates && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " coordinates: ", r2.coordinates)), r2.arrival && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, "arrive: ", r2.arrival)), r2.departure && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " depart: ", r2.departure)), r2.duration && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " duration: ", r2.duration)), r2.cost && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " cost: ", r2.cost)));
+    })), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+      $h4: true
+    }));
+  })), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+    $h2: true
+  }))))));
+}
 
 function Lecture(props) {
   return /*#__PURE__*/React.createElement(TR, null, /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement(TD, null, props.day), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement("b", null, props.href ? /*#__PURE__*/React.createElement(Link_1.Link, {
