@@ -1,11 +1,9 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import { ColorName, Colors } from '../../../../common/src/colors'
 import { H2 } from '../../style/header'
 import { Spacer } from '../../style/spacer'
 import { style } from '../../style/styled'
 import { BodyText } from '../../style/text'
-import { Link } from '../nav/Link'
 import { AppRouteParams } from '../nav/route'
 import { Page } from './Page'
 
@@ -23,14 +21,14 @@ export function LecturesPage(props: LecturesPageProps) {
         <Table>
           <tbody>
             <Itinerary
-              title="Trip1 Sample Itinerary"
+              title="Trip 1 Sample Itinerary"
               days={[
-                {name:"Day1",
+                {name:"Day 1",
                 schedule:[
                     {
                       name:"UCLA",
                       coordinates: "34.0689° N, 118.4452° W",
-                      departure: "09:00",
+                      departure: "9:00 AM",
                     },
                     {
                       name:"Bus",
@@ -39,12 +37,12 @@ export function LecturesPage(props: LecturesPageProps) {
                     }
                 ]
                 },
-                {name:"Day2",
+                {name:"Day 2",
                 schedule:[
                     {
                       name:"UCB",
                       coordinates: "34.0689° N, 118.4452° W",
-                      departure: "09:00 AM",
+                      departure: "9:00 AM",
                     },
                     {
                       name:"Bus",
@@ -57,7 +55,6 @@ export function LecturesPage(props: LecturesPageProps) {
               }
 
             />
-            <Lecture day="Thu Dec 10" title="Project Presentations" />
           </tbody>
         </Table>
 
@@ -84,44 +81,39 @@ function Itinerary(props: {
   days: Day[]
 }) {
   return (
-    <Section>
       <BodyText>
-        <h1>{props.title}</h1>
         <TR>
+        <TD_1>{props.title}</TD_1>
+
           {props.days && (
             <>
-              <Spacer $h4 />
-              <ul className="ml4">
+              <Spacer $h2 />
                 <TD>
                 {props.days.map((rr, i) => (
-                  <li key={i}>
-                    <b>{rr.name}</b>
-                    <ul>
+                  <ul>
+                    <b>⏰ {rr.name}</b>
                     {rr.schedule.map((r2, j) => (
-                    <li key={j}>
-                    <Spacer $h2/>
-                    <b>{r2.name}</b>
-                    {r2.coordinates && <li><b> coordinates: {r2.coordinates}</b></li> }
-                    {r2.arrival && <li><b>arrive: {r2.arrival}</b></li> }
-                    {r2.departure && <li><b> depart: {r2.departure}</b></li>}
-                    {r2.duration && <li><b> duration: {r2.duration}</b></li> }
-                    {r2.cost && <li><b> cost: {r2.cost}</b></li> }
-                    </li>))}
+                    < ul key={j}>
+                    <ul>
+                    <Spacer $w2/><b>🚩 {r2.name}</b>
+                    {r2.arrival && <p><Spacer $w2/>🌎  Arrival: {r2.arrival}</p> }
+                    {r2.departure && <p><Spacer $w2/>🌎  Departure: {r2.departure}</p>}
+                    {r2.duration && <p><Spacer $w2/>🌎  Duration: {r2.duration}</p> }
+                    {r2.cost && <p><Spacer $w2/>🌎  Cost: {r2.cost}</p>}
+                    <Spacer $w8/> <b> ⬇️</b>
                     </ul>
-                    <Spacer $h4 />
-                  </li>
+                    </ul>))}
+
+                  </ul>
                 ))}
                 </TD>
-                <Spacer $h2/>
-              </ul>
             </>
           )}
         </TR>
       </BodyText>
-    </Section>
   )
 }
-interface RequiredReading {
+/*interface RequiredReading {
   title: string
   href: string
 }
@@ -134,7 +126,7 @@ function Lecture(props: {
   requiredReading?: RequiredReading[]
 }) {
   return (
-    <TR>
+    <Table>
       <BodyText>
         <TD>{props.day}</TD>
         <TD>
@@ -162,17 +154,18 @@ function Lecture(props: {
           )}
         </TD>
       </BodyText>
-    </TR>
+    </Table>
   )
-}
+}*/
 
 const Table = style('table', 'w-100 ba b--black')
 
-const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+/*const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
   borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
   borderLeftWidth: '3px',
-}))
+}))*/
 
 const TR = style('tr', 'ba b--black')
 
 const TD = style('td', 'mid-gray pa3 v-mid', { minWidth: '7em' })
+const TD_1 = style('td', 'dark-blue pa3 v-mid', { minWidth: '7em' })

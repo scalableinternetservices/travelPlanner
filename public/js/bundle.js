@@ -52805,8 +52805,6 @@ exports.LecturesPage = void 0;
 
 var React = __importStar(require("react"));
 
-var colors_1 = require("../../../../common/src/colors");
-
 var header_1 = require("../../style/header");
 
 var spacer_1 = require("../../style/spacer");
@@ -52814,8 +52812,6 @@ var spacer_1 = require("../../style/spacer");
 var styled_1 = require("../../style/styled");
 
 var text_1 = require("../../style/text");
-
-var Link_1 = require("../nav/Link");
 
 var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -52826,92 +52822,118 @@ function LecturesPage(props) {
   }), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
   }), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(Itinerary, {
-    title: "Trip1 Sample Itinerary",
+    title: "Trip 1 Sample Itinerary",
     days: [{
-      name: "Day1",
+      name: "Day 1",
       schedule: [{
         name: "UCLA",
         coordinates: "34.0689° N, 118.4452° W",
-        departure: "09:00"
+        departure: "9:00 AM"
       }, {
         name: "Bus",
         duration: "80 minutes",
         cost: "$3.25"
       }]
     }, {
-      name: "Day2",
+      name: "Day 2",
       schedule: [{
         name: "UCB",
         coordinates: "34.0689° N, 118.4452° W",
-        departure: "09:00 AM"
+        departure: "9:00 AM"
       }, {
         name: "Bus",
         duration: "80 minutes",
         cost: "$3.25"
       }]
     }]
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Dec 10",
-    title: "Project Presentations"
   }))));
 }
 
 exports.LecturesPage = LecturesPage;
 
 function Itinerary(props) {
-  return /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement(TR, null, props.days && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement("ul", {
-    className: "ml4"
-  }, /*#__PURE__*/React.createElement(TD, null, props.days.map(function (rr, i) {
-    return /*#__PURE__*/React.createElement("li", {
-      key: i
-    }, /*#__PURE__*/React.createElement("b", null, rr.name), /*#__PURE__*/React.createElement("ul", null, rr.schedule.map(function (r2, j) {
-      return /*#__PURE__*/React.createElement("li", {
-        key: j
-      }, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-        $h2: true
-      }), /*#__PURE__*/React.createElement("b", null, r2.name), r2.coordinates && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " coordinates: ", r2.coordinates)), r2.arrival && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, "arrive: ", r2.arrival)), r2.departure && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " depart: ", r2.departure)), r2.duration && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " duration: ", r2.duration)), r2.cost && /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("b", null, " cost: ", r2.cost)));
-    })), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-      $h4: true
-    }));
-  })), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  return /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement(TR, null, /*#__PURE__*/React.createElement(TD_1, null, props.title), props.days && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h2: true
-  }))))));
+  }), /*#__PURE__*/React.createElement(TD, null, props.days.map(function (rr, i) {
+    return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("b", null, "\u23F0 ", rr.name), rr.schedule.map(function (r2, j) {
+      return /*#__PURE__*/React.createElement("ul", {
+        key: j
+      }, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), /*#__PURE__*/React.createElement("b", null, "\uD83D\uDEA9 ", r2.name), r2.arrival && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Arrival: ", r2.arrival), r2.departure && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Departure: ", r2.departure), r2.duration && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Duration: ", r2.duration), r2.cost && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Cost: ", r2.cost), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w8: true
+      }), " ", /*#__PURE__*/React.createElement("b", null, " \u2B07\uFE0F")));
+    }));
+  })))));
+}
+/*interface RequiredReading {
+  title: string
+  href: string
 }
 
-function Lecture(props) {
-  return /*#__PURE__*/React.createElement(TR, null, /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement(TD, null, props.day), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement("b", null, props.href ? /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: props.href
-  }, props.title) : props.title), props.description && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h2: true
-  }), /*#__PURE__*/React.createElement("i", null, props.description)), props.requiredReading && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement("b", null, "Reading"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h2: true
-  }), /*#__PURE__*/React.createElement("ul", {
-    className: "ml4"
-  }, props.requiredReading.map(function (rr, i) {
-    return /*#__PURE__*/React.createElement("li", {
-      key: i
-    }, /*#__PURE__*/React.createElement(Link_1.Link, {
-      href: rr.href
-    }, rr.title));
-  }))))));
-}
+function Lecture(props: {
+  day: string
+  title: string
+  description?: string
+  href?: string
+  requiredReading?: RequiredReading[]
+}) {
+  return (
+    <Table>
+      <BodyText>
+        <TD>{props.day}</TD>
+        <TD>
+          <b>{props.href ? <Link href={props.href}>{props.title}</Link> : props.title}</b>
+
+          {props.description && (
+            <>
+              <Spacer $h2 />
+              <i>{props.description}</i>
+            </>
+          )}
+          {props.requiredReading && (
+            <>
+              <Spacer $h4 />
+              <b>Reading</b>
+              <Spacer $h2 />
+              <ul className="ml4">
+                {props.requiredReading.map((rr, i) => (
+                  <li key={i}>
+                    <Link href={rr.href}>{rr.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </TD>
+      </BodyText>
+    </Table>
+  )
+}*/
+
 
 var Table = styled_1.style('table', 'w-100 ba b--black');
-var Section = styled_1.style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', function (p) {
-  return {
-    borderLeftColor: colors_1.Colors[p.$color || 'lemon'] + '!important',
-    borderLeftWidth: '3px'
-  };
-});
+/*const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+  borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
+  borderLeftWidth: '3px',
+}))*/
+
 var TR = styled_1.style('tr', 'ba b--black');
 var TD = styled_1.style('td', 'mid-gray pa3 v-mid', {
   minWidth: '7em'
 });
-},{"react":"../../node_modules/react/index.js","../../../../common/src/colors":"../../common/src/colors.ts","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","../nav/Link":"view/nav/Link.tsx","./Page":"view/page/Page.tsx"}],"../../common/src/util.ts":[function(require,module,exports) {
+var TD_1 = styled_1.style('td', 'dark-blue pa3 v-mid', {
+  minWidth: '7em'
+});
+},{"react":"../../node_modules/react/index.js","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","./Page":"view/page/Page.tsx"}],"../../common/src/util.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
