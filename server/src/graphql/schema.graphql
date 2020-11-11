@@ -41,6 +41,10 @@ type User {
   name: String!
 }
 
+type Places{
+  name: String!
+}
+
 enum UserType { ADMIN, USER }
 
 type Survey {

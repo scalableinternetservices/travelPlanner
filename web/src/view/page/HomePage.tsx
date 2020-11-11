@@ -44,6 +44,21 @@ const Welcome = style('div', 'welcomeboard', {
 
 })
 
+// const SimpleDive = style('div', 'Address', {
+
+//   backgroundColor: '#FAAC58',
+//   margin: '5px',
+//   textAlign: 'center',
+//   color: 'white',
+
+//   width: '90px',
+//   height: '70px',
+//   border: "1px solid red",
+//   float: 'left',
+//   fontSize: '40px',
+//   lineHeight: '1em',
+
+// })
 
 
 const LeftSerchDive = style('div', 'Search', {
@@ -95,16 +110,57 @@ const SearchDiv = style('div', 'Search', {
 
 })
 
+
+
+
 const Search = () => {
 
   const [places, setPlaces] = useState([''])
+  const [durations, setDura] = useState([''])
+
+  function Manage(x: any, y: boolean, z: any) {
+
+    if (x == "null")
+      return
+    if (!y) {
+
+      if ((places as Array<string>).length < 6) {
+        setPlaces(places.concat(x))
+        setDura(durations.concat(z))
+      }
+      // else
+      //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
+    }
+    else {
+      console.log("In else " + places);
+      (durations as Array<string>).pop();
+      (places as Array<string>).pop();
+      // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
+      console.log("after pop " + places)
+
+    }
+  }
+
+
+  function resetplaces(y: boolean) {
+    if (y)
+      setPlaces(['']);
+  }
+
+
+
+
+
+  console.log(places)
+  console.log(durations)
 
   return (
     <React.Fragment>
       <SearchDiv>
 
         <LeftSerchDive>
-          <DaysAndPlaces places={places} />
+          <DaysAndPlaces places={places} reset={(shouldremove) => resetplaces(shouldremove)} />
+          {/* <DaysAndPlaces places={places} /> */}
         </LeftSerchDive>
 
 
@@ -112,7 +168,7 @@ const Search = () => {
 
 
         <RightSerchDive>
-          <SearchForm onPlaceAdded={(place) => setPlaces(places.concat(place))} />
+          <SearchForm onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)} />
         </RightSerchDive>
 
       </SearchDiv>
@@ -122,13 +178,41 @@ const Search = () => {
 }
 
 
+// let day1: string[] = []             //bug 2: Even though I used it in line 268, still telling me I did not use it
+// let day2: string[] = []
+// let day3: string[] = []
+// let day4: string[] = []
+// let day5: string[] = []
 
 
-const SearchForm = (props: { onPlaceAdded: (place: string) => void }) => {
+const SearchForm = (props: { onPlaceAdded: (place: string, remove: boolean, durationx: string) => void }) => {
 
 
   const [place1, setPlace] = useState('')
+  const [placeCount, setPlaceCount] = useState(0)
+  const [duration, setDuration] = useState('80')
 
+
+
+
+  function canListIncre() {
+
+
+
+    if (placeCount < 5) {
+
+      setPlaceCount(placeCount + 1)
+
+      props.onPlaceAdded(place1, false, duration)
+    }
+    else {
+      setPlaceCount(placeCount)
+      props.onPlaceAdded("null", false, duration)
+    }
+  }
+
+
+  console.log(placeCount)
 
   const SearchDone = style('button', 'search', {
     width: '150px',
@@ -137,9 +221,7 @@ const SearchForm = (props: { onPlaceAdded: (place: string) => void }) => {
     backgroundColor: '#1C1C1C',
     borderRadius: '5px',
     color: 'white',
-  }
-
-  )
+  })
 
 
   const InputSubmit = style('button', 'Search', {
@@ -150,15 +232,22 @@ const SearchForm = (props: { onPlaceAdded: (place: string) => void }) => {
     borderRadius: '5px',
     color: 'white',
 
+
   })
+
 
 
   return (
     <React.Fragment>
       <form>
-        <Input $onChange={setPlace} name="email" type="text" />
-
-        <InputSubmit onClick={() => props.onPlaceAdded(place1)} >+</InputSubmit>
+        <div > Address: &ensp; <Input $boxwidth={"500px"} $onChange={setPlace} type="text" /></div>
+        <br />
+        <div > Duration: &ensp; <Input $boxwidth={"200px"} $onChange={setDuration} type="number" /></div>
+        <br />
+        <InputSubmit onClick={canListIncre} >+</InputSubmit>
+        <br />
+        <InputSubmit onClick={() => props.onPlaceAdded(place1, true, duration)}>-</InputSubmit>
+        {/* <InputSubmit onClick={() => props.onPlaceAdded(place1, false)} >+</InputSubmit> */}
         <br></br>
         <SearchDone >Done</SearchDone>
         <div>
@@ -175,7 +264,7 @@ const SearchForm = (props: { onPlaceAdded: (place: string) => void }) => {
 
 
 
-const DaysAndPlaces = (props: any) => {
+const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boolean) => void }) => {
 
   const DayBlock = style('div', 'Search', {
     width: '500px',
@@ -193,27 +282,79 @@ const DaysAndPlaces = (props: any) => {
   })
 
 
+  const [Day, setDay] = useState(1)
+
   const ListPlaces = style('li', 'Search', {
     textAlign: 'left',
     margin: '30px 60px',
     visiblilty: 'visible',
+    border: '1px red solid',
+
+  })
+
+  const NextButton = style('button', 'Search', {
+    width: '300px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#B22222',
+    boxShadow: '3px 3px #A9A9F5',
+    borderRadius: '5px',
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
+    lineHeight: '2em',
 
   })
 
 
+  function onClickNext(Next: boolean) {
+
+    // if (Day == 1)
+    //   day1 = props.places;
+
+    // if (Day == 2)
+    //   day2 = props.places;
+
+    // if (Day == 3)
+    //   day3 = props.places;
+
+    // if (Day == 4)
+    //   day4 = props.places;
+
+    // if (Day == 5)
+    //   day5 = props.places;
+
+    if (Next) {
+      if (Day < 5)
+        setDay(Day + 1)
+
+      props.reset(true)
+    }
+    else {
+      if (Day > 1)
+        setDay(Day - 1)
+    }
+  }
+
+  console.log(Day)
+
 
   return (
     <React.Fragment>
-      <DayBlock>Day 1 Schdule</DayBlock>
+      <DayBlock >Day {Day} Schdule</DayBlock>
       <ul>
+        <ListPlaces > {props.places[1]}</ListPlaces>
         <ListPlaces > {props.places[2]}</ListPlaces>
         <ListPlaces > {props.places[3]}</ListPlaces>
         <ListPlaces > {props.places[4]}</ListPlaces>
         <ListPlaces > {props.places[5]}</ListPlaces>
-        <ListPlaces > {props.places[6]}</ListPlaces>
-
-
       </ul>
+
+      <NextButton onClick={() => onClickNext(true)} >Next</NextButton>
+      <br />
+      <NextButton onClick={() => onClickNext(false)} >Previous</NextButton>
+
 
 
     </React.Fragment>

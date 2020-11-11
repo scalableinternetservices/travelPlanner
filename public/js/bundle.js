@@ -50500,7 +50500,9 @@ var InputBase = styled_1.style('input', 'pa2 input-reset ba bg-transparent w-100
     border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal),
     ':focus': {
       border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal)
-    }
+    },
+    width: p.$boxwidth,
+    height: '50px'
   };
 });
 
@@ -52414,7 +52416,19 @@ var Welcome = styled_1.style('div', 'welcomeboard', {
   marginRight: 'auto',
   fontSize: '70px',
   lineHeight: '3em'
-});
+}); // const SimpleDive = style('div', 'Address', {
+//   backgroundColor: '#FAAC58',
+//   margin: '5px',
+//   textAlign: 'center',
+//   color: 'white',
+//   width: '90px',
+//   height: '70px',
+//   border: "1px solid red",
+//   float: 'left',
+//   fontSize: '40px',
+//   lineHeight: '1em',
+// })
+
 var LeftSerchDive = styled_1.style('div', 'Search', {
   width: '730px',
   height: '800px',
@@ -52465,20 +52479,76 @@ var Search = function Search() {
       places = _a[0],
       setPlaces = _a[1];
 
+  var _b = react_1.useState(['']),
+      durations = _b[0],
+      setDura = _b[1];
+
+  function Manage(x, y, z) {
+    if (x == "null") return;
+
+    if (!y) {
+      if (places.length < 6) {
+        setPlaces(places.concat(x));
+        setDura(durations.concat(z));
+      } // else
+      //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
+
+    } else {
+      console.log("In else " + places);
+      durations.pop();
+      places.pop(); // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
+
+      console.log("after pop " + places);
+    }
+  }
+
+  function resetplaces(y) {
+    if (y) setPlaces(['']);
+  }
+
+  console.log(places);
+  console.log(durations);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null, /*#__PURE__*/React.createElement(DaysAndPlaces, {
-    places: places
+    places: places,
+    reset: function reset(shouldremove) {
+      return resetplaces(shouldremove);
+    }
   })), /*#__PURE__*/React.createElement(RightSerchDive, null, /*#__PURE__*/React.createElement(SearchForm, {
-    onPlaceAdded: function onPlaceAdded(place) {
-      return setPlaces(places.concat(place));
+    onPlaceAdded: function onPlaceAdded(place, remove, durationx) {
+      return Manage(place, remove, durationx);
     }
   }))));
-};
+}; // let day1: string[] = []             //bug 2: Even though I used it in line 268, still telling me I did not use it
+// let day2: string[] = []
+// let day3: string[] = []
+// let day4: string[] = []
+// let day5: string[] = []
+
 
 var SearchForm = function SearchForm(props) {
   var _a = react_1.useState(''),
       place1 = _a[0],
       setPlace = _a[1];
 
+  var _b = react_1.useState(0),
+      placeCount = _b[0],
+      setPlaceCount = _b[1];
+
+  var _c = react_1.useState('80'),
+      duration = _c[0],
+      setDuration = _c[1];
+
+  function canListIncre() {
+    if (placeCount < 5) {
+      setPlaceCount(placeCount + 1);
+      props.onPlaceAdded(place1, false, duration);
+    } else {
+      setPlaceCount(placeCount);
+      props.onPlaceAdded("null", false, duration);
+    }
+  }
+
+  console.log(placeCount);
   var SearchDone = styled_1.style('button', 'search', {
     width: '150px',
     height: ' 65px',
@@ -52495,15 +52565,21 @@ var SearchForm = function SearchForm(props) {
     borderRadius: '5px',
     color: 'white'
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement(input_1.Input, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", null, " Address: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: "500px",
     $onChange: setPlace,
-    name: "email",
     type: "text"
-  }), /*#__PURE__*/React.createElement(InputSubmit, {
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Duration: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: "200px",
+    $onChange: setDuration,
+    type: "number"
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(InputSubmit, {
+    onClick: canListIncre
+  }, "+"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(InputSubmit, {
     onClick: function onClick() {
-      return props.onPlaceAdded(place1);
+      return props.onPlaceAdded(place1, true, duration);
     }
-  }, "+"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SearchDone, null, "Done"), /*#__PURE__*/React.createElement("div", null, place1), " ", /*#__PURE__*/React.createElement("br", null)));
+  }, "-"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SearchDone, null, "Done"), /*#__PURE__*/React.createElement("div", null, place1), " ", /*#__PURE__*/React.createElement("br", null)));
 };
 
 var DaysAndPlaces = function DaysAndPlaces(props) {
@@ -52520,12 +52596,60 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
     textAlign: 'center',
     lineHeight: '2em'
   });
+
+  var _a = react_1.useState(1),
+      Day = _a[0],
+      setDay = _a[1];
+
   var ListPlaces = styled_1.style('li', 'Search', {
     textAlign: 'left',
     margin: '30px 60px',
-    visiblilty: 'visible'
+    visiblilty: 'visible',
+    border: '1px red solid'
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, null, "Day 1 Schdule"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[6])));
+  var NextButton = styled_1.style('button', 'Search', {
+    width: '300px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#B22222',
+    boxShadow: '3px 3px #A9A9F5',
+    borderRadius: '5px',
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
+    lineHeight: '2em'
+  });
+
+  function onClickNext(Next) {
+    // if (Day == 1)
+    //   day1 = props.places;
+    // if (Day == 2)
+    //   day2 = props.places;
+    // if (Day == 3)
+    //   day3 = props.places;
+    // if (Day == 4)
+    //   day4 = props.places;
+    // if (Day == 5)
+    //   day5 = props.places;
+    if (Next) {
+      if (Day < 5) setDay(Day + 1);
+      props.reset(true);
+    } else {
+      if (Day > 1) setDay(Day - 1);
+    }
+  }
+
+  console.log(Day);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, null, "Day ", Day, " Schdule"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[1]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5])), /*#__PURE__*/React.createElement(NextButton, {
+    onClick: function onClick() {
+      return onClickNext(true);
+    }
+  }, "Next"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(NextButton, {
+    onClick: function onClick() {
+      return onClickNext(false);
+    }
+  }, "Previous"));
 };
 
 var AboutUs = function AboutUs() {
