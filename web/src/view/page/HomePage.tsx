@@ -123,26 +123,33 @@ const Search = () => {
 
   function Manage(x: any, y: boolean, z: any) {
 
-    if (x == "null")
-      return
+
     if (!y) {
 
-      if ((places as Array<string>).length < 6) {
+      if ((places as Array<string>).length < 6 && x != "null" && z > 5 && x != "") {
         setPlaces(places.concat(x))
         setDura(durations.concat(z))
       }
+
+      if (z <= 5)
+        alert("Duration is too short.")
+      if (x == "")
+        alert("Enter something in Address.")
       // else
       //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
     }
     else {
-      console.log("In else " + places);
-      (durations as Array<string>).pop();
-      (places as Array<string>).pop();
+      let start = 0
+      let end = (places as Array<string>).length - 1;
+      setPlaces((places as Array<string>).slice(start, end));
+      setDura((durations as Array<string>).slice(start, end));
+
       // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
-      console.log("after pop " + places)
 
     }
   }
+
+  console.log("after slice " + places)
 
 
   function resetplaces(y: boolean) {
@@ -186,11 +193,11 @@ const Search = () => {
 }
 
 
-// let day1: string[] = []             //bug 2: Even though I used it in line 268, still telling me I did not use it
-// let day2: string[] = []
-// let day3: string[] = []
-// let day4: string[] = []
-// let day5: string[] = []
+let day1: string[] = []             //bug 2: Even though I used it in line 268, still telling me I did not use it
+let day2: string[] = []
+let day3: string[] = []
+let day4: string[] = []
+let day5: string[] = []
 
 
 const SearchForm = (props: {
@@ -199,11 +206,18 @@ const SearchForm = (props: {
 }
 ) => {
 
+  let current_date = new Date()
+  let current_date_string = current_date.toString()
+  let current_day = current_date.getDate().toString()
+  let current_month = (current_date.getMonth() + 1).toString()
+  let current_year = current_date.getFullYear().toString()
+  let defaultDate = current_year + '-' + current_month + '-' + current_day
+
 
   const [place1, setPlace] = useState('')
   const [placeCount, setPlaceCount] = useState(0)
   const [duration, setDuration] = useState('80')
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(defaultDate)
   const [dateError, setDateError] = useState(false)
 
 
@@ -212,11 +226,7 @@ const SearchForm = (props: {
     if (dtex == '')
       return true
 
-    let current_date = new Date()
-    let current_date_string = current_date.toString()
-    let current_day = current_date.getDate().toString()
-    let current_month = current_date.getMonth().toString()
-    let current_year = current_date.getFullYear().toString()
+
 
     let splitted = dtex.split("-", 3)
     let dtex_year = splitted[0]
@@ -263,7 +273,9 @@ const SearchForm = (props: {
 
   function canListIncre() {
 
-    let isthereError = AddDate(date)
+
+
+    let isthereError = AddDate(date)      //bug 4: Delay for one round.
 
     if (isthereError == 'DateError')
       return
@@ -274,12 +286,12 @@ const SearchForm = (props: {
       props.onPlaceAdded(place1, false, duration)
     }
     else {
-      setPlaceCount(placeCount)
+      setPlaceCount(0)
       props.onPlaceAdded("null", false, duration)
     }
   }
 
-
+  console.log("This is place count : " + placeCount)
 
   const SearchDone = style('button', 'search', {
     width: '150px',
@@ -354,6 +366,14 @@ const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boo
 
   const [Day, setDay] = useState(1)
 
+  // const [day1places, setDay1Places] = useState([''])
+  // const [day2places, setDay2Places] = useState([''])
+  // const [day3places, setDay3Places] = useState([''])
+  // const [day4places, setDay4Places] = useState([''])
+  // const [day5places, setDay5Places] = useState([''])
+
+
+
   const ListPlaces = style('li', 'Search', {
     textAlign: 'left',
     margin: '30px 60px',
@@ -377,25 +397,38 @@ const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boo
 
   })
 
+  // function storeAllFiveDays(dayplaces: string[]) {
+  //   if (Day == 1)
+  //     setDay1Places(day1places)
+  //   else if (Day == 2)
+  //     setDay2Places(day2places)
+  //   else if (Day == 3)
+  //     setDay3Places(day3places)
+  //   else if (Day == 4)
+  //     setDay4Places(day4places)
+  //   else (Day == 5)
+  //   setDay5Places(day5places)
+  // }
+
 
   function onClickNext(Next: boolean) {
 
-    // if (Day == 1)
-    //   day1 = props.places;
+    if (Day == 1)
+      day1 = props.places;
 
-    // if (Day == 2)
-    //   day2 = props.places;
+    if (Day == 2)
+      day2 = props.places;
 
-    // if (Day == 3)
-    //   day3 = props.places;
+    if (Day == 3)
+      day3 = props.places;
 
-    // if (Day == 4)
-    //   day4 = props.places;
+    if (Day == 4)
+      day4 = props.places;
 
-    // if (Day == 5)
-    //   day5 = props.places;
+    if (Day == 5)
+      day5 = props.places;
 
-    if (Next && props.places.length != 0) {
+    if (Next && props.places.length != 1) {
       if (Day < 5)
         setDay(Day + 1)
 
@@ -407,12 +440,20 @@ const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boo
     }
   }
 
+
+
   console.log(Day)
+  console.log("This is day1 array : " + day1)
+  console.log("This is day2 array : " + day2)
+  console.log("This is day3 array : " + day3)
+  console.log("This is day4 array : " + day4)
+  console.log("This is day5 array : " + day5)
+
 
 
   return (
     <React.Fragment>
-      <DayBlock >Day {Day} Schdule</DayBlock>
+      <DayBlock >Day {Day} Schdule </DayBlock>
       <ul>
         <ListPlaces > {props.places[1]}</ListPlaces>
         <ListPlaces > {props.places[2]}</ListPlaces>

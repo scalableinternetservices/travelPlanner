@@ -52488,23 +52488,24 @@ var Search = function Search() {
       setDate = _c[1];
 
   function Manage(x, y, z) {
-    if (x == "null") return;
-
     if (!y) {
-      if (places.length < 6) {
+      if (places.length < 6 && x != "null" && z > 5 && x != "") {
         setPlaces(places.concat(x));
         setDura(durations.concat(z));
-      } // else
+      }
+
+      if (z <= 5) alert("Duration is too short.");
+      if (x == "") alert("Enter something in Address."); // else
       //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
-
     } else {
-      console.log("In else " + places);
-      durations.pop();
-      places.pop(); // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
-
-      console.log("after pop " + places);
+      var start = 0;
+      var end = places.length - 1;
+      setPlaces(places.slice(start, end));
+      setDura(durations.slice(start, end)); // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
     }
   }
+
+  console.log("after slice " + places);
 
   function resetplaces(y) {
     if (y) {
@@ -52529,14 +52530,23 @@ var Search = function Search() {
       return setDate(datex);
     }
   }))));
-}; // let day1: string[] = []             //bug 2: Even though I used it in line 268, still telling me I did not use it
-// let day2: string[] = []
-// let day3: string[] = []
-// let day4: string[] = []
-// let day5: string[] = []
+};
 
+var day1 = []; //bug 2: Even though I used it in line 268, still telling me I did not use it
+
+var day2 = [];
+var day3 = [];
+var day4 = [];
+var day5 = [];
 
 var SearchForm = function SearchForm(props) {
+  var current_date = new Date();
+  var current_date_string = current_date.toString();
+  var current_day = current_date.getDate().toString();
+  var current_month = (current_date.getMonth() + 1).toString();
+  var current_year = current_date.getFullYear().toString();
+  var defaultDate = current_year + '-' + current_month + '-' + current_day;
+
   var _a = react_1.useState(''),
       place1 = _a[0],
       setPlace = _a[1];
@@ -52549,7 +52559,7 @@ var SearchForm = function SearchForm(props) {
       duration = _c[0],
       setDuration = _c[1];
 
-  var _d = react_1.useState(''),
+  var _d = react_1.useState(defaultDate),
       date = _d[0],
       setDate = _d[1];
 
@@ -52559,11 +52569,6 @@ var SearchForm = function SearchForm(props) {
 
   function checkDate(dtex) {
     if (dtex == '') return true;
-    var current_date = new Date();
-    var current_date_string = current_date.toString();
-    var current_day = current_date.getDate().toString();
-    var current_month = current_date.getMonth().toString();
-    var current_year = current_date.getFullYear().toString();
     var splitted = dtex.split("-", 3);
     var dtex_year = splitted[0];
     var dtex_month = splitted[1];
@@ -52599,18 +52604,20 @@ var SearchForm = function SearchForm(props) {
   }
 
   function canListIncre() {
-    var isthereError = AddDate(date);
+    var isthereError = AddDate(date); //bug 4: Delay for one round.
+
     if (isthereError == 'DateError') return;
 
     if (placeCount < 5) {
       setPlaceCount(placeCount + 1);
       props.onPlaceAdded(place1, false, duration);
     } else {
-      setPlaceCount(placeCount);
+      setPlaceCount(0);
       props.onPlaceAdded("null", false, duration);
     }
   }
 
+  console.log("This is place count : " + placeCount);
   var SearchDone = styled_1.style('button', 'search', {
     width: '150px',
     height: ' 65px',
@@ -52666,7 +52673,12 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
 
   var _a = react_1.useState(1),
       Day = _a[0],
-      setDay = _a[1];
+      setDay = _a[1]; // const [day1places, setDay1Places] = useState([''])
+  // const [day2places, setDay2Places] = useState([''])
+  // const [day3places, setDay3Places] = useState([''])
+  // const [day4places, setDay4Places] = useState([''])
+  // const [day5places, setDay5Places] = useState([''])
+
 
   var ListPlaces = styled_1.style('li', 'Search', {
     textAlign: 'left',
@@ -52686,20 +52698,27 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
     marginRight: 'auto',
     textAlign: 'center',
     lineHeight: '2em'
-  });
+  }); // function storeAllFiveDays(dayplaces: string[]) {
+  //   if (Day == 1)
+  //     setDay1Places(day1places)
+  //   else if (Day == 2)
+  //     setDay2Places(day2places)
+  //   else if (Day == 3)
+  //     setDay3Places(day3places)
+  //   else if (Day == 4)
+  //     setDay4Places(day4places)
+  //   else (Day == 5)
+  //   setDay5Places(day5places)
+  // }
 
   function onClickNext(Next) {
-    // if (Day == 1)
-    //   day1 = props.places;
-    // if (Day == 2)
-    //   day2 = props.places;
-    // if (Day == 3)
-    //   day3 = props.places;
-    // if (Day == 4)
-    //   day4 = props.places;
-    // if (Day == 5)
-    //   day5 = props.places;
-    if (Next && props.places.length != 0) {
+    if (Day == 1) day1 = props.places;
+    if (Day == 2) day2 = props.places;
+    if (Day == 3) day3 = props.places;
+    if (Day == 4) day4 = props.places;
+    if (Day == 5) day5 = props.places;
+
+    if (Next && props.places.length != 1) {
       if (Day < 5) setDay(Day + 1);
       props.reset(true);
     } else {
@@ -52708,7 +52727,12 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
   }
 
   console.log(Day);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, null, "Day ", Day, " Schdule"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[1]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5])), /*#__PURE__*/React.createElement(NextButton, {
+  console.log("This is day1 array : " + day1);
+  console.log("This is day2 array : " + day2);
+  console.log("This is day3 array : " + day3);
+  console.log("This is day4 array : " + day4);
+  console.log("This is day5 array : " + day5);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, null, "Day ", Day, " Schdule "), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[1]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5])), /*#__PURE__*/React.createElement(NextButton, {
     onClick: function onClick() {
       return onClickNext(true);
     }
