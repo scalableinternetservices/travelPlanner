@@ -52483,6 +52483,10 @@ var Search = function Search() {
       durations = _b[0],
       setDura = _b[1];
 
+  var _c = react_1.useState(''),
+      date = _c[0],
+      setDate = _c[1];
+
   function Manage(x, y, z) {
     if (x == "null") return;
 
@@ -52503,11 +52507,15 @@ var Search = function Search() {
   }
 
   function resetplaces(y) {
-    if (y) setPlaces(['']);
+    if (y) {
+      setDura(['']);
+      setPlaces(['']);
+    }
   }
 
   console.log(places);
   console.log(durations);
+  console.log(date);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null, /*#__PURE__*/React.createElement(DaysAndPlaces, {
     places: places,
     reset: function reset(shouldremove) {
@@ -52516,6 +52524,9 @@ var Search = function Search() {
   })), /*#__PURE__*/React.createElement(RightSerchDive, null, /*#__PURE__*/React.createElement(SearchForm, {
     onPlaceAdded: function onPlaceAdded(place, remove, durationx) {
       return Manage(place, remove, durationx);
+    },
+    addDate: function addDate(datex, isDateEnter) {
+      return setDate(datex);
     }
   }))));
 }; // let day1: string[] = []             //bug 2: Even though I used it in line 268, still telling me I did not use it
@@ -52538,7 +52549,25 @@ var SearchForm = function SearchForm(props) {
       duration = _c[0],
       setDuration = _c[1];
 
+  var _d = react_1.useState(''),
+      date = _d[0],
+      setDate = _d[1];
+
+  var _e = react_1.useState(false),
+      isDateEnterx = _e[0],
+      setisDateEnter = _e[1];
+
+  function AddDate(datex) {
+    if (date != '' && isDateEnterx == false) {
+      setDate(datex);
+      setisDateEnter(true);
+      props.addDate(datex, isDateEnterx);
+    }
+  }
+
   function canListIncre() {
+    AddDate(date);
+
     if (placeCount < 5) {
       setPlaceCount(placeCount + 1);
       props.onPlaceAdded(place1, false, duration);
@@ -52548,7 +52577,6 @@ var SearchForm = function SearchForm(props) {
     }
   }
 
-  console.log(placeCount);
   var SearchDone = styled_1.style('button', 'search', {
     width: '150px',
     height: ' 65px',
@@ -52565,10 +52593,15 @@ var SearchForm = function SearchForm(props) {
     borderRadius: '5px',
     color: 'white'
   });
+  console.log("This is date in RightFrom" + date);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", null, " Address: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
     $boxwidth: "500px",
     $onChange: setPlace,
     type: "text"
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Date: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: "500px",
+    $onChange: setDate,
+    type: "date"
   })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Duration: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
     $boxwidth: "200px",
     $onChange: setDuration,
@@ -52632,7 +52665,7 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
     //   day4 = props.places;
     // if (Day == 5)
     //   day5 = props.places;
-    if (Next) {
+    if (Next && props.places.length != 0) {
       if (Day < 5) setDay(Day + 1);
       props.reset(true);
     } else {

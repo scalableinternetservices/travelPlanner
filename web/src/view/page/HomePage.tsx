@@ -117,6 +117,9 @@ const Search = () => {
 
   const [places, setPlaces] = useState([''])
   const [durations, setDura] = useState([''])
+  const [date, setDate] = useState('')
+
+
 
   function Manage(x: any, y: boolean, z: any) {
 
@@ -143,9 +146,13 @@ const Search = () => {
 
 
   function resetplaces(y: boolean) {
-    if (y)
+    if (y) {
+      setDura(['']);
       setPlaces(['']);
+    }
   }
+
+
 
 
 
@@ -153,7 +160,7 @@ const Search = () => {
 
   console.log(places)
   console.log(durations)
-
+  console.log(date)
   return (
     <React.Fragment>
       <SearchDiv>
@@ -168,7 +175,8 @@ const Search = () => {
 
 
         <RightSerchDive>
-          <SearchForm onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)} />
+          <SearchForm onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)}
+            addDate={(datex, isDateEnter) => setDate(datex)} />
         </RightSerchDive>
 
       </SearchDiv>
@@ -185,19 +193,31 @@ const Search = () => {
 // let day5: string[] = []
 
 
-const SearchForm = (props: { onPlaceAdded: (place: string, remove: boolean, durationx: string) => void }) => {
+const SearchForm = (props: {
+  onPlaceAdded: (place: string, remove: boolean, durationx: string) => void,
+  addDate: (datex: string, isDateEnter: boolean) => void
+}
+) => {
 
 
   const [place1, setPlace] = useState('')
   const [placeCount, setPlaceCount] = useState(0)
   const [duration, setDuration] = useState('80')
+  const [date, setDate] = useState('')
+  const [isDateEnterx, setisDateEnter] = useState(false)
 
 
-
+  function AddDate(datex: string) {
+    if (date != '' && isDateEnterx == false) {
+      setDate(datex)
+      setisDateEnter(true)
+      props.addDate(datex, isDateEnterx)
+    }
+  }
 
   function canListIncre() {
 
-
+    AddDate(date)
 
     if (placeCount < 5) {
 
@@ -212,7 +232,6 @@ const SearchForm = (props: { onPlaceAdded: (place: string, remove: boolean, dura
   }
 
 
-  console.log(placeCount)
 
   const SearchDone = style('button', 'search', {
     width: '150px',
@@ -232,8 +251,9 @@ const SearchForm = (props: { onPlaceAdded: (place: string, remove: boolean, dura
     borderRadius: '5px',
     color: 'white',
 
-
   })
+
+  console.log("This is date in RightFrom" + date)
 
 
 
@@ -241,6 +261,8 @@ const SearchForm = (props: { onPlaceAdded: (place: string, remove: boolean, dura
     <React.Fragment>
       <form>
         <div > Address: &ensp; <Input $boxwidth={"500px"} $onChange={setPlace} type="text" /></div>
+        <br />
+        <div > Date: &ensp; <Input $boxwidth={"500px"} $onChange={setDate} type="date" /></div>
         <br />
         <div > Duration: &ensp; <Input $boxwidth={"200px"} $onChange={setDuration} type="number" /></div>
         <br />
@@ -325,7 +347,7 @@ const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boo
     // if (Day == 5)
     //   day5 = props.places;
 
-    if (Next) {
+    if (Next && props.places.length != 0) {
       if (Day < 5)
         setDay(Day + 1)
 
