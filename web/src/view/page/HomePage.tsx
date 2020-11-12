@@ -176,7 +176,7 @@ const Search = () => {
 
         <RightSerchDive>
           <SearchForm onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)}
-            addDate={(datex, isDateEnter) => setDate(datex)} />
+            addDate={(datex) => setDate(datex)} />
         </RightSerchDive>
 
       </SearchDiv>
@@ -195,7 +195,7 @@ const Search = () => {
 
 const SearchForm = (props: {
   onPlaceAdded: (place: string, remove: boolean, durationx: string) => void,
-  addDate: (datex: string, isDateEnter: boolean) => void
+  addDate: (datex: string) => void
 }
 ) => {
 
@@ -204,21 +204,69 @@ const SearchForm = (props: {
   const [placeCount, setPlaceCount] = useState(0)
   const [duration, setDuration] = useState('80')
   const [date, setDate] = useState('')
-  const [isDateEnterx, setisDateEnter] = useState(false)
+  const [dateError, setDateError] = useState(false)
 
+
+  function checkDate(dtex: string) {
+
+    if (dtex == '')
+      return true
+
+    let current_date = new Date()
+    let current_date_string = current_date.toString()
+    let current_day = current_date.getDate().toString()
+    let current_month = current_date.getMonth().toString()
+    let current_year = current_date.getFullYear().toString()
+
+    let splitted = dtex.split("-", 3)
+    let dtex_year = splitted[0]
+    let dtex_month = splitted[1]
+    let dtex_day = splitted[2]
+
+    console.log("dtex_day : " + dtex_day)
+    console.log("dtex_month : " + dtex_month)
+    console.log("dtex_year : " + dtex_year)
+    console.log("current date : ", current_date_string)
+    console.log("current day : " + current_day)
+    console.log("current month : " + current_month)
+    console.log("current year : " + current_year)
+
+    if (parseInt(dtex_year) < parseInt(current_year))
+      return true
+    if ((parseInt(dtex_month) < parseInt(current_month)) && (parseInt(dtex_year) == parseInt(current_year)))
+      return true
+    if ((parseInt(dtex_year) == parseInt(current_year)) && (parseInt(dtex_month) == parseInt(current_month))
+      && (parseInt(dtex_day) < parseInt(current_day)))
+      return true
+
+    return false
+
+  }
 
   function AddDate(datex: string) {
-    if (date != '' && isDateEnterx == false) {
-      setDate(datex)
-      setisDateEnter(true)
-      props.addDate(datex, isDateEnterx)
+
+    setDateError(checkDate(datex))
+
+
+    console.log("Date error : " + dateError)
+    if (dateError) {
+      alert("Date is Invalid. Please Try select again.")
+      return "DateError"
     }
+    if (date != '' && !dateError) {
+      setDate(datex)
+      props.addDate(datex)
+    }
+
+    return "NoError"
   }
 
   function canListIncre() {
 
-    AddDate(date)
+    let isthereError = AddDate(date)
 
+    if (isthereError == 'DateError')
+      return
     if (placeCount < 5) {
 
       setPlaceCount(placeCount + 1)
@@ -262,7 +310,7 @@ const SearchForm = (props: {
       <form>
         <div > Address: &ensp; <Input $boxwidth={"500px"} $onChange={setPlace} type="text" /></div>
         <br />
-        <div > Date: &ensp; <Input $boxwidth={"500px"} $onChange={setDate} type="date" /></div>
+        <div > Depart Date: &ensp; <Input $boxwidth={"300px"} $onChange={setDate} type="date" /></div>
         <br />
         <div > Duration: &ensp; <Input $boxwidth={"200px"} $onChange={setDuration} type="number" /></div>
         <br />

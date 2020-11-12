@@ -52525,7 +52525,7 @@ var Search = function Search() {
     onPlaceAdded: function onPlaceAdded(place, remove, durationx) {
       return Manage(place, remove, durationx);
     },
-    addDate: function addDate(datex, isDateEnter) {
+    addDate: function addDate(datex) {
       return setDate(datex);
     }
   }))));
@@ -52554,19 +52554,53 @@ var SearchForm = function SearchForm(props) {
       setDate = _d[1];
 
   var _e = react_1.useState(false),
-      isDateEnterx = _e[0],
-      setisDateEnter = _e[1];
+      dateError = _e[0],
+      setDateError = _e[1];
+
+  function checkDate(dtex) {
+    if (dtex == '') return true;
+    var current_date = new Date();
+    var current_date_string = current_date.toString();
+    var current_day = current_date.getDate().toString();
+    var current_month = current_date.getMonth().toString();
+    var current_year = current_date.getFullYear().toString();
+    var splitted = dtex.split("-", 3);
+    var dtex_year = splitted[0];
+    var dtex_month = splitted[1];
+    var dtex_day = splitted[2];
+    console.log("dtex_day : " + dtex_day);
+    console.log("dtex_month : " + dtex_month);
+    console.log("dtex_year : " + dtex_year);
+    console.log("current date : ", current_date_string);
+    console.log("current day : " + current_day);
+    console.log("current month : " + current_month);
+    console.log("current year : " + current_year);
+    if (parseInt(dtex_year) < parseInt(current_year)) return true;
+    if (parseInt(dtex_month) < parseInt(current_month) && parseInt(dtex_year) == parseInt(current_year)) return true;
+    if (parseInt(dtex_year) == parseInt(current_year) && parseInt(dtex_month) == parseInt(current_month) && parseInt(dtex_day) < parseInt(current_day)) return true;
+    return false;
+  }
 
   function AddDate(datex) {
-    if (date != '' && isDateEnterx == false) {
-      setDate(datex);
-      setisDateEnter(true);
-      props.addDate(datex, isDateEnterx);
+    setDateError(checkDate(datex));
+    console.log("Date error : " + dateError);
+
+    if (dateError) {
+      alert("Date is Invalid. Please Try select again.");
+      return "DateError";
     }
+
+    if (date != '' && !dateError) {
+      setDate(datex);
+      props.addDate(datex);
+    }
+
+    return "NoError";
   }
 
   function canListIncre() {
-    AddDate(date);
+    var isthereError = AddDate(date);
+    if (isthereError == 'DateError') return;
 
     if (placeCount < 5) {
       setPlaceCount(placeCount + 1);
@@ -52598,8 +52632,8 @@ var SearchForm = function SearchForm(props) {
     $boxwidth: "500px",
     $onChange: setPlace,
     type: "text"
-  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Date: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
-    $boxwidth: "500px",
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Depart Date: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: "300px",
     $onChange: setDate,
     type: "date"
   })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Duration: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
