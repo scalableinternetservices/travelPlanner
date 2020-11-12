@@ -44,23 +44,6 @@ const Welcome = style('div', 'welcomeboard', {
 
 })
 
-// const SimpleDive = style('div', 'Address', {
-
-//   backgroundColor: '#FAAC58',
-//   margin: '5px',
-//   textAlign: 'center',
-//   color: 'white',
-
-//   width: '90px',
-//   height: '70px',
-//   border: "1px solid red",
-//   float: 'left',
-//   fontSize: '40px',
-//   lineHeight: '1em',
-
-// })
-
-
 const LeftSerchDive = style('div', 'Search', {
   width: '730px',
   height: '800px',
@@ -160,11 +143,6 @@ const Search = () => {
   }
 
 
-
-
-
-
-
   console.log(places)
   console.log(durations)
   console.log(date)
@@ -173,7 +151,7 @@ const Search = () => {
       <SearchDiv>
 
         <LeftSerchDive>
-          <DaysAndPlaces places={places} reset={(shouldremove) => resetplaces(shouldremove)} />
+          <DaysAndPlaces places={places} dur={durations} date={date} reset={(shouldremove) => resetplaces(shouldremove)} />
           {/* <DaysAndPlaces places={places} /> */}
         </LeftSerchDive>
 
@@ -182,8 +160,8 @@ const Search = () => {
 
 
         <RightSerchDive>
-          <SearchForm onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)}
-            addDate={(datex) => setDate(datex)} />
+          <SearchForm addDate={(datex) => setDate(datex)} onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)}
+          />
         </RightSerchDive>
 
       </SearchDiv>
@@ -199,6 +177,13 @@ let day3: string[] = []
 let day4: string[] = []
 let day5: string[] = []
 
+let dura1: string[] = []
+let dura2: string[] = []
+let dura3: string[] = []
+let dura4: string[] = []
+let dura5: string[] = []
+
+// let AllfiveDate: string[] = []
 
 const SearchForm = (props: {
   onPlaceAdded: (place: string, remove: boolean, durationx: string) => void,
@@ -273,15 +258,14 @@ const SearchForm = (props: {
 
   function canListIncre() {
 
-
-
     let isthereError = AddDate(date)      //bug 4: Delay for one round.
 
     if (isthereError == 'DateError')
       return
     if (placeCount < 5) {
 
-      setPlaceCount(placeCount + 1)
+      if (place1 != '')
+        setPlaceCount(placeCount + 1)
 
       props.onPlaceAdded(place1, false, duration)
     }
@@ -322,7 +306,7 @@ const SearchForm = (props: {
       <form>
         <div > Address: &ensp; <Input $boxwidth={"500px"} $onChange={setPlace} type="text" /></div>
         <br />
-        <div > Depart Date: &ensp; <Input $boxwidth={"300px"} $onChange={setDate} type="date" /></div>
+        <div > Date: &ensp; <Input $boxwidth={"300px"} $onChange={setDate} type="date" /></div>
         <br />
         <div > Duration: &ensp; <Input $boxwidth={"200px"} $onChange={setDuration} type="number" /></div>
         <br />
@@ -346,7 +330,25 @@ const SearchForm = (props: {
 
 
 
-const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boolean) => void }) => {
+const DaysAndPlaces = (props: {
+  places: Array<string>,
+  dur: Array<string>,
+  date: string
+  reset: (shouldremove: boolean) => void
+}) => {
+
+
+  function checkisDateDup(dateArr: string[]) {
+
+    console.log("props.date is " + props.date + " and dateArr is " + dateArr)
+    if (dateArr.includes(props.date))
+      return true;
+    else
+      return false;
+  }
+
+  const [DateforEachDay, setDayforEachDay] = useState([''])
+  const [Day, setDay] = useState(1)
 
   const DayBlock = style('div', 'Search', {
     width: '500px',
@@ -362,17 +364,6 @@ const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boo
     lineHeight: '2em',
 
   })
-
-
-  const [Day, setDay] = useState(1)
-
-  // const [day1places, setDay1Places] = useState([''])
-  // const [day2places, setDay2Places] = useState([''])
-  // const [day3places, setDay3Places] = useState([''])
-  // const [day4places, setDay4Places] = useState([''])
-  // const [day5places, setDay5Places] = useState([''])
-
-
 
   const ListPlaces = style('li', 'Search', {
     textAlign: 'left',
@@ -397,57 +388,76 @@ const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boo
 
   })
 
-  // function storeAllFiveDays(dayplaces: string[]) {
-  //   if (Day == 1)
-  //     setDay1Places(day1places)
-  //   else if (Day == 2)
-  //     setDay2Places(day2places)
-  //   else if (Day == 3)
-  //     setDay3Places(day3places)
-  //   else if (Day == 4)
-  //     setDay4Places(day4places)
-  //   else (Day == 5)
-  //   setDay5Places(day5places)
-  // }
-
 
   function onClickNext(Next: boolean) {
 
-    if (Day == 1)
+    let isDateDup = checkisDateDup(DateforEachDay)
+    if (Day == 1) {
       day1 = props.places;
-
-    if (Day == 2)
+      dura1 = props.dur;
+    }
+    if (Day == 2) {
       day2 = props.places;
+      dura2 = props.dur;
 
-    if (Day == 3)
+    }
+    if (Day == 3) {
       day3 = props.places;
+      dura3 = props.dur;
 
-    if (Day == 4)
+    }
+    if (Day == 4) {
       day4 = props.places;
+      dura4 = props.dur;
 
-    if (Day == 5)
+    }
+    if (Day == 5) {
       day5 = props.places;
+      dura5 = props.dur;
 
-    if (Next && props.places.length != 1) {
+    }
+
+    if (Next && props.places.length == 1) {
+      alert("Day " + Day + " schedule is empty.")
+    }
+
+    if (Next && isDateDup) {
+      alert("Date is duplicate.")
+      props.reset(true)
+      return
+
+    }
+
+
+    if (Next && props.places.length != 1 && !isDateDup) {
       if (Day < 5)
         setDay(Day + 1)
 
+      setDayforEachDay(DateforEachDay.concat(props.date))
       props.reset(true)
     }
     else {
       if (Day > 1)
         setDay(Day - 1)
+      let start = 0
+      let end = (DateforEachDay as Array<string>).length - 1;
+      setDayforEachDay((DateforEachDay as Array<string>).slice(start, end));
+
     }
+
+
   }
 
 
 
   console.log(Day)
-  console.log("This is day1 array : " + day1)
-  console.log("This is day2 array : " + day2)
-  console.log("This is day3 array : " + day3)
-  console.log("This is day4 array : " + day4)
-  console.log("This is day5 array : " + day5)
+  console.log("This is day1 array : " + day1 + " and Duration 1 : " + dura1)
+  console.log("This is day2 array : " + day2 + " and Duration 2 : " + dura2)
+  console.log("This is day3 array : " + day3 + " and Duration 3 : " + dura3)
+  console.log("This is day4 array : " + day4 + " and Duration 4 : " + dura4)
+  console.log("This is day5 array : " + day5 + " and Duration 5 : " + dura5)
+  // console.log("This is AllFiveDate : " + AllfiveDate)
+  console.log("This is DateForEachDay : " + DateforEachDay)
 
 
 
@@ -464,7 +474,7 @@ const DaysAndPlaces = (props: { places: Array<string>, reset: (shouldremove: boo
 
       <NextButton onClick={() => onClickNext(true)} >Next</NextButton>
       <br />
-      <NextButton onClick={() => onClickNext(false)} >Previous</NextButton>
+      <NextButton onClick={() => onClickNext(false)} > Edit Previous</NextButton>
 
 
 
