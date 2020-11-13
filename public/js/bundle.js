@@ -53244,6 +53244,149 @@ var __importStar = this && this.__importStar || function (mod) {
   return result;
 };
 
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -53297,6 +53440,8 @@ function Login() {
   }, [password]);
 
   function login() {
+    var _this = this;
+
     if (!validate(email, password, setError)) {
       toast_1.toastErr('invalid email/password');
       return;
@@ -53312,10 +53457,39 @@ function Login() {
         password: password
       })
     }).then(function (res) {
-      util_1.check(res.ok, 'response status ' + res.status);
-      return res.text();
-    }).then(function () {
-      return window.location.reload();
+      return __awaiter(_this, void 0, void 0, function () {
+        var _a;
+
+        return __generator(this, function (_b) {
+          switch (_b.label) {
+            case 0:
+              if (!(res.status == 200)) return [3
+              /*break*/
+              , 1];
+              util_1.check(res.ok, 'response status ' + res.status);
+              return [2
+              /*return*/
+              , true];
+
+            case 1:
+              _a = toast_1.toastErr;
+              return [4
+              /*yield*/
+              , res.text()];
+
+            case 2:
+              _a.apply(void 0, [_b.sent()]);
+
+              return [2
+              /*return*/
+              , false];
+          }
+        });
+      });
+    }).then(function (bool) {
+      if (bool) {
+        window.location.reload();
+      }
     }).catch(function (err) {
       toast_1.toastErr(err.toString());
       setError({
@@ -53323,7 +53497,8 @@ function Login() {
         password: true
       });
     });
-  }
+  } // Why execute twice?
+
 
   if (user) {
     return /*#__PURE__*/React.createElement(Logout, null);
@@ -53361,8 +53536,18 @@ function Login() {
 exports.Login = Login;
 
 function Logout() {
+  var _a = react_1.useState([]),
+      userInfo = _a[0],
+      setUserInfo = _a[1];
+
+  fetch('/currUser').then(function (res) {
+    return res.json();
+  }).then(function (json) {
+    return setUserInfo(json);
+  }).catch(error_1.handleError);
+
   function logout() {
-    return fetch('/auth/logout', {
+    fetch('/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -53375,9 +53560,15 @@ function Logout() {
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h5: true
-  }), /*#__PURE__*/React.createElement(button_1.Button, {
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, " ", userInfo.map(function (u) {
+    return /*#__PURE__*/React.createElement("div", null, " ", u.email, " ");
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout
-  }, "Logout"));
+  }, "Logout")));
 }
 
 function validateEmail(email) {
@@ -53448,6 +53639,149 @@ var __importStar = this && this.__importStar || function (mod) {
   return result;
 };
 
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -53463,7 +53797,13 @@ var button_1 = require("../../style/button");
 
 var input_1 = require("../../style/input");
 
+var spacer_1 = require("../../style/spacer");
+
+var error_1 = require("../toast/error");
+
 var toast_1 = require("../toast/toast");
+
+var user_1 = require("./user");
 
 function Signup() {
   var _a = react_1.useState(''),
@@ -53479,8 +53819,9 @@ function Signup() {
     password: false
   }),
       err = _c[0],
-      setError = _c[1]; // reset error when email/password change
+      setError = _c[1];
 
+  var user = react_1.useContext(user_1.UserContext).user; // reset error when email/password change
 
   react_1.useEffect(function () {
     return setError(__assign(__assign({}, err), {
@@ -53494,6 +53835,8 @@ function Signup() {
   }, [password]);
 
   function login() {
+    var _this = this;
+
     if (!validate(email, password, setError)) {
       toast_1.toastErr('invalid email/password');
       return;
@@ -53509,10 +53852,40 @@ function Signup() {
         password: password
       })
     }).then(function (res) {
-      util_1.check(res.ok, 'response status ' + res.status);
-      return res.text();
-    }).then(function () {
-      return window.location.replace('/');
+      return __awaiter(_this, void 0, void 0, function () {
+        var _a;
+
+        return __generator(this, function (_b) {
+          switch (_b.label) {
+            case 0:
+              if (!(res.status == 200)) return [3
+              /*break*/
+              , 1];
+              util_1.check(res.ok, 'response status ' + res.status);
+              return [2
+              /*return*/
+              , true];
+
+            case 1:
+              _a = toast_1.toastErr;
+              return [4
+              /*yield*/
+              , res.text()];
+
+            case 2:
+              _a.apply(void 0, [_b.sent()]);
+
+              return [2
+              /*return*/
+              , false];
+          }
+        });
+      });
+    }) //.then(() => window.location.replace('/'))
+    .then(function (bool) {
+      if (bool) {
+        window.location.reload();
+      }
     }).catch(function (err) {
       toast_1.toastErr(err.toString());
       setError({
@@ -53520,6 +53893,10 @@ function Signup() {
         password: true
       });
     });
+  }
+
+  if (user) {
+    return /*#__PURE__*/React.createElement(Logout, null);
   }
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
@@ -53538,7 +53915,7 @@ function Signup() {
   }, /*#__PURE__*/React.createElement("label", {
     className: "db fw4 lh-copy f6",
     htmlFor: "password"
-  }, "Password (Minimum eight characters, at least one letter and one number)"), /*#__PURE__*/React.createElement(input_1.Input, {
+  }, "Password"), /*#__PURE__*/React.createElement(input_1.Input, {
     $hasError: err.password,
     $onChange: setPassword,
     $onSubmit: login,
@@ -53552,14 +53929,51 @@ function Signup() {
 
 exports.Signup = Signup;
 
+function Logout() {
+  var _a = react_1.useState([]),
+      userInfo = _a[0],
+      setUserInfo = _a[1];
+
+  fetch('/currUser').then(function (res) {
+    return res.json();
+  }).then(function (json) {
+    return setUserInfo(json);
+  }).catch(error_1.handleError);
+
+  function logout() {
+    return fetch('/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(function (res) {
+      util_1.check(res.ok, 'response status ' + res.status);
+      window.location.reload();
+    }).catch(error_1.handleError);
+  }
+
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+    $h5: true
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, " ", userInfo.map(function (u) {
+    return /*#__PURE__*/React.createElement("div", null, " ", u.email, " ");
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement(button_1.Button, {
+    onClick: logout
+  }, "Logout")));
+}
+
 function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
 
 function validatePassword(password) {
-  var re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  return re.test(String(password).toLowerCase());
+  // const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+  // return re.test(String(password).toLowerCase())
+  return true;
 }
 
 function validate(email, password, setError) {
@@ -53572,7 +53986,7 @@ function validate(email, password, setError) {
   });
   return validEmail && validPassword;
 }
-},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../toast/toast":"view/toast/toast.ts"}],"view/page/PlaygroundPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/page/MyAccount.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -55516,7 +55930,7 @@ var HomePage_1 = require("./page/HomePage");
 
 var LecturesPage_1 = require("./page/LecturesPage");
 
-var PlaygroundPage_1 = require("./page/PlaygroundPage");
+var MyAccount_1 = require("./page/MyAccount");
 
 var ProjectsPage_1 = require("./page/ProjectsPage");
 
@@ -55569,9 +55983,9 @@ function AppBody() {
     path: route_1.Route.LECTURES
   }), /*#__PURE__*/React.createElement(ProjectsPage_1.ProjectsPage, {
     path: route_1.Route.PROJECTS
-  }), /*#__PURE__*/React.createElement(PlaygroundPage_1.PlaygroundPage, {
+  }), /*#__PURE__*/React.createElement(MyAccount_1.PlaygroundPage, {
     path: route_1.Route.PLAYGROUND
-  }), /*#__PURE__*/React.createElement(PlaygroundPage_1.PlaygroundPage, {
+  }), /*#__PURE__*/React.createElement(MyAccount_1.PlaygroundPage, {
     path: route_1.Route.PLAYGROUND_APP
   })), /*#__PURE__*/React.createElement(Footer, null, /*#__PURE__*/React.createElement(FooterText, null, "\xA9 2020 John Rothfels")));
 }
@@ -55583,7 +55997,7 @@ var FooterText = styled_1.style('small', 'mid-gray avenir', {
   margin: 'auto',
   opacity: '0.2'
 });
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js","@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","styletron-react":"../../node_modules/styletron-react/dist/browser.es5.es.js","../../../common/src/context":"../../common/src/context.ts","../graphql/apolloClient":"graphql/apolloClient.ts","../style/styled":"style/styled.tsx","./auth/fetchUser":"view/auth/fetchUser.tsx","./auth/user":"view/auth/user.ts","./nav/route":"view/nav/route.ts","./page/HomePage":"view/page/HomePage.tsx","./page/LecturesPage":"view/page/LecturesPage.tsx","./page/PlaygroundPage":"view/page/PlaygroundPage.tsx","./page/ProjectsPage":"view/page/ProjectsPage.tsx","styletron-engine-monolithic":"../../node_modules/styletron-engine-monolithic/dist/browser.es5.es.js"}],"bundle.ts":[function(require,module,exports) {
+},{"@apollo/client":"../../node_modules/@apollo/client/index.js","@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","styletron-react":"../../node_modules/styletron-react/dist/browser.es5.es.js","../../../common/src/context":"../../common/src/context.ts","../graphql/apolloClient":"graphql/apolloClient.ts","../style/styled":"style/styled.tsx","./auth/fetchUser":"view/auth/fetchUser.tsx","./auth/user":"view/auth/user.ts","./nav/route":"view/nav/route.ts","./page/HomePage":"view/page/HomePage.tsx","./page/LecturesPage":"view/page/LecturesPage.tsx","./page/MyAccount":"view/page/MyAccount.tsx","./page/ProjectsPage":"view/page/ProjectsPage.tsx","styletron-engine-monolithic":"../../node_modules/styletron-engine-monolithic/dist/browser.es5.es.js"}],"bundle.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
