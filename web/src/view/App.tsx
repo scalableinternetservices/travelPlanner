@@ -12,7 +12,7 @@ import { UserContext, UserCtx } from './auth/user'
 import { Route } from './nav/route'
 import { HomePage } from './page/HomePage'
 import { LecturesPage } from './page/LecturesPage'
-import { PlaygroundPage } from './page/PlaygroundPage'
+import { PlaygroundPage } from './page/MyAccount'
 import { ProjectsPage } from './page/ProjectsPage'
 
 const Styletron = require('styletron-engine-monolithic')

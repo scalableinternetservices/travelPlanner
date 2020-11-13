@@ -15,6 +15,7 @@ import { GraphQLServer } from 'graphql-yoga'
 import { forAwaitEach, isAsyncIterable } from 'iterall'
 import path from 'path'
 import 'reflect-metadata'
+import { getRepository } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 import { checkEqual, Unpromise } from '../../common/src/util'
 import { Config } from './config'
@@ -60,26 +61,55 @@ server.express.get(
   })
 )
 
+server.express.get(
+  '/currUser',
+  asyncRoute(async (req, res) => {
+    console.log('GET /currUser')
+    const authToken = req.cookies.authToken
+    if (authToken) {
+      const user = await getRepository(Session)
+                        .createQueryBuilder("session")
+                        .leftJoinAndSelect("session.user", "user")
+                        .where("session.authToken = :authToken", { authToken: authToken })
+                        .getMany()
+                        .then(session => session.map(s => s.user))
+      console.log(user)
+      res.status(200).type('json').send(user)
+    } else {
+      res.status(403).send('Forbidden')
+    }
+  })
+)
+
 const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000 // 30 days
 
 server.express.post(
   '/auth/createUser',
   asyncRoute(async (req, res) => {
     console.log('POST /auth/createUser')
-    // create User model with data from HTTP request
-    let user = new User()
-    user.email = req.body.email
-    user.name = req.body.name
-    user.userType = UserType.User
+    await User.count({email: req.body.email})
+      .then(async c => {
+        if (c > 0) {
+          res.status(403).send('This email has already been taken.')
+        } else {
+          // create User model with data from HTTP request
+          let user = new User()
+          user.email = req.body.email
+          user.name = req.body.email
+          user.userType = UserType.User
+          user.password = req.body.password
 
-    // save the User model to the database, refresh `user` to get ID
-    user = await user.save()
+          // save the User model to the database, refresh `user` to get ID
+          user = await user.save()
+          console.log("User Id: " + user.id)
 
-    const authToken = await createSession(user)
-    res
-      .status(200)
-      .cookie('authToken', authToken, { maxAge: SESSION_DURATION, path: '/', httpOnly: true, secure: Config.isProd })
-      .send('Success!')
+          const authToken = await createSession(user)
+          res
+            .status(200)
+            .cookie('authToken', authToken, { maxAge: SESSION_DURATION, path: '/', httpOnly: true, secure: Config.isProd })
+            .send('Success!')
+        }
+      })
   })
 )
 
@@ -91,8 +121,8 @@ server.express.post(
     const password = req.body.password
 
     const user = await User.findOne({ where: { email } })
-    if (!user || password !== Config.adminPassword) {
-      res.status(403).send('Forbidden')
+    if (!user || password !== user.password) {
+      res.status(403).send('Invalid email address or password.')
       return
     }
 

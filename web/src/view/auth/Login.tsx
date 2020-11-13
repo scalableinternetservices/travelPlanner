@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { check } from '../../../../common/src/util'
+import { User } from '../../../../server/src/entities/User'
 import { Button } from '../../style/button'
 import { Input } from '../../style/input'
 import { Spacer } from '../../style/spacer'
@@ -29,17 +30,23 @@ export function Login() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     })
-      .then(res => {
-        check(res.ok, 'response status ' + res.status)
-        return res.text()
+      .then(async res => {
+        if (res.status == 200) {
+          check(res.ok, 'response status ' + res.status)
+          return true
+        } else {
+          toastErr(await res.text())
+          return false
+        }
       })
-      .then(() => window.location.reload())
+      .then(bool => {if (bool) { window.location.reload()} })
       .catch(err => {
         toastErr(err.toString())
         setError({ email: true, password: true })
       })
   }
 
+  // Why execute twice?
   if (user) {
     return <Logout />
   }
@@ -66,8 +73,14 @@ export function Login() {
 }
 
 function Logout() {
+  const [userInfo,  setUserInfo] = useState([] as User[])
+  fetch('/currUser')
+    .then(res => res.json())
+    .then(json => setUserInfo(json))
+    .catch(handleError)
+
   function logout() {
-    return fetch('/auth/logout', {
+    fetch('/auth/logout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -81,7 +94,10 @@ function Logout() {
   return (
     <>
       <Spacer $h5 />
-      <Button onClick={logout}>Logout</Button>
+      <div className='mt3'> { userInfo.map( u => <div> {u.email} </div>) }</div>
+      <div className="mt3">
+        <Button onClick={logout}>Logout</Button>
+      </div>
     </>
   )
 }

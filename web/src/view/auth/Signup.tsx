@@ -1,14 +1,19 @@
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { check } from '../../../../common/src/util'
+import { User } from '../../../../server/src/graphql/schema.types'
 import { Button } from '../../style/button'
 import { Input } from '../../style/input'
+import { Spacer } from '../../style/spacer'
+import { handleError } from '../toast/error'
 import { toastErr } from '../toast/toast'
+import { UserContext } from './user'
 
 export function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [err, setError] = useState({ email: false, password: false })
+  const { user } = useContext(UserContext)
 
   // reset error when email/password change
   useEffect(() => setError({ ...err, email: !validateEmail(email) }), [email])
@@ -25,15 +30,25 @@ export function Signup() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     })
-      .then(res => {
-        check(res.ok, 'response status ' + res.status)
-        return res.text()
+      .then(async res => {
+        if (res.status == 200) {
+          check(res.ok, 'response status ' + res.status)
+          return true
+        } else {
+          toastErr(await res.text())
+          return false
+        }
       })
-      .then(() => window.location.replace('/'))
+      //.then(() => window.location.replace('/'))
+      .then(bool => {if (bool) { window.location.reload()} })
       .catch(err => {
         toastErr(err.toString())
         setError({ email: true, password: true })
       })
+  }
+
+  if (user) {
+    return <Logout />
   }
 
   return (
@@ -46,12 +61,42 @@ export function Signup() {
       </div>
       <div className="mt3">
         <label className="db fw4 lh-copy f6" htmlFor="password">
-          Password (Minimum eight characters, at least one letter and one number)
+          Password
         </label>
         <Input $hasError={err.password} $onChange={setPassword} $onSubmit={login} name="password" />
       </div>
       <div className="mt3">
         <Button onClick={login}>Sign Up</Button>
+      </div>
+    </>
+  )
+}
+
+function Logout() {
+  const [userInfo,  setUserInfo] = useState([] as User[])
+  fetch('/currUser')
+    .then(res => res.json())
+    .then(json => setUserInfo(json))
+    .catch(handleError)
+
+  function logout() {
+    return fetch('/auth/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(res => {
+        check(res.ok, 'response status ' + res.status)
+        window.location.reload()
+      })
+      .catch(handleError)
+  }
+
+  return (
+    <>
+      <Spacer $h5 />
+      <div className='mt3'> { userInfo.map( u => <div> {u.email} </div>) }</div>
+      <div className="mt3">
+        <Button onClick={logout}>Logout</Button>
       </div>
     </>
   )
@@ -63,8 +108,9 @@ function validateEmail(email: string) {
 }
 
 function validatePassword(password: string) {
-  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-  return re.test(String(password).toLowerCase())
+  // const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+  // return re.test(String(password).toLowerCase())
+  return true
 }
 
 function validate(
