@@ -71,8 +71,8 @@ server.express.get(
                         .createQueryBuilder("session")
                         .leftJoinAndSelect("session.user", "user")
                         .where("session.authToken = :authToken", { authToken: authToken })
-                        .getMany()
-                        .then(session => session.map(s => s.user))
+                        .getOne()
+                        .then(session => session?.user)
       console.log(user)
       res.status(200).type('json').send(user)
     } else {

@@ -73,7 +73,8 @@ export function Login() {
 }
 
 function Logout() {
-  const [userInfo,  setUserInfo] = useState([] as User[])
+  const [userInfo,  setUserInfo] = useState({} as User)
+  //const { user } = useContext(UserContext)
   fetch('/currUser')
     .then(res => res.json())
     .then(json => setUserInfo(json))
@@ -94,7 +95,7 @@ function Logout() {
   return (
     <>
       <Spacer $h5 />
-      <div className='mt3'> { userInfo.map( u => <div> {u.email} </div>) }</div>
+      <div className='mt3'> { userInfo.email}</div>
       <div className="mt3">
         <Button onClick={logout}>Logout</Button>
       </div>

@@ -53536,9 +53536,10 @@ function Login() {
 exports.Login = Login;
 
 function Logout() {
-  var _a = react_1.useState([]),
+  var _a = react_1.useState({}),
       userInfo = _a[0],
-      setUserInfo = _a[1];
+      setUserInfo = _a[1]; //const { user } = useContext(UserContext)
+
 
   fetch('/currUser').then(function (res) {
     return res.json();
@@ -53562,9 +53563,7 @@ function Logout() {
     $h5: true
   }), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
-  }, " ", userInfo.map(function (u) {
-    return /*#__PURE__*/React.createElement("div", null, " ", u.email, " ");
-  })), /*#__PURE__*/React.createElement("div", {
+  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout
@@ -53930,7 +53929,7 @@ function Signup() {
 exports.Signup = Signup;
 
 function Logout() {
-  var _a = react_1.useState([]),
+  var _a = react_1.useState({}),
       userInfo = _a[0],
       setUserInfo = _a[1];
 
@@ -53956,9 +53955,7 @@ function Logout() {
     $h5: true
   }), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
-  }, " ", userInfo.map(function (u) {
-    return /*#__PURE__*/React.createElement("div", null, " ", u.email, " ");
-  })), /*#__PURE__*/React.createElement("div", {
+  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout
