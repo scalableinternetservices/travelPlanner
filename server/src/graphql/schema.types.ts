@@ -59,6 +59,13 @@ export enum UserType {
   User = 'USER',
 }
 
+export enum ItineraryType {
+  Stop = 'STOP',
+  Departure = 'DEPARTURE',
+  Arrival = 'ARRIVAL',
+  Travel = 'TRAVEL'
+}
+
 export interface Survey {
   __typename?: 'Survey'
   id: Scalars['Int']

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { check } from '../../../../common/src/util'
-import { User } from '../../../../server/src/graphql/schema.types'
 import { Button } from '../../style/button'
 import { Input } from '../../style/input'
 import { Spacer } from '../../style/spacer'
@@ -73,14 +72,10 @@ export function Signup() {
 }
 
 function Logout() {
-  const [userInfo,  setUserInfo] = useState({} as User)
-  fetch('/currUser')
-    .then(res => res.json())
-    .then(json => setUserInfo(json))
-    .catch(handleError)
+  const { user } = useContext(UserContext)
 
   function logout() {
-    return fetch('/auth/logout', {
+    fetch('/auth/logout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -94,7 +89,7 @@ function Logout() {
   return (
     <>
       <Spacer $h5 />
-      <div className='mt3'> { userInfo.email }</div>
+      <div className='mt3'> { user?.name }</div>
       <div className="mt3">
         <Button onClick={logout}>Logout</Button>
       </div>

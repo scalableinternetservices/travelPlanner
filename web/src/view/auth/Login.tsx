@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { check } from '../../../../common/src/util'
-import { User } from '../../../../server/src/entities/User'
+// import { User } from '../../../../server/src/entities/User'
 import { Button } from '../../style/button'
 import { Input } from '../../style/input'
 import { Spacer } from '../../style/spacer'
@@ -73,12 +73,7 @@ export function Login() {
 }
 
 function Logout() {
-  const [userInfo,  setUserInfo] = useState({} as User)
-  //const { user } = useContext(UserContext)
-  fetch('/currUser')
-    .then(res => res.json())
-    .then(json => setUserInfo(json))
-    .catch(handleError)
+  const { user } = useContext(UserContext)
 
   function logout() {
     fetch('/auth/logout', {
@@ -95,7 +90,7 @@ function Logout() {
   return (
     <>
       <Spacer $h5 />
-      <div className='mt3'> { userInfo.email}</div>
+      <div className='mt3'> { user?.name }</div>
       <div className="mt3">
         <Button onClick={logout}>Logout</Button>
       </div>

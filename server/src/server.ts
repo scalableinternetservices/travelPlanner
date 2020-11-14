@@ -15,7 +15,6 @@ import { GraphQLServer } from 'graphql-yoga'
 import { forAwaitEach, isAsyncIterable } from 'iterall'
 import path from 'path'
 import 'reflect-metadata'
-import { getRepository } from 'typeorm'
 import { v4 as uuidv4 } from 'uuid'
 import { checkEqual, Unpromise } from '../../common/src/util'
 import { Config } from './config'
@@ -61,25 +60,25 @@ server.express.get(
   })
 )
 
-server.express.get(
-  '/currUser',
-  asyncRoute(async (req, res) => {
-    console.log('GET /currUser')
-    const authToken = req.cookies.authToken
-    if (authToken) {
-      const user = await getRepository(Session)
-                        .createQueryBuilder("session")
-                        .leftJoinAndSelect("session.user", "user")
-                        .where("session.authToken = :authToken", { authToken: authToken })
-                        .getOne()
-                        .then(session => session?.user)
-      console.log(user)
-      res.status(200).type('json').send(user)
-    } else {
-      res.status(403).send('Forbidden')
-    }
-  })
-)
+// server.express.get(
+//   '/currUser',
+//   asyncRoute(async (req, res) => {
+//     console.log('GET /currUser')
+//     const authToken = req.cookies.authToken
+//     if (authToken) {
+//       const user = await getRepository(Session)
+//                         .createQueryBuilder("session")
+//                         .leftJoinAndSelect("session.user", "user")
+//                         .where("session.authToken = :authToken", { authToken: authToken })
+//                         .getOne()
+//                         .then(session => session?.user)
+//       console.log(user)
+//       res.status(200).type('json').send(user)
+//     } else {
+//       res.status(403).send('Forbidden')
+//     }
+//   })
+// )
 
 const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000 // 30 days
 
