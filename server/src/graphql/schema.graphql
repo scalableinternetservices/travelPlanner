@@ -39,6 +39,8 @@ type User {
   userType: UserType!
   email: String!
   name: String!
+
+  profileStuff: String!
 }
 
 enum UserType { ADMIN, USER }

@@ -1,6 +1,6 @@
 require('honeycomb-beeline')({
   writeKey: process.env.HONEYCOMB_KEY || 'd29d5f5ec24178320dae437383480737',
-  dataset: process.env.APP_NAME || 'travelPlanner',
+  dataset: process.env.APP_NAME || 'cs188',
   serviceName: process.env.APPSERVER_TAG || 'local',
   enabledInstrumentations: ['express', 'mysql2', 'react-dom/server'],
   sampleRate: 10,
@@ -24,6 +24,7 @@ import { Session } from './entities/Session'
 import { User } from './entities/User'
 import { getSchema, graphqlRoot, pubsub } from './graphql/api'
 import { ConnectionManager } from './graphql/ConnectionManager'
+import { UserType } from './graphql/schema.types'
 import { expressLambdaProxy } from './lambda/handler'
 import { renderApp } from './render'
 
@@ -51,6 +52,66 @@ server.express.get('/app/*', (req, res) => {
   renderApp(req, res)
 })
 
+server.express.get(
+  '/users',
+  asyncRoute(async (req, res) => {
+    const users = await User.find()
+    res.status(200).type('json').send(users)
+  })
+)
+
+// server.express.get(
+//   '/currUser',
+//   asyncRoute(async (req, res) => {
+//     console.log('GET /currUser')
+//     const authToken = req.cookies.authToken
+//     if (authToken) {
+//       const user = await getRepository(Session)
+//                         .createQueryBuilder("session")
+//                         .leftJoinAndSelect("session.user", "user")
+//                         .where("session.authToken = :authToken", { authToken: authToken })
+//                         .getOne()
+//                         .then(session => session?.user)
+//       console.log(user)
+//       res.status(200).type('json').send(user)
+//     } else {
+//       res.status(403).send('Forbidden')
+//     }
+//   })
+// )
+
+const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000 // 30 days
+
+server.express.post(
+  '/auth/createUser',
+  asyncRoute(async (req, res) => {
+    console.log('POST /auth/createUser')
+    await User.count({email: req.body.email})
+      .then(async c => {
+        if (c > 0) {
+          res.status(403).send('This email has already been taken.')
+        } else {
+          // create User model with data from HTTP request
+          let user = new User()
+          user.email = req.body.email
+          user.name = req.body.email
+          user.userType = UserType.User
+          user.password = req.body.password
+
+          // save the User model to the database, refresh `user` to get ID
+          user = await user.save()
+          console.log("User Id: " + user.id)
+
+          const authToken = await createSession(user)
+          res
+            .status(200)
+            .cookie('authToken', authToken, { maxAge: SESSION_DURATION, path: '/', httpOnly: true, secure: Config.isProd })
+            .send('Success!')
+        }
+      })
+  })
+)
+
 server.express.post(
   '/auth/login',
   asyncRoute(async (req, res) => {
@@ -59,27 +120,30 @@ server.express.post(
     const password = req.body.password
 
     const user = await User.findOne({ where: { email } })
-    if (!user || password !== Config.adminPassword) {
-      res.status(403).send('Forbidden')
+    if (!user || password !== user.password) {
+      res.status(403).send('Invalid email address or password.')
       return
     }
 
-    const authToken = uuidv4()
-
     await Session.delete({ user })
-
-    const session = new Session()
-    session.authToken = authToken
-    session.user = user
-    await Session.save(session).then(s => console.log('saved session ' + s.id))
-
-    const SESSION_DURATION = 30 * 24 * 60 * 60 * 1000 // 30 days
+    const authToken = await createSession(user)
     res
       .status(200)
       .cookie('authToken', authToken, { maxAge: SESSION_DURATION, path: '/', httpOnly: true, secure: Config.isProd })
       .send('Success!')
   })
 )
+
+async function createSession(user: User): Promise<string> {
+  const authToken = uuidv4()
+
+  const session = new Session()
+  session.authToken = authToken
+  session.user = user
+  await Session.save(session).then(s => console.log('saved session ' + s.id))
+
+  return authToken
+}
 
 server.express.post(
   '/auth/logout',
@@ -239,3 +303,30 @@ initORM()
     )
   )
   .catch(err => console.error(err))
+
+// server.express.get(
+//   '/users',
+//   asyncRoute(async (req, res) => {
+//     const users = await User.find()
+//     res.status(200).type('json').send(users)
+//   })
+// )
+
+// server.express.post(
+//   '/throwCandy',
+//   asyncRoute(async (req, res) => {
+//     const email = req.params['email']
+//     const candy = await getRepository(UserCandy)
+//       .createQueryBuilder('candy')
+//       .leftJoinAndSelect('candy.user', 'user')
+//       .where('user.email = :email', { email })
+//       .getOne()
+//     if (!candy) {
+//       return res.status(200).send(false)
+//     }
+//     // give a random amount of candy
+//     candy.candyCount += Math.floor(Math.random() * 4) + 1
+//     await candy.save()
+//     return res.status(200).send(false)
+//   })
+// )

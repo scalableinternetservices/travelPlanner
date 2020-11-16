@@ -1,6 +1,19 @@
-# bespin
+# Travel Planner
 
-Welcome to Cloud City!
+Welcome to Travel Planner
+
+## Group Members
+### Aaron Chang
+![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/aaron.png)
+
+### Akanksha Dhanwal
+![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/akanksha.png)
+
+### Lorance Aung
+![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/lorance.png)
+
+### Yingge He
+![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/yingge.jpg)
 
 ## Dependencies
 

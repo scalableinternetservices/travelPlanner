@@ -50320,7 +50320,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.routeParams = exports.getPath = exports.getPlaygroundPath = exports.getLoginPath = exports.getSurveyPath = exports.PlaygroundApp = exports.Route = void 0;
+exports.routeParams = exports.getPath = exports.getPlaygroundPath = exports.getSignupPath = exports.getLoginPath = exports.PlaygroundApp = exports.Route = void 0;
 /**
  * All of our CC URL routes. You may navigate to any route by providing the route
  * and an argument specifying all it's route params, e.g. { taskId: 1, contactId: 3}.
@@ -50341,18 +50341,9 @@ var Route;
 var PlaygroundApp;
 
 (function (PlaygroundApp) {
-  PlaygroundApp["SURVEYS"] = "surveys";
   PlaygroundApp["LOGIN"] = "login";
+  PlaygroundApp["SIGNUP"] = "signup";
 })(PlaygroundApp = exports.PlaygroundApp || (exports.PlaygroundApp = {}));
-
-function getSurveyPath(surveyId) {
-  var path = getPath(Route.PLAYGROUND_APP, {
-    app: PlaygroundApp.SURVEYS
-  });
-  return path + (surveyId ? "?surveyId=" + surveyId : '');
-}
-
-exports.getSurveyPath = getSurveyPath;
 
 function getLoginPath() {
   return getPath(Route.PLAYGROUND_APP, {
@@ -50361,6 +50352,14 @@ function getLoginPath() {
 }
 
 exports.getLoginPath = getLoginPath;
+
+function getSignupPath() {
+  return getPath(Route.PLAYGROUND_APP, {
+    app: PlaygroundApp.SIGNUP
+  });
+}
+
+exports.getSignupPath = getSignupPath;
 
 function getPlaygroundPath() {
   return getPath(Route.PLAYGROUND);
@@ -52041,10 +52040,10 @@ var otherTabs = [{
   name: 'My Itineraries',
   path: route_1.getPath(route_1.Route.LECTURES)
 }, {
-  name: 'My Reviews',
+  name: 'Explore',
   path: route_1.getPath(route_1.Route.PROJECTS)
 }, {
-  name: 'Explore',
+  name: 'My account',
   path: route_1.getPath(route_1.Route.PLAYGROUND)
 }];
 
@@ -52133,17 +52132,17 @@ function SubNav() {
   return /*#__PURE__*/React.createElement(Nav, {
     $isSubNav: true
   }, /*#__PURE__*/React.createElement(NavItem, {
-    name: "surveys",
-    path: route_1.getSurveyPath()
-  }), /*#__PURE__*/React.createElement(NavItem, {
     name: user ? 'logout' : 'login',
     path: route_1.getLoginPath()
+  }), !user && /*#__PURE__*/React.createElement(NavItem, {
+    name: "signup",
+    path: route_1.getSignupPath()
   }));
 }
 
 var Nav = styled_1.style('nav', 'flex white items-center list pa2 ph4 ph5-ns ph7-l avenir f4', function (p) {
   return {
-    background: "linear-gradient(90deg, " + '#005587' + " 0%, " + '#2774AE' + " 100%)",
+    background: "linear-gradient(90deg, " + '#e66465' + " 0%, " + '#9198e5' + " 100%)",
     opacity: '0.9',
     paddingTop: p.$isSubNav ? 0 : undefined,
     paddingBottom: p.$isSubNav ? 0 : undefined,
@@ -52339,10 +52338,47 @@ var AboutUs = function AboutUs() {
 };
 
 var UserLogin = function UserLogin() {
-  var LoginStyle = styled_1.style('div', 'Login', {
-    visibility: 'hidden'
+  var UserLogStyle = styled_1.style('div', 'Login', {
+    width: '900px',
+    height: '400px',
+    borderRadius: '5%',
+    backgroundColor: '#F78181',
+    lineHeight: '3em',
+    visibility: 'visible',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '10px'
   });
-  return /*#__PURE__*/React.createElement(LoginStyle, null, "Link to UserLogin");
+  var FromStyle = styled_1.style('form', 'Login', {
+    marginTop: '50px',
+    fontSize: '29px',
+    color: 'white',
+    textAlign: 'right',
+    lineHeight: '3em',
+    position: 'absolute'
+  });
+  var InputStyle = styled_1.style('input', 'Login', {
+    border: "1px solid #FA5858",
+    width: '500px',
+    marginleft: '10px',
+    backgroundColor: '#F6CECE'
+  });
+  var LabelStyle = styled_1.style('label', 'Login', {
+    marginLeft: '100px'
+  });
+  var SubmitStyle = styled_1.style('button', 'Login', {
+    color: "white",
+    position: 'static',
+    alignSelf: 'left',
+    border: '1px solid #FA5858'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(UserLogStyle, null, /*#__PURE__*/React.createElement(FromStyle, null, /*#__PURE__*/React.createElement(LabelStyle, null, "Username"), /*#__PURE__*/React.createElement(InputStyle, {
+    type: "text"
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(LabelStyle, null, " Password"), /*#__PURE__*/React.createElement(InputStyle, {
+    type: "password"
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SubmitStyle, {
+    type: "submit"
+  }, "Submit"))));
 }; // const SearchBar = style('div', 'About us', {
 //   width: '200px',
 //   height: '200px',
@@ -52377,8 +52413,8 @@ var CircularDiv = function CircularDiv(props) {
 
   function clickHandler() {
     var x = Array.from(document.getElementsByClassName("About Us"));
-    var z = Array.from(document.getElementsByClassName("Search"));
     var y = Array.from(document.getElementsByClassName("Login"));
+    var z = Array.from(document.getElementsByClassName("Search"));
 
     if (props.para == "About Us") {
       console.log(x);
@@ -52386,6 +52422,10 @@ var CircularDiv = function CircularDiv(props) {
       for (var i = 0; i < x.length; i++) {
         if (x[i].style.visibility == 'hidden') {
           x[i].style.visibility = 'visible';
+
+          for (var j = 0; j < y.length; j++) {
+            y[i].style.visibility = 'hidden';
+          }
 
           for (var j = 0; j < z.length; j++) {
             z[i].style.visibility = 'hidden';
@@ -52401,6 +52441,10 @@ var CircularDiv = function CircularDiv(props) {
         if (y[i].style.visibility == 'hidden') {
           y[i].style.visibility = 'visible';
 
+          for (var j = 0; j < y.length; j++) {
+            x[i].style.visibility = 'hidden';
+          }
+
           for (var j = 0; j < z.length; j++) {
             z[i].style.visibility = 'hidden';
           }
@@ -52414,6 +52458,10 @@ var CircularDiv = function CircularDiv(props) {
       for (var i = 0; i < z.length; i++) {
         if (z[i].style.visibility == 'hidden') {
           z[i].style.visibility = 'visible';
+
+          for (var j = 0; j < y.length; j++) {
+            y[i].style.visibility = 'hidden';
+          }
 
           for (var j = 0; j < z.length; j++) {
             x[i].style.visibility = 'hidden';
@@ -52756,8 +52804,6 @@ exports.LecturesPage = void 0;
 
 var React = __importStar(require("react"));
 
-var colors_1 = require("../../../../common/src/colors");
-
 var header_1 = require("../../style/header");
 
 var spacer_1 = require("../../style/spacer");
@@ -52766,161 +52812,127 @@ var styled_1 = require("../../style/styled");
 
 var text_1 = require("../../style/text");
 
-var Link_1 = require("../nav/Link");
-
 var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 
 function LecturesPage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Lectures"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(header_1.H2, null, "My Itineraries"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.IntroText, null, "Lecture slides and code will be posted regularly. Schedule subject to change."), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+  }), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h4: true
-  }), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 1",
-    title: "Course intro",
-    href: "#",
-    description: "Course overview. Demo: how a web app fails."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 6",
-    title: "HTTP, HTML, CSS",
-    href: "#",
-    description: "HTTP protocol in depth. Demo: building on the web with HTML and CSS.",
-    requiredReading: [{
-      title: 'High Performance Browser Networking, chapter 1',
-      href: 'https://hpbn.co/primer-on-latency-and-bandwidth/'
+  }), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(Itinerary, {
+    title: "Trip 1 Sample Itinerary",
+    days: [{
+      name: "Day 1",
+      schedule: [{
+        name: "UCLA",
+        coordinates: "34.0689° N, 118.4452° W",
+        departure: "9:00 AM"
+      }, {
+        name: "Bus",
+        duration: "80 minutes",
+        cost: "$3.25"
+      }]
     }, {
-      title: 'High Performance Browser Networking, chapter 2',
-      href: 'https://hpbn.co/building-blocks-of-tcp/'
+      name: "Day 2",
+      schedule: [{
+        name: "UCB",
+        coordinates: "34.0689° N, 118.4452° W",
+        departure: "9:00 AM"
+      }, {
+        name: "Bus",
+        duration: "80 minutes",
+        cost: "$3.25"
+      }]
     }]
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 8",
-    title: "Shipping software in real life",
-    href: "#",
-    description: "Working with other people & shipping like a pro. Demo: `git` and CI/CD."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 13",
-    title: "Application server architecture",
-    href: "#",
-    description: "Building an efficient appserver. Demo: survey of appservers."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 15",
-    title: "Vertical and horizontal scaling",
-    href: "#",
-    description: "Using bigger and more appservers. Demo: scaling the course website."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 20",
-    title: "High availability, AWS",
-    href: "#",
-    description: "Making sure your server is always online. Demo: using Amazon Web Services."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 22",
-    title: "Server and client side caching",
-    href: "#",
-    description: "Caching data on the server and client. Demo: adding caching to the course website."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Oct 27",
-    title: "Load testing",
-    href: "#",
-    description: "Writing load tests. Demo: load testing the course website."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Oct 29",
-    title: "Scaling relational databases",
-    href: "#",
-    description: "Using sharding, services, and read-slaves to scale MySQL. Demo: scaling RDS."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 3",
-    title: "Beyond relational databases",
-    href: "#",
-    description: "Scaling databases without SQL. Demo: survey of NoSQL databases."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 5",
-    title: "Client-side rendering",
-    href: "#",
-    description: "Drawing HTML in the browser. Demo: survey of client-side rendering."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 10",
-    title: "API design, GraphQL",
-    href: "#",
-    description: "Designing an API. Demo: course website interactive GraphQL explorer."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 12",
-    title: "Serverless computing",
-    href: "#",
-    description: "Scaling code without servers. Demo: Firebase, AWS Lambda."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 17",
-    title: "Monitoring and observability",
-    href: "#",
-    description: "Measuring how your server is working. Demo: using Honeycomb."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 19",
-    title: "Microservices, containers, and Kubernetes",
-    href: "#",
-    description: "Decomposing and deploying services with Docker and Kubernetes. Demo: inside a Kubernetes cluster."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Nov 24",
-    title: "Intelligent systems",
-    href: "#",
-    description: "Using ML in your internet service. Guest lecture: Andrew Mutz."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Nov 26",
-    title: "Thanksgiving (no lecture)"
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Dec 1",
-    title: "Fetching data, publishing data",
-    href: "#",
-    description: "Updating your app with new data in real time. Demo: polling, GraphQL subscriptions."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Dec 3",
-    title: "High performance networking",
-    href: "#",
-    description: "Using HTTP/2, CDNs, and edge computing. Demo: Next.js, Netlify."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Tue Dec 8",
-    title: "Course conclusion",
-    href: "#",
-    description: "Reviewing the scaling toolset."
-  }), /*#__PURE__*/React.createElement(Lecture, {
-    day: "Thu Dec 10",
-    title: "Project Presentations"
-  })))));
+  }))));
 }
 
 exports.LecturesPage = LecturesPage;
 
-function Lecture(props) {
-  return /*#__PURE__*/React.createElement(TR, null, /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement(TD, null, props.day), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement("b", null, props.href ? /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: props.href
-  }, props.title) : props.title), props.description && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+function Itinerary(props) {
+  return /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement(TR, null, /*#__PURE__*/React.createElement(TD_1, null, props.title), props.days && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h2: true
-  }), /*#__PURE__*/React.createElement("i", null, props.description)), props.requiredReading && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement("b", null, "Reading"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h2: true
-  }), /*#__PURE__*/React.createElement("ul", {
-    className: "ml4"
-  }, props.requiredReading.map(function (rr, i) {
-    return /*#__PURE__*/React.createElement("li", {
-      key: i
-    }, /*#__PURE__*/React.createElement(Link_1.Link, {
-      href: rr.href
-    }, rr.title));
-  }))))));
+  }), /*#__PURE__*/React.createElement(TD, null, props.days.map(function (rr, i) {
+    return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("b", null, "\u23F0 ", rr.name), rr.schedule.map(function (r2, j) {
+      return /*#__PURE__*/React.createElement("ul", {
+        key: j
+      }, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), /*#__PURE__*/React.createElement("b", null, "\uD83D\uDEA9 ", r2.name), r2.arrival && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Arrival: ", r2.arrival), r2.departure && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Departure: ", r2.departure), r2.duration && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Duration: ", r2.duration), r2.cost && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w2: true
+      }), "\uD83C\uDF0E  Cost: ", r2.cost), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w8: true
+      }), " ", /*#__PURE__*/React.createElement("b", null, " \u2B07\uFE0F")));
+    }));
+  })))));
+}
+/*interface RequiredReading {
+  title: string
+  href: string
 }
 
+function Lecture(props: {
+  day: string
+  title: string
+  description?: string
+  href?: string
+  requiredReading?: RequiredReading[]
+}) {
+  return (
+    <Table>
+      <BodyText>
+        <TD>{props.day}</TD>
+        <TD>
+          <b>{props.href ? <Link href={props.href}>{props.title}</Link> : props.title}</b>
+
+          {props.description && (
+            <>
+              <Spacer $h2 />
+              <i>{props.description}</i>
+            </>
+          )}
+          {props.requiredReading && (
+            <>
+              <Spacer $h4 />
+              <b>Reading</b>
+              <Spacer $h2 />
+              <ul className="ml4">
+                {props.requiredReading.map((rr, i) => (
+                  <li key={i}>
+                    <Link href={rr.href}>{rr.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </TD>
+      </BodyText>
+    </Table>
+  )
+}*/
+
+
 var Table = styled_1.style('table', 'w-100 ba b--black');
-var Section = styled_1.style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', function (p) {
-  return {
-    borderLeftColor: colors_1.Colors[p.$color || 'lemon'] + '!important',
-    borderLeftWidth: '3px'
-  };
-});
+/*const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+  borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
+  borderLeftWidth: '3px',
+}))*/
+
 var TR = styled_1.style('tr', 'ba b--black');
 var TD = styled_1.style('td', 'mid-gray pa3 v-mid', {
   minWidth: '7em'
 });
-},{"react":"../../node_modules/react/index.js","../../../../common/src/colors":"../../common/src/colors.ts","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","../nav/Link":"view/nav/Link.tsx","./Page":"view/page/Page.tsx"}],"../../common/src/util.ts":[function(require,module,exports) {
+var TD_1 = styled_1.style('td', 'dark-blue pa3 v-mid', {
+  minWidth: '7em'
+});
+},{"react":"../../node_modules/react/index.js","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","./Page":"view/page/Page.tsx"}],"../../common/src/util.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53196,6 +53208,149 @@ var __importStar = this && this.__importStar || function (mod) {
   return result;
 };
 
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -53249,6 +53404,8 @@ function Login() {
   }, [password]);
 
   function login() {
+    var _this = this;
+
     if (!validate(email, password, setError)) {
       toast_1.toastErr('invalid email/password');
       return;
@@ -53264,10 +53421,39 @@ function Login() {
         password: password
       })
     }).then(function (res) {
-      util_1.check(res.ok, 'response status ' + res.status);
-      return res.text();
-    }).then(function () {
-      return window.location.reload();
+      return __awaiter(_this, void 0, void 0, function () {
+        var _a;
+
+        return __generator(this, function (_b) {
+          switch (_b.label) {
+            case 0:
+              if (!(res.status == 200)) return [3
+              /*break*/
+              , 1];
+              util_1.check(res.ok, 'response status ' + res.status);
+              return [2
+              /*return*/
+              , true];
+
+            case 1:
+              _a = toast_1.toastErr;
+              return [4
+              /*yield*/
+              , res.text()];
+
+            case 2:
+              _a.apply(void 0, [_b.sent()]);
+
+              return [2
+              /*return*/
+              , false];
+          }
+        });
+      });
+    }).then(function (bool) {
+      if (bool) {
+        window.location.reload();
+      }
     }).catch(function (err) {
       toast_1.toastErr(err.toString());
       setError({
@@ -53275,7 +53461,8 @@ function Login() {
         password: true
       });
     });
-  }
+  } // Why execute twice?
+
 
   if (user) {
     return /*#__PURE__*/React.createElement(Logout, null);
@@ -53307,14 +53494,25 @@ function Login() {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: login
-  }, "Sign Up")));
+  }, "Sign In")));
 }
 
 exports.Login = Login;
 
 function Logout() {
+  var _a = react_1.useState({}),
+      userInfo = _a[0],
+      setUserInfo = _a[1]; //const { user } = useContext(UserContext)
+
+
+  fetch('/currUser').then(function (res) {
+    return res.json();
+  }).then(function (json) {
+    return setUserInfo(json);
+  }).catch(error_1.handleError);
+
   function logout() {
-    return fetch('/auth/logout', {
+    fetch('/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -53327,9 +53525,13 @@ function Logout() {
 
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
     $h5: true
-  }), /*#__PURE__*/React.createElement(button_1.Button, {
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout
-  }, "Logout"));
+  }, "Logout")));
 }
 
 function validateEmail(email) {
@@ -53347,87 +53549,24 @@ function validate(email, password, setError) {
   });
   return validEmail && validPassword;
 }
-},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/playground/fetchSurveys.ts":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/auth/Signup.tsx":[function(require,module,exports) {
 "use strict";
 
-var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
-  if (Object.defineProperty) {
-    Object.defineProperty(cooked, "raw", {
-      value: raw
-    });
-  } else {
-    cooked.raw = raw;
-  }
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
 
-  return cooked;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.fetchSurvey = exports.subscribeSurveys = exports.fetchSurveys = exports.fragmentSurveyQuestion = exports.fragmentSurvey = void 0;
-
-var client_1 = require("@apollo/client");
-
-exports.fragmentSurvey = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  fragment Survey on Survey {\n    id\n    name\n    isStarted\n    isCompleted\n    currentQuestion {\n      ...SurveyQuestion\n    }\n  }\n"], ["\n  fragment Survey on Survey {\n    id\n    name\n    isStarted\n    isCompleted\n    currentQuestion {\n      ...SurveyQuestion\n    }\n  }\n"])));
-exports.fragmentSurveyQuestion = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  fragment SurveyQuestion on SurveyQuestion {\n    id\n    prompt\n    choices\n    answers {\n      answer\n    }\n  }\n"], ["\n  fragment SurveyQuestion on SurveyQuestion {\n    id\n    prompt\n    choices\n    answers {\n      answer\n    }\n  }\n"])));
-exports.fetchSurveys = client_1.gql(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  query FetchSurveys {\n    surveys {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  query FetchSurveys {\n    surveys {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), exports.fragmentSurvey, exports.fragmentSurveyQuestion);
-exports.subscribeSurveys = client_1.gql(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  subscription SurveySubscription($surveyId: Int!) {\n    surveyUpdates(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  subscription SurveySubscription($surveyId: Int!) {\n    surveyUpdates(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), exports.fragmentSurvey, exports.fragmentSurveyQuestion);
-exports.fetchSurvey = client_1.gql(templateObject_5 || (templateObject_5 = __makeTemplateObject(["\n  query FetchSurvey($surveyId: Int!) {\n    survey(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  query FetchSurvey($surveyId: Int!) {\n    survey(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), exports.fragmentSurvey, exports.fragmentSurveyQuestion);
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5;
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js"}],"view/playground/mutateSurveys.ts":[function(require,module,exports) {
-"use strict";
-
-var __makeTemplateObject = this && this.__makeTemplateObject || function (cooked, raw) {
-  if (Object.defineProperty) {
-    Object.defineProperty(cooked, "raw", {
-      value: raw
-    });
-  } else {
-    cooked.raw = raw;
-  }
-
-  return cooked;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.nextSurveyQuestion = exports.answerSurveyQuestion = void 0;
-
-var client_1 = require("@apollo/client");
-
-var apolloClient_1 = require("../../graphql/apolloClient");
-
-var fetchSurveys_1 = require("./fetchSurveys");
-
-var answerSurveyQuestionMutation = client_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  mutation AnswerSurveyQuestion($input: SurveyInput!) {\n    answerSurvey(input: $input)\n  }\n"], ["\n  mutation AnswerSurveyQuestion($input: SurveyInput!) {\n    answerSurvey(input: $input)\n  }\n"])));
-var nextSurveyQuestionMutation = client_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  mutation NextSurveyQuestion($surveyId: Int!) {\n    nextSurveyQuestion(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"], ["\n  mutation NextSurveyQuestion($surveyId: Int!) {\n    nextSurveyQuestion(surveyId: $surveyId) {\n      ...Survey\n    }\n  }\n  ", "\n  ", "\n"])), fetchSurveys_1.fragmentSurvey, fetchSurveys_1.fragmentSurveyQuestion);
-
-function answerSurveyQuestion(client, input) {
-  return client.mutate({
-    mutation: answerSurveyQuestionMutation,
-    variables: {
-      input: input
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
     }
-  });
-}
 
-exports.answerSurveyQuestion = answerSurveyQuestion;
+    return t;
+  };
 
-function nextSurveyQuestion(surveyId) {
-  return apolloClient_1.getApolloClient().mutate({
-    mutation: nextSurveyQuestionMutation,
-    variables: {
-      surveyId: surveyId
-    }
-  });
-}
-
-exports.nextSurveyQuestion = nextSurveyQuestion;
-var templateObject_1, templateObject_2;
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js","../../graphql/apolloClient":"graphql/apolloClient.ts","./fetchSurveys":"view/playground/fetchSurveys.ts"}],"view/playground/Surveys.tsx":[function(require,module,exports) {
-"use strict";
+  return __assign.apply(this, arguments);
+};
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
   if (k2 === undefined) k2 = k;
@@ -53463,14 +53602,153 @@ var __importStar = this && this.__importStar || function (mod) {
   return result;
 };
 
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
+
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
+
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
+
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __generator = this && this.__generator || function (thisArg, body) {
+  var _ = {
+    label: 0,
+    sent: function sent() {
+      if (t[0] & 1) throw t[1];
+      return t[1];
+    },
+    trys: [],
+    ops: []
+  },
+      f,
+      y,
+      t,
+      g;
+  return g = {
+    next: verb(0),
+    "throw": verb(1),
+    "return": verb(2)
+  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
+    return this;
+  }), g;
+
+  function verb(n) {
+    return function (v) {
+      return step([n, v]);
+    };
+  }
+
+  function step(op) {
+    if (f) throw new TypeError("Generator is already executing.");
+
+    while (_) {
+      try {
+        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+        if (y = 0, t) op = [op[0] & 2, t.value];
+
+        switch (op[0]) {
+          case 0:
+          case 1:
+            t = op;
+            break;
+
+          case 4:
+            _.label++;
+            return {
+              value: op[1],
+              done: false
+            };
+
+          case 5:
+            _.label++;
+            y = op[1];
+            op = [0];
+            continue;
+
+          case 7:
+            op = _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+
+          default:
+            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+              _ = 0;
+              continue;
+            }
+
+            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+              _.label = op[1];
+              break;
+            }
+
+            if (op[0] === 6 && _.label < t[1]) {
+              _.label = t[1];
+              t = op;
+              break;
+            }
+
+            if (t && _.label < t[2]) {
+              _.label = t[2];
+
+              _.ops.push(op);
+
+              break;
+            }
+
+            if (t[2]) _.ops.pop();
+
+            _.trys.pop();
+
+            continue;
+        }
+
+        op = body.call(thisArg, _);
+      } catch (e) {
+        op = [6, e];
+        y = 0;
+      } finally {
+        f = t = 0;
+      }
+    }
+
+    if (op[0] & 5) throw op[1];
+    return {
+      value: op[0] ? op[1] : void 0,
+      done: true
+    };
+  }
+};
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Survey = exports.Surveys = void 0;
-
-var client_1 = require("@apollo/client");
-
-var router_1 = require("@reach/router");
+exports.Signup = void 0;
 
 var React = __importStar(require("react"));
 
@@ -53478,305 +53756,198 @@ var react_1 = require("react");
 
 var util_1 = require("../../../../common/src/util");
 
-var apolloClient_1 = require("../../graphql/apolloClient");
-
 var button_1 = require("../../style/button");
-
-var header_1 = require("../../style/header");
 
 var input_1 = require("../../style/input");
 
 var spacer_1 = require("../../style/spacer");
 
-var text_1 = require("../../style/text");
-
-var user_1 = require("../auth/user");
-
-var Link_1 = require("../nav/Link");
-
-var route_1 = require("../nav/route");
-
 var error_1 = require("../toast/error");
 
 var toast_1 = require("../toast/toast");
 
-var fetchSurveys_1 = require("./fetchSurveys");
+var user_1 = require("./user");
 
-var mutateSurveys_1 = require("./mutateSurveys");
+function Signup() {
+  var _a = react_1.useState(''),
+      email = _a[0],
+      setEmail = _a[1];
 
-function Surveys() {
-  var location = router_1.useLocation();
+  var _b = react_1.useState(''),
+      password = _b[0],
+      setPassword = _b[1];
 
-  var _a = (location.search || '').split('?surveyId='),
-      surveyId = _a[1];
-
-  return surveyId ? /*#__PURE__*/React.createElement(Survey, {
-    surveyId: Number(surveyId)
-  }) : /*#__PURE__*/React.createElement(SurveyList, null);
-}
-
-exports.Surveys = Surveys;
-
-function SurveyList() {
-  var _a = client_1.useQuery(fetchSurveys_1.fetchSurveys),
-      loading = _a.loading,
-      data = _a.data;
-
-  if (loading) {
-    return /*#__PURE__*/React.createElement("div", null, "loading...");
-  }
-
-  if (!data || data.surveys.length === 0) {
-    return /*#__PURE__*/React.createElement("div", null, "no surveys");
-  }
-
-  return /*#__PURE__*/React.createElement("div", {
-    className: "mw6"
-  }, data.surveys.map(function (s, i) {
-    return /*#__PURE__*/React.createElement("div", {
-      key: i,
-      className: "pa3 br2 mb2 bg-black-10 flex items-center"
-    }, /*#__PURE__*/React.createElement(HeaderLink, {
-      className: "link dim pointer",
-      $color: "sky",
-      to: route_1.getSurveyPath(s.id)
-    }, s.name), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-      $w5: true
-    }), /*#__PURE__*/React.createElement(text_1.BodyText, {
-      $color: s.isStarted && !s.isCompleted ? 'coral' : undefined
-    }, surveyLabel(s)));
-  }));
-}
-
-var HeaderLink = Link_1.link(header_1.H2);
-
-function Survey(_a) {
-  var _b;
-
-  var surveyId = _a.surveyId;
-  var user = react_1.useContext(user_1.UserContext);
-
-  var _c = client_1.useQuery(fetchSurveys_1.fetchSurvey, {
-    variables: {
-      surveyId: surveyId
-    }
+  var _c = react_1.useState({
+    email: false,
+    password: false
   }),
-      loading = _c.loading,
-      data = _c.data,
-      refetch = _c.refetch;
+      err = _c[0],
+      setError = _c[1];
 
-  var _d = react_1.useState((_b = data === null || data === void 0 ? void 0 : data.survey) === null || _b === void 0 ? void 0 : _b.currentQuestion),
-      currQuestion = _d[0],
-      setCurrQuestion = _d[1];
+  var user = react_1.useContext(user_1.UserContext).user; // reset error when email/password change
 
   react_1.useEffect(function () {
-    var _a;
-
-    setCurrQuestion((_a = data === null || data === void 0 ? void 0 : data.survey) === null || _a === void 0 ? void 0 : _a.currentQuestion);
-  }, [data]);
-  var sub = client_1.useSubscription(fetchSurveys_1.subscribeSurveys, {
-    variables: {
-      surveyId: surveyId
-    }
-  });
+    return setError(__assign(__assign({}, err), {
+      email: !validateEmail(email)
+    }));
+  }, [email]);
   react_1.useEffect(function () {
-    var _a;
+    return setError(__assign(__assign({}, err), {
+      password: false
+    }));
+  }, [password]);
 
-    if ((_a = sub.data) === null || _a === void 0 ? void 0 : _a.surveyUpdates) {
-      setCurrQuestion(sub.data.surveyUpdates.currentQuestion);
+  function login() {
+    var _this = this;
+
+    if (!validate(email, password, setError)) {
+      toast_1.toastErr('invalid email/password');
+      return;
     }
-  }, [sub.data]);
 
-  if (loading) {
-    return /*#__PURE__*/React.createElement("div", null, "loading...");
+    fetch('/auth/createUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password
+      })
+    }).then(function (res) {
+      return __awaiter(_this, void 0, void 0, function () {
+        var _a;
+
+        return __generator(this, function (_b) {
+          switch (_b.label) {
+            case 0:
+              if (!(res.status == 200)) return [3
+              /*break*/
+              , 1];
+              util_1.check(res.ok, 'response status ' + res.status);
+              return [2
+              /*return*/
+              , true];
+
+            case 1:
+              _a = toast_1.toastErr;
+              return [4
+              /*yield*/
+              , res.text()];
+
+            case 2:
+              _a.apply(void 0, [_b.sent()]);
+
+              return [2
+              /*return*/
+              , false];
+          }
+        });
+      });
+    }) //.then(() => window.location.replace('/'))
+    .then(function (bool) {
+      if (bool) {
+        window.location.reload();
+      }
+    }).catch(function (err) {
+      toast_1.toastErr(err.toString());
+      setError({
+        email: true,
+        password: true
+      });
+    });
   }
 
-  if (!data || !data.survey) {
-    return /*#__PURE__*/React.createElement("div", null, "no survey");
+  if (user) {
+    return /*#__PURE__*/React.createElement(Logout, null);
   }
 
-  function handleNextQuestion() {
-    mutateSurveys_1.nextSurveyQuestion(surveyId).then(function () {
-      return refetch();
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "db fw4 lh-copy f6",
+    htmlFor: "email"
+  }, "Email address"), /*#__PURE__*/React.createElement(input_1.Input, {
+    $hasError: err.email,
+    $onChange: setEmail,
+    $onSubmit: login,
+    name: "email",
+    type: "email"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "db fw4 lh-copy f6",
+    htmlFor: "password"
+  }, "Password"), /*#__PURE__*/React.createElement(input_1.Input, {
+    $hasError: err.password,
+    $onChange: setPassword,
+    $onSubmit: login,
+    name: "password"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement(button_1.Button, {
+    onClick: login
+  }, "Sign Up")));
+}
+
+exports.Signup = Signup;
+
+function Logout() {
+  var _a = react_1.useState({}),
+      userInfo = _a[0],
+      setUserInfo = _a[1];
+
+  fetch('/currUser').then(function (res) {
+    return res.json();
+  }).then(function (json) {
+    return setUserInfo(json);
+  }).catch(error_1.handleError);
+
+  function logout() {
+    return fetch('/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(function (res) {
+      util_1.check(res.ok, 'response status ' + res.status);
+      window.location.reload();
     }).catch(error_1.handleError);
   }
 
-  return /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-column mw6"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "flex items-center"
-  }, /*#__PURE__*/React.createElement(header_1.H1, null, data.survey.name), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $w4: true
-  }), user.isAdmin() && /*#__PURE__*/React.createElement(button_1.Button, {
-    onClick: handleNextQuestion
-  }, "Next")), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
-  }), currQuestion ? /*#__PURE__*/React.createElement(SurveyInput, {
-    currentQuestion: currQuestion
-  }) : /*#__PURE__*/React.createElement("div", null, surveyLabel(data.survey)), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
-  }), currQuestion && /*#__PURE__*/React.createElement(SurveyHistogram, {
-    answers: currQuestion.answers
-  }));
-}
-
-exports.Survey = Survey;
-
-function SurveyInput(props) {
-  var _a;
-
-  var question = props.currentQuestion;
-
-  var _b = react_1.useState({
-    submitting: false,
-    submitted: false
-  }),
-      _c = _b[0],
-      submitted = _c.submitted,
-      submitting = _c.submitting,
-      setSubmitted = _b[1];
-
-  react_1.useEffect(function () {
-    setSubmitted({
-      submitting: false,
-      submitted: false
-    });
-  }, [question.id]);
-
-  function handleSubmit(val) {
-    setSubmitted({
-      submitting: true,
-      submitted: false
-    });
-    mutateSurveys_1.answerSurveyQuestion(apolloClient_1.getApolloClient(), {
-      answer: val,
-      questionId: question.id
-    }).then(function () {
-      toast_1.toast('submitted!');
-      setSubmitted({
-        submitted: true,
-        submitting: false
-      });
-    }).catch(function (err) {
-      error_1.handleError(err);
-      setSubmitted({
-        submitted: false,
-        submitting: false
-      });
-    });
-  }
-
-  if (submitted) {
-    return null;
-  }
-
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", null, question.prompt), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+    $h5: true
   }), /*#__PURE__*/React.createElement("div", {
-    className: "flex flex-column"
-  }, (_a = question.choices) === null || _a === void 0 ? void 0 : _a.map(function (choice, i) {
-    return /*#__PURE__*/React.createElement(react_1.Fragment, {
-      key: i
-    }, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-      $h3: true
-    }), /*#__PURE__*/React.createElement(button_1.Button, {
-      $block: true,
-      onClick: function onClick() {
-        return handleSubmit(choice);
-      }
-    }, choice));
-  })), !question.choices && /*#__PURE__*/React.createElement(input_1.Input, {
-    disabled: submitting,
-    $onSubmit: handleSubmit
-  }));
+    className: "mt3"
+  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
+    className: "mt3"
+  }, /*#__PURE__*/React.createElement(button_1.Button, {
+    onClick: logout
+  }, "Logout")));
 }
 
-function SurveyHistogram(_a) {
-  var answers = _a.answers;
-  var answerBuckets = {};
-  answers.forEach(function (a) {
-    var norm = a.answer.toLowerCase().trim();
-    answerBuckets[norm] = answerBuckets[norm] || 0;
-    answerBuckets[norm]++;
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
+function validatePassword(password) {
+  // const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+  // return re.test(String(password).toLowerCase())
+  return true;
+}
+
+function validate(email, password, setError) {
+  var validEmail = validateEmail(email);
+  var validPassword = validatePassword(password);
+  console.log('valid', validEmail, validPassword);
+  setError({
+    email: !validEmail,
+    password: !validPassword
   });
-  var pairs = [];
-
-  for (var _i = 0, _b = Object.keys(answerBuckets); _i < _b.length; _i++) {
-    var answer = _b[_i];
-    pairs.push({
-      answer: answer,
-      count: answerBuckets[answer]
-    });
-  }
-
-  var sorted = pairs.sort(function (a, b) {
-    return b.count - a.count;
-  });
-
-  if (sorted.length === 0) {
-    return null;
-  }
-
-  return /*#__PURE__*/React.createElement("div", {
-    className: "flex"
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1
-    },
-    className: "tr"
-  }, sorted.map(function (pair, i) {
-    return /*#__PURE__*/React.createElement(text_1.SmallText, {
-      key: i,
-      $monospace: true
-    }, /*#__PURE__*/React.createElement(text_1.SmallText, {
-      title: pair.answer,
-      $monospace: true
-    }, util_1.strutil.truncate(pair.answer, 17)), new Array(Math.floor(pair.count / 15)).fill(' ').map(function (str, i) {
-      return /*#__PURE__*/React.createElement(text_1.SmallText, {
-        key: i
-      }, str);
-    }));
-  })), /*#__PURE__*/React.createElement("div", null, sorted.map(function (pair, i) {
-    return /*#__PURE__*/React.createElement(text_1.SmallText, {
-      key: i,
-      $monospace: true
-    }, new Array(Math.floor(pair.count / 15) + 1).fill(' ║ ').map(function (str, i) {
-      return /*#__PURE__*/React.createElement(text_1.SmallText, {
-        key: i
-      }, str);
-    }));
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1
-    }
-  }, sorted.map(function (pair, i) {
-    return /*#__PURE__*/React.createElement(text_1.SmallText, {
-      key: i,
-      $monospace: true
-    }, new Array(Math.floor(pair.count / 15)).fill(histBar(15)).map(function (str, i) {
-      return /*#__PURE__*/React.createElement(text_1.SmallText, {
-        key: i
-      }, str);
-    }), /*#__PURE__*/React.createElement(text_1.SmallText, null, histBar(pair.count % 15), " ", pair.count));
-  })));
+  return validEmail && validPassword;
 }
-
-function histBar(n) {
-  return new Array(Math.min(n, 15)).fill('=').join('');
-}
-
-function surveyLabel(s) {
-  if (s.isCompleted) {
-    return 'completed';
-  }
-
-  if (s.isStarted) {
-    return 'in progress';
-  }
-
-  return 'waiting to begin';
-}
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js","@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../graphql/apolloClient":"graphql/apolloClient.ts","../../style/button":"style/button.tsx","../../style/header":"style/header.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../../style/text":"style/text.tsx","../auth/user":"view/auth/user.ts","../nav/Link":"view/nav/Link.tsx","../nav/route":"view/nav/route.ts","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./fetchSurveys":"view/playground/fetchSurveys.ts","./mutateSurveys":"view/playground/mutateSurveys.ts"}],"view/page/PlaygroundPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/button":"style/button.tsx","../../style/input":"style/input.tsx","../../style/spacer":"style/spacer.tsx","../toast/error":"view/toast/error.ts","../toast/toast":"view/toast/toast.ts","./user":"view/auth/user.ts"}],"view/page/MyAccount.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -53822,9 +53993,9 @@ var React = __importStar(require("react"));
 
 var Login_1 = require("../auth/Login");
 
-var route_1 = require("../nav/route");
+var Signup_1 = require("../auth/Signup");
 
-var Surveys_1 = require("../playground/Surveys");
+var route_1 = require("../nav/route");
 
 var Page_1 = require("./Page");
 
@@ -53840,17 +54011,17 @@ function getPlaygroundApp(app) {
   }
 
   switch (app) {
-    case route_1.PlaygroundApp.SURVEYS:
-      return /*#__PURE__*/React.createElement(Surveys_1.Surveys, null);
-
     case route_1.PlaygroundApp.LOGIN:
       return /*#__PURE__*/React.createElement(Login_1.Login, null);
+
+    case route_1.PlaygroundApp.SIGNUP:
+      return /*#__PURE__*/React.createElement(Signup_1.Signup, null);
 
     default:
       throw new Error('no app found');
   }
 }
-},{"react":"../../node_modules/react/index.js","../auth/Login":"view/auth/Login.tsx","../nav/route":"view/nav/route.ts","../playground/Surveys":"view/playground/Surveys.tsx","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../auth/Login":"view/auth/Login.tsx","../auth/Signup":"view/auth/Signup.tsx","../nav/route":"view/nav/route.ts","./Page":"view/page/Page.tsx"}],"view/page/ProjectsPage.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -55720,7 +55891,7 @@ var HomePage_1 = require("./page/HomePage");
 
 var LecturesPage_1 = require("./page/LecturesPage");
 
-var PlaygroundPage_1 = require("./page/PlaygroundPage");
+var MyAccount_1 = require("./page/MyAccount");
 
 var ProjectsPage_1 = require("./page/ProjectsPage");
 
@@ -55766,16 +55937,16 @@ function AppBody() {
   }), /*#__PURE__*/React.createElement(router_1.Redirect, {
     noThrow: true,
     from: "app/playground",
-    to: "surveys"
+    to: "login"
   }), /*#__PURE__*/React.createElement(HomePage_1.HomePage, {
     path: route_1.Route.HOME
   }), /*#__PURE__*/React.createElement(LecturesPage_1.LecturesPage, {
     path: route_1.Route.LECTURES
   }), /*#__PURE__*/React.createElement(ProjectsPage_1.ProjectsPage, {
     path: route_1.Route.PROJECTS
-  }), /*#__PURE__*/React.createElement(PlaygroundPage_1.PlaygroundPage, {
+  }), /*#__PURE__*/React.createElement(MyAccount_1.PlaygroundPage, {
     path: route_1.Route.PLAYGROUND
-  }), /*#__PURE__*/React.createElement(PlaygroundPage_1.PlaygroundPage, {
+  }), /*#__PURE__*/React.createElement(MyAccount_1.PlaygroundPage, {
     path: route_1.Route.PLAYGROUND_APP
   })), /*#__PURE__*/React.createElement(Footer, null, /*#__PURE__*/React.createElement(FooterText, null, "\xA9 2020 John Rothfels")));
 }
@@ -55787,7 +55958,7 @@ var FooterText = styled_1.style('small', 'mid-gray avenir', {
   margin: 'auto',
   opacity: '0.2'
 });
-},{"@apollo/client":"../../node_modules/@apollo/client/index.js","@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","styletron-react":"../../node_modules/styletron-react/dist/browser.es5.es.js","../../../common/src/context":"../../common/src/context.ts","../graphql/apolloClient":"graphql/apolloClient.ts","../style/styled":"style/styled.tsx","./auth/fetchUser":"view/auth/fetchUser.tsx","./auth/user":"view/auth/user.ts","./nav/route":"view/nav/route.ts","./page/HomePage":"view/page/HomePage.tsx","./page/LecturesPage":"view/page/LecturesPage.tsx","./page/PlaygroundPage":"view/page/PlaygroundPage.tsx","./page/ProjectsPage":"view/page/ProjectsPage.tsx","styletron-engine-monolithic":"../../node_modules/styletron-engine-monolithic/dist/browser.es5.es.js"}],"bundle.ts":[function(require,module,exports) {
+},{"@apollo/client":"../../node_modules/@apollo/client/index.js","@reach/router":"../../node_modules/@reach/router/es/index.js","react":"../../node_modules/react/index.js","react-dom":"../../node_modules/react-dom/index.js","styletron-react":"../../node_modules/styletron-react/dist/browser.es5.es.js","../../../common/src/context":"../../common/src/context.ts","../graphql/apolloClient":"graphql/apolloClient.ts","../style/styled":"style/styled.tsx","./auth/fetchUser":"view/auth/fetchUser.tsx","./auth/user":"view/auth/user.ts","./nav/route":"view/nav/route.ts","./page/HomePage":"view/page/HomePage.tsx","./page/LecturesPage":"view/page/LecturesPage.tsx","./page/MyAccount":"view/page/MyAccount.tsx","./page/ProjectsPage":"view/page/ProjectsPage.tsx","styletron-engine-monolithic":"../../node_modules/styletron-engine-monolithic/dist/browser.es5.es.js"}],"bundle.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
