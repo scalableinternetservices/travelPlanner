@@ -54394,183 +54394,292 @@ exports.ProjectsPage = void 0;
 
 var React = __importStar(require("react"));
 
-var colors_1 = require("../../../../common/src/colors");
-
-var header_1 = require("../../style/header");
-
 var spacer_1 = require("../../style/spacer");
-
-var styled_1 = require("../../style/styled");
-
-var text_1 = require("../../style/text");
-
-var Link_1 = require("../nav/Link");
-
-var route_1 = require("../nav/route");
 
 var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 
 function ProjectsPage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Section, null, /*#__PURE__*/React.createElement(ProjectOverview, null), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h5: true
-  }), /*#__PURE__*/React.createElement(ProjectRequirements, null), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h5: true
-  }), /*#__PURE__*/React.createElement(ProjectIdeas, null), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h5: true
-  }), /*#__PURE__*/React.createElement(SprintSchedule, null)));
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Reviews, null));
 }
 
 exports.ProjectsPage = ProjectsPage;
 
-function ProjectOverview() {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Course Project"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, "The goal of the course project is to gain hands-on experience building and deploying a scalable web service on the internet. This is a \"learn by doing\" course so we'll spend time in lectures and lab sessions building features, watching them fail at scale, and then fixing them. \uD83D\uDE09"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, "This class website is built on the framework you'll use for your project. During lectures we'll add new features to the ", /*#__PURE__*/React.createElement(Link_1.Link, {
-    to: route_1.getPlaygroundPath()
-  }, "playground"), ". The website source code is located", ' ', /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://github.com/scalableinternetservices/cs188"
-  }, "here"), "."));
+function Reviews() {
+  var itineraries = getItineraries();
+  var ret = [];
+
+  for (var _i = 0, itineraries_1 = itineraries; _i < itineraries_1.length; _i++) {
+    var itinerary = itineraries_1[_i];
+    ret.push(itinerary.transform());
+  }
+
+  return /*#__PURE__*/React.createElement("div", null, ret);
+}
+
+function getItineraries() {
+  // once database is ready, change to pulling from database
+  var placeholder = new Itinerary('joebruin', [['Santa Monica, Venice'], ['LACMA'], ['Hollywood, Griffith Park'], ['Staples Center, Little Tokyo']]);
+  var ret = [];
+
+  for (var i = 0; i < 20; i++) {
+    ret.push(placeholder);
+  }
+
+  return ret;
+}
+
+var Itinerary =
+/** @class */
+function () {
+  function Itinerary(user, schedule) {
+    this.user = user;
+    this.schedule = schedule;
+  }
+
+  Itinerary.prototype.transform = function () {
+    var days = [];
+
+    for (var dayIndex in this.schedule) {
+      var day = '';
+      var dayInput = this.schedule[dayIndex];
+
+      for (var location in dayInput) {
+        if (Number(location) < dayInput.length - 1) {
+          day += dayInput[location] + ', ';
+        } else {
+          day += dayInput[location];
+        }
+      }
+
+      days.push( /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", null, "Day ", Number(dayIndex) + 1), /*#__PURE__*/React.createElement("p", null, day)), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+        $w5: true
+      })));
+    }
+
+    return /*#__PURE__*/React.createElement("div", {
+      className: "mw6"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "pa3 br2 mb2 bg-black-10 flex items-center"
+    }, /*#__PURE__*/React.createElement("h2", null, this.user), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
+      $w5: true
+    }), days));
+  };
+
+  return Itinerary;
+}();
+/*function ProjectOverview() {
+  return (
+    <>
+      <H2>Course Project</H2>
+      <Spacer $h4 />
+      <BodyText>
+        The goal of the course project is to gain hands-on experience building and deploying a scalable web service on
+        the internet. This is a "learn by doing" course so we'll spend time in lectures and lab sessions building
+        features, watching them fail at scale, and then fixing them. 😉
+      </BodyText>
+      <Spacer $h4 />
+      <BodyText>
+        This class website is built on the framework you'll use for your project. During lectures we'll add new features
+        to the <Link to={getPlaygroundPath()}>playground</Link>. The website source code is located{' '}
+        <Link href="https://github.com/scalableinternetservices/cs188">here</Link>.
+      </BodyText>
+    </>
+  )
 }
 
 function ProjectRequirements() {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Project Requirements"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("ul", {
-    className: "pl4"
-  }, /*#__PURE__*/React.createElement("li", null, "Must be deployable (and load-testable) web applications of non-trivial complexity"), /*#__PURE__*/React.createElement("li", null, "Must be developed in teams of 4"), /*#__PURE__*/React.createElement("li", null, "Must use the class project framework located ", /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://github.com/rothfels/bespin"
-  }, "here")), /*#__PURE__*/React.createElement("li", null, "Must use TypeScript (or JavaScript)"), /*#__PURE__*/React.createElement("li", null, "Must use at least 4 MySQL tables"), /*#__PURE__*/React.createElement("li", null, "Must use at least 2 ", /*#__PURE__*/React.createElement("code", null, "JOIN"), " relations"), /*#__PURE__*/React.createElement("li", null, "Must use at least 1 \"background\" process running regardless of user activity"))));
+  return (
+    <>
+      <H2>Project Requirements</H2>
+      <Spacer $h4 />
+      <BodyText>
+        <ul className="pl4">
+          <li>Must be deployable (and load-testable) web applications of non-trivial complexity</li>
+          <li>Must be developed in teams of 4</li>
+          <li>
+            Must use the class project framework located <Link href="https://github.com/rothfels/bespin">here</Link>
+          </li>
+          <li>Must use TypeScript (or JavaScript)</li>
+          <li>Must use at least 4 MySQL tables</li>
+          <li>
+            Must use at least 2 <code>JOIN</code> relations
+          </li>
+          <li>Must use at least 1 "background" process running regardless of user activity</li>
+        </ul>
+      </BodyText>
+    </>
+  )
 }
 
 function ProjectIdeas() {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Project Ideas"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("ul", {
-    className: "pl4"
-  }, /*#__PURE__*/React.createElement("li", null, "Implement some portion of one of the YCombinator", ' ', /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://www.ycombinator.com/rfs/"
-  }, "\"Startup ideas we would like to fund\"")), /*#__PURE__*/React.createElement("li", null, "Build something around a large dataset. Use data from e.g.", ' ', /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://www.data.gov/"
-  }, "data.gov"), " or", ' ', /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://registry.opendata.aws/"
-  }, "Amazon's public datasets"), "."), /*#__PURE__*/React.createElement("li", null, "Build something for the government. See the", ' ', /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: "https://sunlightfoundation.com/our-work/"
-  }, "Sunlight Foundation"), " for ideas."), /*#__PURE__*/React.createElement("li", null, "Build something around public APIs. For example, the ", /*#__PURE__*/React.createElement(Link_1.Link, {
-    href: ""
-  }, "New York Times Developer API"), " has APIs covering geography, movie reviews, and more."), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("i", null, '<your idea here>')))));
+  return (
+    <>
+      <H2>Project Ideas</H2>
+      <Spacer $h4 />
+      <BodyText>
+        <ul className="pl4">
+          <li>
+            Implement some portion of one of the YCombinator{' '}
+            <Link href="https://www.ycombinator.com/rfs/">"Startup ideas we would like to fund"</Link>
+          </li>
+          <li>
+            Build something around a large dataset. Use data from e.g.{' '}
+            <Link href="https://www.data.gov/">data.gov</Link> or{' '}
+            <Link href="https://registry.opendata.aws/">Amazon's public datasets</Link>.
+          </li>
+          <li>
+            Build something for the government. See the{' '}
+            <Link href="https://sunlightfoundation.com/our-work/">Sunlight Foundation</Link> for ideas.
+          </li>
+          <li>
+            Build something around public APIs. For example, the <Link href="">New York Times Developer API</Link> has
+            APIs covering geography, movie reviews, and more.
+          </li>
+          <li>
+            <i>{'<your idea here>'}</i>
+          </li>
+        </ul>
+      </BodyText>
+    </>
+  )
 }
 
 function SprintSchedule() {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(header_1.H2, null, "Sprint Schedule"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement("colgroup", null, /*#__PURE__*/React.createElement("col", {
-    span: 1,
-    style: {
-      width: '15%'
-    }
-  }), /*#__PURE__*/React.createElement("col", {
-    span: 1,
-    style: {
-      width: '85%'
-    }
-  })), /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Oct 2",
-    title: "Setup dev environment",
-    checklistFull: [{
-      name: 'follow Quickstart section until you have a running dev server',
-      href: 'https://github.com/rothfels/bespin#quickstart'
-    }, {
-      name: 'learn TypeScript',
-      href: 'https://www.typescriptlang.org/docs/handbook/intro.html'
-    }, {
-      name: 'learn React',
-      href: 'https://reactjs.org/tutorial/tutorial.html'
-    }, {
-      name: 'write a React component in TypeScript / Storybook',
-      href: 'https://github.com/rothfels/bespin#run-react-storybook'
-    }]
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Oct 9",
-    title: "Plan project",
-    checklist: ['find project team', 'choose project and get approved by professor and TA', 'start writing stories for your project in GitHub issues']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Oct 16",
-    title: "Write features",
-    checklist: ['implement user stories']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Oct 23",
-    title: "Write features",
-    checklist: ['implement user stories']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Oct 30",
-    title: "Write features, write a load test",
-    checklist: ['write a load test user script', 'setup honeycomb project', 'run load test against local dev server', 'verify results in honeycomb', 'implement more user stories']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Nov 6",
-    title: "Deploy code on AWS, run load test",
-    checklist: ['run terraform', 'run load test against AWS resources', 'delete terraform resources']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Nov 13",
-    title: "Deploy code on AWS, try different scaling configurations",
-    checklist: ['run terraform', 'run load test against AWS resources', 'delete terraform resources']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Nov 20",
-    title: "Deploy code on AWS, try different scaling configurations",
-    checklist: ['run terraform', 'run load test against AWS resources', 'delete terraform resources']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Nov 27",
-    title: "Thanksgiving (no lab)"
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Dec 4",
-    title: "Deploy code on AWS, try different scaling configurations",
-    checklist: ['run terraform', 'run load test against AWS resources', 'delete terraform resources']
-  }), /*#__PURE__*/React.createElement(Sprint, {
-    day: "Fri Dec 11",
-    title: "Project presentations"
-  }))));
+  return (
+    <>
+      <H2>Sprint Schedule</H2>
+      <Spacer $h4 />
+      <Table>
+        <colgroup>
+          <col span={1} style={{ width: '15%' }} />
+          <col span={1} style={{ width: '85%' }} />
+        </colgroup>
+        <tbody>
+          <Sprint
+            day="Fri Oct 2"
+            title="Setup dev environment"
+            checklistFull={[
+              {
+                name: 'follow Quickstart section until you have a running dev server',
+                href: 'https://github.com/rothfels/bespin#quickstart',
+              },
+              {
+                name: 'learn TypeScript',
+                href: 'https://www.typescriptlang.org/docs/handbook/intro.html',
+              },
+              {
+                name: 'learn React',
+                href: 'https://reactjs.org/tutorial/tutorial.html',
+              },
+              {
+                name: 'write a React component in TypeScript / Storybook',
+                href: 'https://github.com/rothfels/bespin#run-react-storybook',
+              },
+            ]}
+          />
+          <Sprint
+            day="Fri Oct 9"
+            title="Plan project"
+            checklist={[
+              'find project team',
+              'choose project and get approved by professor and TA',
+              'start writing stories for your project in GitHub issues',
+            ]}
+          />
+          <Sprint day="Fri Oct 16" title="Write features" checklist={['implement user stories']} />
+          <Sprint day="Fri Oct 23" title="Write features" checklist={['implement user stories']} />
+          <Sprint
+            day="Fri Oct 30"
+            title="Write features, write a load test"
+            checklist={[
+              'write a load test user script',
+              'setup honeycomb project',
+              'run load test against local dev server',
+              'verify results in honeycomb',
+              'implement more user stories',
+            ]}
+          />
+          <Sprint
+            day="Fri Nov 6"
+            title="Deploy code on AWS, run load test"
+            checklist={['run terraform', 'run load test against AWS resources', 'delete terraform resources']}
+          />
+          <Sprint
+            day="Fri Nov 13"
+            title="Deploy code on AWS, try different scaling configurations"
+            checklist={['run terraform', 'run load test against AWS resources', 'delete terraform resources']}
+          />
+          <Sprint
+            day="Fri Nov 20"
+            title="Deploy code on AWS, try different scaling configurations"
+            checklist={['run terraform', 'run load test against AWS resources', 'delete terraform resources']}
+          />
+          <Sprint day="Fri Nov 27" title="Thanksgiving (no lab)" />
+          <Sprint
+            day="Fri Dec 4"
+            title="Deploy code on AWS, try different scaling configurations"
+            checklist={['run terraform', 'run load test against AWS resources', 'delete terraform resources']}
+          />
+          <Sprint day="Fri Dec 11" title="Project presentations" />
+        </tbody>
+      </Table>
+    </>
+  )
 }
 
-function Sprint(props) {
-  return /*#__PURE__*/React.createElement(TR, null, /*#__PURE__*/React.createElement(TD, {
-    style: {
-      textAlign: 'center'
-    }
-  }, /*#__PURE__*/React.createElement(text_1.BodyText, null, props.day)), /*#__PURE__*/React.createElement(TD, null, /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement("b", null, props.title), props.checklist && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
-  }), /*#__PURE__*/React.createElement("ul", {
-    className: "pl4"
-  }, props.checklist.map(function (str, i) {
-    return /*#__PURE__*/React.createElement("li", {
-      key: i
-    }, str);
-  }))), props.checklistFull && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h3: true
-  }), /*#__PURE__*/React.createElement("ul", {
-    className: "pl4"
-  }, props.checklistFull.map(function (item, i) {
-    return /*#__PURE__*/React.createElement("li", {
-      key: i
-    }, item.href ? /*#__PURE__*/React.createElement(Link_1.Link, {
-      href: item.href
-    }, item.name) : item.name);
-  }))))));
+interface ChecklistItem {
+  name: string
+  href?: string
 }
 
-var Table = styled_1.style('table', 'w-100 ba b--black');
-var Section = styled_1.style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', function (p) {
-  return {
-    borderLeftColor: colors_1.Colors[p.$color || 'lemon'] + '!important',
-    borderLeftWidth: '3px'
-  };
-});
-var TR = styled_1.style('tr', 'ba b--black');
-var TD = styled_1.style('td', 'mid-gray pa3 v-mid', {
-  minWidth: '7em'
-});
-},{"react":"../../node_modules/react/index.js","../../../../common/src/colors":"../../common/src/colors.ts","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","../nav/Link":"view/nav/Link.tsx","../nav/route":"view/nav/route.ts","./Page":"view/page/Page.tsx"}],"../../node_modules/inline-style-prefixer/es/utils/capitalizeString.js":[function(require,module,exports) {
+function Sprint(props: { day: string; title: string; checklist?: string[]; checklistFull?: ChecklistItem[] }) {
+  return (
+    <TR>
+      <TD style={{ textAlign: 'center' }}>
+        <BodyText>{props.day}</BodyText>
+      </TD>
+      <TD>
+        <BodyText>
+          <b>{props.title}</b>
+          {props.checklist && (
+            <>
+              <Spacer $h3 />
+              <ul className="pl4">
+                {props.checklist.map((str, i) => (
+                  <li key={i}>{str}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          {props.checklistFull && (
+            <>
+              <Spacer $h3 />
+              <ul className="pl4">
+                {props.checklistFull.map((item, i) => (
+                  <li key={i}>{item.href ? <Link href={item.href}>{item.name}</Link> : item.name}</li>
+                ))}
+              </ul>
+            </>
+          )}
+        </BodyText>
+      </TD>
+    </TR>
+  )
+}
+
+const Table = style('table', 'w-100 ba b--black')
+
+const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+  borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
+  borderLeftWidth: '3px',
+}))
+
+const TR = style('tr', 'ba b--black')
+
+const TD = style('td', 'mid-gray pa3 v-mid', { minWidth: '7em' })
+*/
+},{"react":"../../node_modules/react/index.js","../../style/spacer":"style/spacer.tsx","./Page":"view/page/Page.tsx"}],"../../node_modules/inline-style-prefixer/es/utils/capitalizeString.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
