@@ -52377,7 +52377,7 @@ var __importStar = this && this.__importStar || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.HomePage = void 0;
+exports.HomePage = exports.userdata = void 0;
 
 var React = __importStar(require("react"));
 
@@ -52387,20 +52387,131 @@ var input_1 = require("../../style/input");
 
 var styled_1 = require("../../style/styled");
 
-var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
+var Page_1 = require("./Page");
 
+var day1 = [];
+var day2 = [];
+var day3 = [];
+var day4 = [];
+var day5 = [];
+var dura1 = [];
+var dura2 = [];
+var dura3 = [];
+var dura4 = [];
+var dura5 = [];
+var daysDate = [];
+
+function DisplayItin(prop) {
+  return /*#__PURE__*/React.createElement("div", null, prop.addresses.map(function (a) {
+    return a.concat;
+  }));
+}
+
+function userdata(data) {
+  if (data = "d1") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day1
+    }));
+  } else if (data = "d2") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day2
+    }));
+  } else if (data = "d3") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day3
+    }));
+  } else if (data = "d4") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day4
+    }));
+  } else if (data = "d5") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day5
+    }));
+  } else if (data = "t1") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura1
+    }));
+  } else if (data = "t2") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura2
+    }));
+  } else if (data = "t3") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura3
+    }));
+  } else if (data = "t4") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura4
+    }));
+  } else if (data = "t5") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura5
+    }));
+  } else {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: daysDate
+    }));
+  }
+}
+
+exports.userdata = userdata; // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 function HomePage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Welcome, null, " Welcome to Travel Planner  "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(CircularDiv, {
-    bgColor: "#81BEF7",
-    para: "About Us"
-  }, " "), /*#__PURE__*/React.createElement(CircularDiv, {
-    bgColor: "#F78181",
-    para: "Login"
-  }, " "), /*#__PURE__*/React.createElement(CircularDiv, {
-    bgColor: "#A4A4A4",
-    para: "Search"
-  }), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement(UserLogin, null), /*#__PURE__*/React.createElement(Search, null));
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Welcome, null, " Welcome to Travel Planner  "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(FlexibleDiv, {
+    width: '1500px',
+    height: '420px',
+    bgcolor: "#ccffcc",
+    textcolor: "#735999",
+    boxshadow: "#0dc291"
+  }, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: "30px"
+    }
+  }, /*#__PURE__*/React.createElement("u", {
+    style: {
+      lineHeight: "2em"
+    }
+  }, "How it works")), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      textAlign: "justify",
+      fontSize: "25px",
+      margin: "30px",
+      lineHeight: "2em"
+    }
+  }, /*#__PURE__*/React.createElement("li", null, " ", /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 1:\u2002"), /*#__PURE__*/React.createElement("b", null, "Type "), " in the place address you would like to visit. (Up to five locations)Select date for that place. ", /*#__PURE__*/React.createElement("b", null, "Select"), " the date that for the locations. ", /*#__PURE__*/React.createElement("b", null, "Type "), "in the estimcate duration you would like to stay there.")), /*#__PURE__*/React.createElement("li", null, " ", /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 2:\u2002"), /*#__PURE__*/React.createElement("b", null, "Click \"+\""), " to add to the list. (Up to five locations) (OR) ", /*#__PURE__*/React.createElement("b", null, "Click \"-\""), " to remove places from the list.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 3:\u2002"), "After adding addresses for day 1, ", /*#__PURE__*/React.createElement("b", null, "Click \"Next\""), " to add address for other day. (Or) ", /*#__PURE__*/React.createElement("b", null, "Click \"Edit Previous \""), " to edit the previous day plan.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 4:\u2002"), /*#__PURE__*/React.createElement("b", null, "Click \"Done\"."), " Our algorithm will generate most efficient and lowest price schedule for you.")))), /*#__PURE__*/React.createElement(Search, null));
 }
 
 exports.HomePage = HomePage;
@@ -52428,7 +52539,7 @@ var LeftSerchDive = styled_1.style('div', 'Search', {
   lineHeight: '1em',
   float: "left",
   visibility: 'visible',
-  border: '2px solid red',
+  // border: '2px solid red',
   padding: '20px'
 });
 var RightSerchDive = styled_1.style('div', 'Search', {
@@ -52442,24 +52553,27 @@ var RightSerchDive = styled_1.style('div', 'Search', {
   lineHeight: '1em',
   float: "right",
   visibility: 'visible',
-  border: '2px solid red',
+  // border: '2px solid red',
   padding: '20px'
 });
-var SearchDiv = styled_1.style('div', 'Search', {
-  width: '1500px',
-  height: '800px',
-  borderRadius: '35px',
-  backgroundColor: '#A4A4A4',
-  fontSize: '35px',
-  color: 'white',
-  textAlign: 'center',
-  lineHeight: '1em',
-  float: "left",
-  visibility: 'visible',
-  position: 'absolute',
-  wordWrap: 'break-word',
-  marginTop: '5px',
-  border: '2px solid red'
+var FlexibleDiv = styled_1.style('div', 'Search', function (props) {
+  return {
+    width: props.width,
+    height: props.height,
+    borderRadius: '35px',
+    backgroundColor: props.bgcolor,
+    fontSize: '35px',
+    color: props.textcolor,
+    textAlign: 'center',
+    lineHeight: props.lineheight,
+    float: "left",
+    visibility: 'visible',
+    //position: 'fixed',
+    wordWrap: 'break-word',
+    marginTop: '5px',
+    //border: '2px solid red',
+    boxShadow: '3px 3px ' + props.boxshadow
+  };
 });
 
 var Search = function Search() {
@@ -52486,10 +52600,16 @@ var Search = function Search() {
       if (x == "") alert("Enter something in Address."); // else
       //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
     } else {
-      var start = 0;
-      var end = places.length - 1;
-      setPlaces(places.slice(start, end));
-      setDura(durations.slice(start, end)); // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
+      if (places.length > 1) {
+        var start = 0;
+        var end = places.length - 1;
+        setPlaces(places.slice(start, end));
+        setDura(durations.slice(start, end));
+      } else {
+        setPlaces([""]);
+        setDura([""]);
+      } // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
+
     }
   }
 
@@ -52505,7 +52625,14 @@ var Search = function Search() {
   console.log(places);
   console.log(durations);
   console.log(date);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SearchDiv, null, /*#__PURE__*/React.createElement(LeftSerchDive, null, /*#__PURE__*/React.createElement(DaysAndPlaces, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FlexibleDiv, {
+    width: '1500px',
+    height: '800px',
+    bgcolor: '#A4A4A4',
+    textcolor: "white",
+    lineheight: "1em",
+    boxshadow: "#9c6687"
+  }, /*#__PURE__*/React.createElement(LeftSerchDive, null, /*#__PURE__*/React.createElement(DaysAndPlaces, {
     places: places,
     dur: durations,
     date: date,
@@ -52520,28 +52647,17 @@ var Search = function Search() {
       return Manage(place, remove, durationx);
     }
   }))));
-};
+}; //user's input data
 
-var day1 = []; //bug 2: Even though I used it in line 268, still telling me I did not use it
 
-var day2 = [];
-var day3 = [];
-var day4 = [];
-var day5 = [];
-var dura1 = [];
-var dura2 = [];
-var dura3 = [];
-var dura4 = [];
-var dura5 = []; // let AllfiveDate: string[] = []
+var current_date = new Date();
+var current_date_string = current_date.toString();
+var current_day = current_date.getDate().toString();
+var current_month = (current_date.getMonth() + 1).toString();
+var current_year = current_date.getFullYear().toString();
+var defaultDate = current_year + '-' + current_month + '-' + current_day; // let AllfiveDate: string[] = []
 
 var SearchForm = function SearchForm(props) {
-  var current_date = new Date();
-  var current_date_string = current_date.toString();
-  var current_day = current_date.getDate().toString();
-  var current_month = (current_date.getMonth() + 1).toString();
-  var current_year = current_date.getFullYear().toString();
-  var defaultDate = current_year + '-' + current_month + '-' + current_day;
-
   var _a = react_1.useState(''),
       place1 = _a[0],
       setPlace = _a[1];
@@ -52582,11 +52698,14 @@ var SearchForm = function SearchForm(props) {
   }
 
   function AddDate(datex) {
-    setDateError(checkDate(datex));
+    var isDateError = checkDate(datex);
+    setDateError(isDateError);
+    console.log("isDateError is : " + isDateError);
     console.log("Date error : " + dateError);
 
     if (dateError) {
       alert("Date is Invalid. Please Try select again.");
+      setDate(defaultDate);
       return "DateError";
     }
 
@@ -52613,14 +52732,6 @@ var SearchForm = function SearchForm(props) {
   }
 
   console.log("This is place count : " + placeCount);
-  var SearchDone = styled_1.style('button', 'search', {
-    width: '150px',
-    height: ' 65px',
-    margin: '10px 0',
-    backgroundColor: '#1C1C1C',
-    borderRadius: '5px',
-    color: 'white'
-  });
   var InputSubmit = styled_1.style('button', 'Search', {
     width: '100px',
     height: ' 65px',
@@ -52648,15 +52759,10 @@ var SearchForm = function SearchForm(props) {
     onClick: function onClick() {
       return props.onPlaceAdded(place1, true, duration);
     }
-  }, "-"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SearchDone, null, "Done"), /*#__PURE__*/React.createElement("div", null, place1), " ", /*#__PURE__*/React.createElement("br", null)));
+  }, "-"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, place1), " ", /*#__PURE__*/React.createElement("br", null)));
 };
 
 var DaysAndPlaces = function DaysAndPlaces(props) {
-  function checkisDateDup(dateArr) {
-    console.log("props.date is " + props.date + " and dateArr is " + dateArr);
-    if (dateArr.includes(props.date)) return true;else return false;
-  }
-
   var _a = react_1.useState(['']),
       DateforEachDay = _a[0],
       setDayforEachDay = _a[1];
@@ -52665,37 +52771,54 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
       Day = _b[0],
       setDay = _b[1];
 
-  var DayBlock = styled_1.style('div', 'Search', {
-    width: '500px',
-    height: ' 65px',
-    margin: '10px 0',
-    backgroundColor: '#5882FA',
-    boxShadow: '3px 3px #A9A9F5',
-    borderRadius: '5px',
-    color: 'white',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    textAlign: 'center',
-    lineHeight: '2em'
+  function DoneClickHandler() {
+    if (day1.length < 2 || DateforEachDay.length < 2 || dura1.length < 2) {
+      alert("You have not enter anything");
+      return;
+    }
+
+    daysDate = DateforEachDay;
+  }
+
+  function checkisDateDup(dateArr) {
+    console.log("props.date is " + props.date + " and dateArr is " + dateArr);
+    if (dateArr.includes(props.date)) return true;else return false;
+  }
+
+  var DayBlock = styled_1.style('div', 'Search', function (props) {
+    return {
+      width: props.width,
+      height: props.height,
+      margin: props.margin,
+      backgroundColor: props.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em'
+    };
   });
   var ListPlaces = styled_1.style('li', 'Search', {
     textAlign: 'left',
     margin: '30px 60px',
-    visiblilty: 'visible',
-    border: '1px red solid'
+    visiblilty: 'visible'
   });
-  var NextButton = styled_1.style('button', 'Search', {
-    width: '300px',
-    height: ' 65px',
-    margin: '10px 0',
-    backgroundColor: '#B22222',
-    boxShadow: '3px 3px #A9A9F5',
-    borderRadius: '5px',
-    color: 'white',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    textAlign: 'center',
-    lineHeight: '2em'
+  var NextButton = styled_1.style('button', 'Search', function (p) {
+    return {
+      width: '300px',
+      height: ' 65px',
+      margin: '10px 0',
+      backgroundColor: p.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em'
+    };
   });
 
   function onClickNext(Next) {
@@ -52756,95 +52879,55 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
   console.log("This is day5 array : " + day5 + " and Duration 5 : " + dura5); // console.log("This is AllFiveDate : " + AllfiveDate)
 
   console.log("This is DateForEachDay : " + DateforEachDay);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, null, "Day ", Day, " Schdule "), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[1]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5])), /*#__PURE__*/React.createElement(NextButton, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, {
+    width: '500px',
+    height: '65px',
+    bgcolor: "#5882FA",
+    margin: "4px 0px"
+  }, "Day ", Day, " Schdule "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(DayBlock, {
+    margin: '0px',
+    width: '500px',
+    height: '65px',
+    bgcolor: "#95128a"
+  }, "Date ", props.date), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[1]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5])), /*#__PURE__*/React.createElement(NextButton, {
+    bgcolor: "#77b300",
     onClick: function onClick() {
       return onClickNext(true);
     }
   }, "Next"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(NextButton, {
+    bgcolor: "#77b300",
     onClick: function onClick() {
       return onClickNext(false);
     }
-  }, " Edit Previous"));
+  }, " Edit Previous"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(NextButton, {
+    bgcolor: "#0073e6",
+    onClick: DoneClickHandler
+  }, "Done"));
 };
 
 var AboutUs = function AboutUs() {
   var AboutUsStyle = styled_1.style('div', 'About us', {
-    width: '500px',
-    height: '800px',
-    borderRadius: '7%',
+    width: '1500px',
+    height: '400px',
+    borderRadius: '35px',
     backgroundColor: '#81BEF7',
     fontSize: '35px',
     color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
+    textAlign: 'justify',
+    lineHeight: '1.2em',
     float: "left",
-    visibility: 'hidden',
-    position: 'relative',
+    visibility: 'visible',
     wordWrap: 'break-word',
     padding: '30px',
-    marginTop: '5px'
+    marginTop: '5px',
+    boxShadow: '3px 3px #4d79ff'
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(AboutUsStyle, null, "Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
-};
-
-var UserLogin = function UserLogin() {
-  return /*#__PURE__*/React.createElement("div", null, "link to Login Page");
-};
-
-var CircularDiv = function CircularDiv(props) {
-  var CircularStyle = styled_1.style('div', 'CirularDiv', {
-    width: '200px',
-    height: '200px',
-    borderRadius: '50%',
-    backgroundColor: props.bgColor,
-    fontSize: '30px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '6em',
-    float: "left",
-    marginLeft: '100px',
-    wordWrap: 'break-word'
-  });
-
-  function clickHandler() {
-    var x = Array.from(document.getElementsByClassName("About Us")); // let y = Array.from(document.getElementsByClassName("Login") as HTMLCollectionOf<HTMLElement>)
-
-    var z = Array.from(document.getElementsByClassName("Search"));
-
-    if (props.para == "About Us") {
-      for (var i = 0; i < x.length; i++) {
-        if (x[i].style.visibility == 'hidden') {
-          x[i].style.visibility = 'visible';
-
-          for (var j = 0; j < z.length; j++) {
-            z[i].style.visibility = 'hidden';
-          }
-        } else {
-          x[i].style.visibility = 'hidden';
-        }
-      }
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(AboutUsStyle, null, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      textDecoration: 'underline',
+      textAlign: 'center'
     }
-
-    if (props.para == 'Login') {}
-
-    if (props.para = 'Search') {
-      for (var i = 0; i < z.length; i++) {
-        if (z[i].style.visibility == 'hidden') {
-          z[i].style.visibility = 'visible';
-
-          for (var j = 0; j < z.length; j++) {
-            x[i].style.visibility = 'hidden';
-          }
-        } else {
-          z[i].style.visibility = 'hidden';
-        }
-      }
-    }
-  }
-
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
-    onClick: clickHandler
-  }, /*#__PURE__*/React.createElement(CircularStyle, null, props.para)));
+  }, "  About Us "), /*#__PURE__*/React.createElement("br", null), "\u2002  \u2002  Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
 };
 },{"react":"../../node_modules/react/index.js","../../style/input":"style/input.tsx","../../style/styled":"style/styled.tsx","./Page":"view/page/Page.tsx"}],"style/header.tsx":[function(require,module,exports) {
 "use strict";

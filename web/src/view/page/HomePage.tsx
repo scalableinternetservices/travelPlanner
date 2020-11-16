@@ -7,6 +7,123 @@ import { AppRouteParams } from '../nav/route'
 import { Page } from './Page'
 
 
+let day1: string[] = []
+let day2: string[] = []
+let day3: string[] = []
+let day4: string[] = []
+let day5: string[] = []
+
+let dura1: string[] = []
+let dura2: string[] = []
+let dura3: string[] = []
+let dura4: string[] = []
+let dura5: string[] = []
+
+let daysDate: string[] = []
+
+interface UserDataProps {
+  addresses: string[]
+}
+
+function DisplayItin(prop: UserDataProps) {
+  return (
+    <div>{prop.addresses.map(a => a.concat)}</div>
+
+  )
+}
+
+export function userdata(data: string) {
+
+  if (data = "d1") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day1} />
+      </React.Fragment>
+    )
+  }
+  else if (data = "d2") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day2} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "d3") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day3} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "d4") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day4} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "d5") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day5} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t1") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura1} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t2") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura2} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t3") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura3} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t4") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura4} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t5") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura5} />
+      </React.Fragment>
+    )
+
+  }
+  else {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={daysDate} />
+      </React.Fragment>
+    )
+  }
+
+}
+
+
 
 interface HomePageProps extends RouteComponentProps, AppRouteParams { }
 
@@ -16,11 +133,27 @@ export function HomePage(props: HomePageProps) {
     <Page>
       <Welcome> Welcome to Travel Planner  </Welcome>
       <br />
-      <CircularDiv bgColor='#81BEF7' para='About Us'> </CircularDiv>
-      <CircularDiv bgColor='#F78181' para='Login'> </CircularDiv>
-      <CircularDiv bgColor='#A4A4A4' para='Search'></CircularDiv>
-      <AboutUs  ></AboutUs>
-      <UserLogin></UserLogin>
+      <AboutUs ></AboutUs>
+      <br />
+      <FlexibleDiv width={'1500px'} height={'420px'} bgcolor={"#ccffcc"} textcolor={"#735999"} boxshadow={"#0dc291"} >
+        <h1 style={{ fontSize: "30px" }}><u style={{ lineHeight: "2em" }}>How it works</u></h1>
+        <ul style={{ textAlign: "justify", fontSize: "25px", margin: "30px", lineHeight: "2em" }}>
+          <li> <p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 1:&ensp;</b>
+            <b>Type </b> in the place address you would like to visit. (Up to five locations)Select date for that place. <b>Select</b> the date that
+               for the locations. <b>Type </b>in the estimcate duration you would like to stay there.
+
+          </p></li>
+          <li> <p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 2:&ensp;</b>
+            <b>Click "+"</b> to add to the list. (Up to five locations) (OR) <b>Click "-"</b> to remove places from the list.
+          </p></li>
+          <li><p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 3:&ensp;</b>
+            After adding addresses for day 1, <b>Click "Next"</b> to add address for other day. (Or) <b>Click "Edit Previous "</b> to edit the previous day plan.
+          </p></li>
+          <li><p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 4:&ensp;</b>
+            <b>Click "Done".</b> Our algorithm will generate most efficient and lowest price schedule for you.
+          </p></li>
+        </ul>
+      </FlexibleDiv>
       <Search></Search>
     </Page>
   )
@@ -55,7 +188,7 @@ const LeftSerchDive = style('div', 'Search', {
   lineHeight: '1em',
   float: "left",
   visibility: 'visible',
-  border: '2px solid red',
+  // border: '2px solid red',
   padding: '20px'
 })
 
@@ -70,28 +203,42 @@ const RightSerchDive = style('div', 'Search', {
   lineHeight: '1em',
   float: "right",
   visibility: 'visible',
-  border: '2px solid red',
+  // border: '2px solid red',
   padding: '20px'
 })
 
 
-const SearchDiv = style('div', 'Search', {
-  width: '1500px',
-  height: '800px',
-  borderRadius: '35px',
-  backgroundColor: '#A4A4A4',
-  fontSize: '35px',
-  color: 'white',
-  textAlign: 'center',
-  lineHeight: '1em',
-  float: "left",
-  visibility: 'visible',
-  position: 'absolute',
-  wordWrap: 'break-word',
-  marginTop: '5px',
-  border: '2px solid red'
+const FlexibleDiv = style('div', 'Search',
+  (props: {
+    width: string,
+    height: string,
+    bgcolor: string,
+    textcolor: string,
+    lineheight?: string,
+    boxshadow?: string
+  }) => (
+      {
+        width: props.width,
+        height: props.height,
+        borderRadius: '35px',
+        backgroundColor: props.bgcolor,
+        fontSize: '35px',
+        color: props.textcolor,
+        textAlign: 'center',
+        lineHeight: props.lineheight,
+        float: "left",
+        visibility: 'visible',
+        //position: 'fixed',
+        wordWrap: 'break-word',
+        marginTop: '5px',
+        //border: '2px solid red',
+        boxShadow: '3px 3px ' + props.boxshadow,
 
-})
+      }))
+
+
+
+
 
 
 
@@ -122,11 +269,16 @@ const Search = () => {
       //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
     }
     else {
-      let start = 0
-      let end = (places as Array<string>).length - 1;
-      setPlaces((places as Array<string>).slice(start, end));
-      setDura((durations as Array<string>).slice(start, end));
-
+      if ((places as Array<string>).length > 1) {
+        let start = 0
+        let end = (places as Array<string>).length - 1;
+        setPlaces((places as Array<string>).slice(start, end));
+        setDura((durations as Array<string>).slice(start, end));
+      }
+      else {
+        setPlaces([""])
+        setDura([""])
+      }
       // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
 
     }
@@ -148,7 +300,7 @@ const Search = () => {
   console.log(date)
   return (
     <React.Fragment>
-      <SearchDiv>
+      <FlexibleDiv width={'1500px'} height={'800px'} bgcolor={'#A4A4A4'} textcolor={"white"} lineheight={"1em"} boxshadow={"#9c6687"}>
 
         <LeftSerchDive>
           <DaysAndPlaces places={places} dur={durations} date={date} reset={(shouldremove) => resetplaces(shouldremove)} />
@@ -160,28 +312,27 @@ const Search = () => {
 
 
         <RightSerchDive>
-          <SearchForm addDate={(datex) => setDate(datex)} onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)}
-          />
+          <SearchForm addDate={(datex) => setDate(datex)}
+            onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)} />
         </RightSerchDive>
 
-      </SearchDiv>
+      </FlexibleDiv>
     </React.Fragment>
 
   )
 }
 
+//user's input data
 
-let day1: string[] = []             //bug 2: Even though I used it in line 268, still telling me I did not use it
-let day2: string[] = []
-let day3: string[] = []
-let day4: string[] = []
-let day5: string[] = []
 
-let dura1: string[] = []
-let dura2: string[] = []
-let dura3: string[] = []
-let dura4: string[] = []
-let dura5: string[] = []
+
+let current_date = new Date()
+let current_date_string = current_date.toString()
+let current_day = current_date.getDate().toString()
+let current_month = (current_date.getMonth() + 1).toString()
+let current_year = current_date.getFullYear().toString()
+let defaultDate = current_year + '-' + current_month + '-' + current_day
+
 
 // let AllfiveDate: string[] = []
 
@@ -191,12 +342,6 @@ const SearchForm = (props: {
 }
 ) => {
 
-  let current_date = new Date()
-  let current_date_string = current_date.toString()
-  let current_day = current_date.getDate().toString()
-  let current_month = (current_date.getMonth() + 1).toString()
-  let current_year = current_date.getFullYear().toString()
-  let defaultDate = current_year + '-' + current_month + '-' + current_day
 
 
   const [place1, setPlace] = useState('')
@@ -240,12 +385,15 @@ const SearchForm = (props: {
 
   function AddDate(datex: string) {
 
-    setDateError(checkDate(datex))
+    let isDateError = checkDate(datex)
+    setDateError(isDateError)
 
+    console.log("isDateError is : " + isDateError)
 
     console.log("Date error : " + dateError)
     if (dateError) {
       alert("Date is Invalid. Please Try select again.")
+      setDate(defaultDate)
       return "DateError"
     }
     if (date != '' && !dateError) {
@@ -277,14 +425,6 @@ const SearchForm = (props: {
 
   console.log("This is place count : " + placeCount)
 
-  const SearchDone = style('button', 'search', {
-    width: '150px',
-    height: ' 65px',
-    margin: '10px 0',
-    backgroundColor: '#1C1C1C',
-    borderRadius: '5px',
-    color: 'white',
-  })
 
 
   const InputSubmit = style('button', 'Search', {
@@ -315,19 +455,15 @@ const SearchForm = (props: {
         <InputSubmit onClick={() => props.onPlaceAdded(place1, true, duration)}>-</InputSubmit>
         {/* <InputSubmit onClick={() => props.onPlaceAdded(place1, false)} >+</InputSubmit> */}
         <br></br>
-        <SearchDone >Done</SearchDone>
         <div>
           {place1}
         </div> <br />
-
-
       </form>
 
 
     </React.Fragment>
   )
 }
-
 
 
 const DaysAndPlaces = (props: {
@@ -337,6 +473,18 @@ const DaysAndPlaces = (props: {
   reset: (shouldremove: boolean) => void
 }) => {
 
+  const [DateforEachDay, setDayforEachDay] = useState([''])
+  const [Day, setDay] = useState(1)
+
+  function DoneClickHandler() {
+    if (day1.length < 2 || DateforEachDay.length < 2 || dura1.length < 2) {
+      alert("You have not enter anything")
+      return;
+    }
+
+    daysDate = DateforEachDay;
+
+  }
 
   function checkisDateDup(dateArr: string[]) {
 
@@ -347,46 +495,51 @@ const DaysAndPlaces = (props: {
       return false;
   }
 
-  const [DateforEachDay, setDayforEachDay] = useState([''])
-  const [Day, setDay] = useState(1)
+  const DayBlock = style('div', 'Search',
+    (props: {
+      width: string,
+      height: string,
+      bgcolor: string,
+      margin: string,
+    }) => ({
+      width: props.width,
+      height: props.height,
+      margin: props.margin,
+      backgroundColor: props.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em',
 
-  const DayBlock = style('div', 'Search', {
-    width: '500px',
-    height: ' 65px',
-    margin: '10px 0',
-    backgroundColor: '#5882FA',
-    boxShadow: '3px 3px #A9A9F5',
-    borderRadius: '5px',
-    color: 'white',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    textAlign: 'center',
-    lineHeight: '2em',
-
-  })
+    }))
 
   const ListPlaces = style('li', 'Search', {
     textAlign: 'left',
     margin: '30px 60px',
     visiblilty: 'visible',
-    border: '1px red solid',
+    //border: '1px red solid',
 
   })
 
-  const NextButton = style('button', 'Search', {
-    width: '300px',
-    height: ' 65px',
-    margin: '10px 0',
-    backgroundColor: '#B22222',
-    boxShadow: '3px 3px #A9A9F5',
-    borderRadius: '5px',
-    color: 'white',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    textAlign: 'center',
-    lineHeight: '2em',
+  const NextButton = style('button', 'Search', (p: { bgcolor: string }) => (
 
-  })
+    {
+      width: '300px',
+      height: ' 65px',
+      margin: '10px 0',
+      backgroundColor: p.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em',
+
+    }))
 
 
   function onClickNext(Next: boolean) {
@@ -450,6 +603,7 @@ const DaysAndPlaces = (props: {
 
 
 
+
   console.log(Day)
   console.log("This is day1 array : " + day1 + " and Duration 1 : " + dura1)
   console.log("This is day2 array : " + day2 + " and Duration 2 : " + dura2)
@@ -461,9 +615,12 @@ const DaysAndPlaces = (props: {
 
 
 
+
   return (
     <React.Fragment>
-      <DayBlock >Day {Day} Schdule </DayBlock>
+      <DayBlock width={'500px'} height={'65px'} bgcolor={"#5882FA"} margin={"4px 0px"}>Day {Day} Schdule </DayBlock>
+      <br />
+      <DayBlock margin={'0px'} width={'500px'} height={'65px'} bgcolor={"#95128a"}>Date {props.date}</DayBlock>
       <ul>
         <ListPlaces > {props.places[1]}</ListPlaces>
         <ListPlaces > {props.places[2]}</ListPlaces>
@@ -472,10 +629,11 @@ const DaysAndPlaces = (props: {
         <ListPlaces > {props.places[5]}</ListPlaces>
       </ul>
 
-      <NextButton onClick={() => onClickNext(true)} >Next</NextButton>
+      <NextButton bgcolor={"#77b300"} onClick={() => onClickNext(true)} >Next</NextButton>
       <br />
-      <NextButton onClick={() => onClickNext(false)} > Edit Previous</NextButton>
-
+      <NextButton bgcolor={"#77b300"} onClick={() => onClickNext(false)} > Edit Previous</NextButton>
+      <br />
+      <NextButton bgcolor={"#0073e6"} onClick={DoneClickHandler}>Done</NextButton>
 
 
     </React.Fragment>
@@ -487,30 +645,34 @@ const DaysAndPlaces = (props: {
 
 
 
+
 const AboutUs = () => {
 
   const AboutUsStyle = style('div', 'About us', {
-    width: '500px',
-    height: '800px',
-    borderRadius: '7%',
+    width: '1500px',
+    height: '400px',
+    borderRadius: '35px',
     backgroundColor: '#81BEF7',
     fontSize: '35px',
     color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
+    textAlign: 'justify',
+    lineHeight: '1.2em',
     float: "left",
-    visibility: 'hidden',
-    position: 'relative',
+    visibility: 'visible',
     wordWrap: 'break-word',
     padding: '30px',
     marginTop: '5px',
+    boxShadow: '3px 3px #4d79ff',
+
 
   })
   return (
     <React.Fragment>
 
       <AboutUsStyle>
-        Welcome to Travel Planner! This is a platform for you to manage
+        <h1 style={{ textDecoration: 'underline', textAlign: 'center' }}>  About Us </h1>
+        <br />
+        &ensp;  &ensp;  Welcome to Travel Planner! This is a platform for you to manage
         all your travel plans. Travelling to a new country, but don't know where to
         start? Travelling on a budget? Want to hit all the popular spots,
         but you are short on time? Don't worry. We got you. Simply let us know what places you'd
@@ -524,98 +686,9 @@ const AboutUs = () => {
 
   )
 }
-const UserLogin = () => {
 
 
-  return (
-    <div>
-      link to Login Page
-    </div>
 
-  )
-
-}
-
-const CircularDiv = (props: any) => {
-
-  const CircularStyle = style('div', 'CirularDiv', {
-    width: '200px',
-    height: '200px',
-    borderRadius: '50%',
-    backgroundColor: props.bgColor,
-    fontSize: '30px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '6em',
-    float: "left",
-    marginLeft: '100px',
-    wordWrap: 'break-word',
-
-  })
-
-  function clickHandler() {
-
-
-    let x = Array.from(document.getElementsByClassName("About Us") as HTMLCollectionOf<HTMLElement>)
-    // let y = Array.from(document.getElementsByClassName("Login") as HTMLCollectionOf<HTMLElement>)
-    let z = Array.from(document.getElementsByClassName("Search") as HTMLCollectionOf<HTMLElement>)
-
-
-    if (props.para == "About Us") {
-
-      for (let i = 0; i < x.length; i++) {
-
-        if (x[i].style.visibility == 'hidden') {
-          x[i].style.visibility = 'visible'
-
-          for (let j = 0; j < z.length; j++) {
-            z[i].style.visibility = 'hidden'
-          }
-
-        }
-        else {
-          x[i].style.visibility = 'hidden'
-        }
-      }
-
-    }
-    if (props.para == 'Login') {
-
-
-    }
-    if (props.para = 'Search') {
-
-      for (let i = 0; i < z.length; i++) {
-
-        if (z[i].style.visibility == 'hidden') {
-          z[i].style.visibility = 'visible'
-
-          for (let j = 0; j < z.length; j++) {
-            x[i].style.visibility = 'hidden'
-          }
-
-        }
-        else {
-          z[i].style.visibility = 'hidden'
-        }
-      }
-
-    }
-  }
-
-  return (
-    <React.Fragment>
-      <button onClick={clickHandler}>
-        <CircularStyle>
-          {props.para}
-        </CircularStyle>
-      </button>
-
-    </React.Fragment>
-
-  )
-
-}
 
 
 
