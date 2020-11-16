@@ -97,6 +97,13 @@ export interface SurveyInput {
   answer: Scalars['String']
 }
 
+export enum ItineraryType {
+  Stop = 'STOP',
+  Departure = 'DEPARTURE',
+  Arrival = 'ARRIVAL',
+  Travel = 'TRAVEL'
+}
+
 export type ResolverTypeWrapper<T> = Promise<T> | T
 
 export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
