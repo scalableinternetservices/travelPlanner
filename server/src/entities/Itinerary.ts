@@ -16,7 +16,31 @@ export class Itinerary extends BaseEntity implements  {
   @Column({
     length: 100,
   })
-  itinerary: Day[]
+  day1: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day2: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day3: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day4: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day5: number
 }
 
 @Entity()
@@ -39,8 +63,58 @@ export class Day extends BaseEntity implements  {
   })
   date: string
 
-  @Column()
-  schedule: Location[]
+  @Column({
+    length: 100,
+  })
+  location1: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip1: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location2: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip2: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location3: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip3: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location4: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip4: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location5: number
 }
 
 export abstract class Location extends BaseEntity implements  {
@@ -68,8 +142,26 @@ export abstract class Location extends BaseEntity implements  {
     length: 100,
   })
   coordinates: string
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  arrival: string
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  departure: string
+
+  @Column({
+    nullable: true,
+  })
+  duration: number
 }
 
+/*
 @Entity()
 export class Stop extends Location implements  {
 
@@ -104,18 +196,13 @@ export class Arrival extends Location implements  {
   })
   arrival: string
 }
+*/
 
 @Entity()
-export class Trip extends Location implements  {
+export class Trip extends BaseEntity implements  {
 
   @PrimaryGeneratedColumn()
   id: number
-
-  @Column({
-    type: 'enum',
-    enum: ItineraryType
-  })
-  type: ItineraryType
 
   @Column({
     length: 100,
