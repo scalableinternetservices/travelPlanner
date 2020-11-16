@@ -1,8 +1,129 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
+import { useState } from 'react'
+import { Input } from '../../style/input'
 import { style } from '../../style/styled'
 import { AppRouteParams } from '../nav/route'
 import { Page } from './Page'
+
+
+let day1: string[] = []
+let day2: string[] = []
+let day3: string[] = []
+let day4: string[] = []
+let day5: string[] = []
+
+let dura1: string[] = []
+let dura2: string[] = []
+let dura3: string[] = []
+let dura4: string[] = []
+let dura5: string[] = []
+
+let daysDate: string[] = []
+
+interface UserDataProps {
+  addresses: string[]
+}
+
+function DisplayItin(prop: UserDataProps) {
+  return (
+    <div>{prop.addresses.map(a => a.concat)}</div>
+
+  )
+}
+
+export function userdata(data: string) {
+
+  if (data = "d1") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day1} />
+      </React.Fragment>
+    )
+  }
+  else if (data = "d2") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day2} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "d3") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day3} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "d4") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day4} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "d5") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={day5} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t1") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura1} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t2") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura2} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t3") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura3} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t4") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura4} />
+      </React.Fragment>
+    )
+
+  }
+  else if (data = "t5") {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={dura5} />
+      </React.Fragment>
+    )
+
+  }
+  else {
+    return (
+      <React.Fragment>
+        <DisplayItin addresses={daysDate} />
+      </React.Fragment>
+    )
+  }
+
+}
+
+
 
 interface HomePageProps extends RouteComponentProps, AppRouteParams { }
 
@@ -12,23 +133,31 @@ export function HomePage(props: HomePageProps) {
     <Page>
       <Welcome> Welcome to Travel Planner  </Welcome>
       <br />
-      <CircularDiv bgColor='#81BEF7' para='About Us'> </CircularDiv>
-      <CircularDiv bgColor='#F78181' para='Login'> </CircularDiv>
-      <CircularDiv bgColor='#A4A4A4' para='Search'></CircularDiv>
-      <AboutUs  ></AboutUs>
-      <UserLogin />
+      <AboutUs ></AboutUs>
+      <br />
+      <FlexibleDiv width={'1500px'} height={'420px'} bgcolor={"#ccffcc"} textcolor={"#735999"} boxshadow={"#0dc291"} >
+        <h1 style={{ fontSize: "30px" }}><u style={{ lineHeight: "2em" }}>How it works</u></h1>
+        <ul style={{ textAlign: "justify", fontSize: "25px", margin: "30px", lineHeight: "2em" }}>
+          <li> <p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 1:&ensp;</b>
+            <b>Type </b> in the place address you would like to visit. (Up to five locations)Select date for that place. <b>Select</b> the date that
+               for the locations. <b>Type </b>in the estimcate duration you would like to stay there.
+
+          </p></li>
+          <li> <p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 2:&ensp;</b>
+            <b>Click "+"</b> to add to the list. (Up to five locations) (OR) <b>Click "-"</b> to remove places from the list.
+          </p></li>
+          <li><p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 3:&ensp;</b>
+            After adding addresses for day 1, <b>Click "Next"</b> to add address for other day. (Or) <b>Click "Edit Previous "</b> to edit the previous day plan.
+          </p></li>
+          <li><p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 4:&ensp;</b>
+            <b>Click "Done".</b> Our algorithm will generate most efficient and lowest price schedule for you.
+          </p></li>
+        </ul>
+      </FlexibleDiv>
+      <Search></Search>
     </Page>
   )
 }
-
-// const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-//   borderLeftColor: Colors.mint + '!important',
-//   borderRightColor: Colors.coral + '!important',
-//   borderLeftWidth: '4px',
-//   borderRightWidth: '4px',
-// })
-
-// const Content = style('div', 'flex-l')
 
 
 const Welcome = style('div', 'welcomeboard', {
@@ -48,32 +177,502 @@ const Welcome = style('div', 'welcomeboard', {
 
 })
 
+const LeftSerchDive = style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#F5A9A9',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "left",
+  visibility: 'visible',
+  // border: '2px solid red',
+  padding: '20px'
+})
+
+const RightSerchDive = style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#A4A4A4',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "right",
+  visibility: 'visible',
+  // border: '2px solid red',
+  padding: '20px'
+})
+
+
+const FlexibleDiv = style('div', 'Search',
+  (props: {
+    width: string,
+    height: string,
+    bgcolor: string,
+    textcolor: string,
+    lineheight?: string,
+    boxshadow?: string
+  }) => (
+      {
+        width: props.width,
+        height: props.height,
+        borderRadius: '35px',
+        backgroundColor: props.bgcolor,
+        fontSize: '35px',
+        color: props.textcolor,
+        textAlign: 'center',
+        lineHeight: props.lineheight,
+        float: "left",
+        visibility: 'visible',
+        //position: 'fixed',
+        wordWrap: 'break-word',
+        marginTop: '5px',
+        //border: '2px solid red',
+        boxShadow: '3px 3px ' + props.boxshadow,
+
+      }))
+
+
+
+
+
+
+
+
+const Search = () => {
+
+  const [places, setPlaces] = useState([''])
+  const [durations, setDura] = useState([''])
+  const [date, setDate] = useState('')
+
+
+
+  function Manage(x: any, y: boolean, z: any) {
+
+
+    if (!y) {
+
+      if ((places as Array<string>).length < 6 && x != "null" && z > 5 && x != "") {
+        setPlaces(places.concat(x))
+        setDura(durations.concat(z))
+      }
+
+      if (z <= 5)
+        alert("Duration is too short.")
+      if (x == "")
+        alert("Enter something in Address.")
+      // else
+      //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
+    }
+    else {
+      if ((places as Array<string>).length > 1) {
+        let start = 0
+        let end = (places as Array<string>).length - 1;
+        setPlaces((places as Array<string>).slice(start, end));
+        setDura((durations as Array<string>).slice(start, end));
+      }
+      else {
+        setPlaces([""])
+        setDura([""])
+      }
+      // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
+
+    }
+  }
+
+  console.log("after slice " + places)
+
+
+  function resetplaces(y: boolean) {
+    if (y) {
+      setDura(['']);
+      setPlaces(['']);
+    }
+  }
+
+
+  console.log(places)
+  console.log(durations)
+  console.log(date)
+  return (
+    <React.Fragment>
+      <FlexibleDiv width={'1500px'} height={'800px'} bgcolor={'#A4A4A4'} textcolor={"white"} lineheight={"1em"} boxshadow={"#9c6687"}>
+
+        <LeftSerchDive>
+          <DaysAndPlaces places={places} dur={durations} date={date} reset={(shouldremove) => resetplaces(shouldremove)} />
+          {/* <DaysAndPlaces places={places} /> */}
+        </LeftSerchDive>
+
+
+
+
+
+        <RightSerchDive>
+          <SearchForm addDate={(datex) => setDate(datex)}
+            onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)} />
+        </RightSerchDive>
+
+      </FlexibleDiv>
+    </React.Fragment>
+
+  )
+}
+
+//user's input data
+
+
+
+let current_date = new Date()
+let current_date_string = current_date.toString()
+let current_day = current_date.getDate().toString()
+let current_month = (current_date.getMonth() + 1).toString()
+let current_year = current_date.getFullYear().toString()
+let defaultDate = current_year + '-' + current_month + '-' + current_day
+
+
+// let AllfiveDate: string[] = []
+
+const SearchForm = (props: {
+  onPlaceAdded: (place: string, remove: boolean, durationx: string) => void,
+  addDate: (datex: string) => void
+}
+) => {
+
+
+
+  const [place1, setPlace] = useState('')
+  const [placeCount, setPlaceCount] = useState(0)
+  const [duration, setDuration] = useState('80')
+  const [date, setDate] = useState(defaultDate)
+  const [dateError, setDateError] = useState(false)
+
+
+  function checkDate(dtex: string) {
+
+    if (dtex == '')
+      return true
+
+
+
+    let splitted = dtex.split("-", 3)
+    let dtex_year = splitted[0]
+    let dtex_month = splitted[1]
+    let dtex_day = splitted[2]
+
+    console.log("dtex_day : " + dtex_day)
+    console.log("dtex_month : " + dtex_month)
+    console.log("dtex_year : " + dtex_year)
+    console.log("current date : ", current_date_string)
+    console.log("current day : " + current_day)
+    console.log("current month : " + current_month)
+    console.log("current year : " + current_year)
+
+    if (parseInt(dtex_year) < parseInt(current_year))
+      return true
+    if ((parseInt(dtex_month) < parseInt(current_month)) && (parseInt(dtex_year) == parseInt(current_year)))
+      return true
+    if ((parseInt(dtex_year) == parseInt(current_year)) && (parseInt(dtex_month) == parseInt(current_month))
+      && (parseInt(dtex_day) < parseInt(current_day)))
+      return true
+
+    return false
+
+  }
+
+  function AddDate(datex: string) {
+
+    let isDateError = checkDate(datex)
+    setDateError(isDateError)
+
+    console.log("isDateError is : " + isDateError)
+
+    console.log("Date error : " + dateError)
+    if (dateError) {
+      alert("Date is Invalid. Please Try select again.")
+      setDate(defaultDate)
+      return "DateError"
+    }
+    if (date != '' && !dateError) {
+      setDate(datex)
+      props.addDate(datex)
+    }
+
+    return "NoError"
+  }
+
+  function canListIncre() {
+
+    let isthereError = AddDate(date)      //bug 4: Delay for one round.
+
+    if (isthereError == 'DateError')
+      return
+    if (placeCount < 5) {
+
+      if (place1 != '')
+        setPlaceCount(placeCount + 1)
+
+      props.onPlaceAdded(place1, false, duration)
+    }
+    else {
+      setPlaceCount(0)
+      props.onPlaceAdded("null", false, duration)
+    }
+  }
+
+  console.log("This is place count : " + placeCount)
+
+
+
+  const InputSubmit = style('button', 'Search', {
+    width: '100px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#424242',
+    borderRadius: '5px',
+    color: 'white',
+
+  })
+
+  console.log("This is date in RightFrom" + date)
+
+
+
+  return (
+    <React.Fragment>
+      <form>
+        <div > Address: &ensp; <Input $boxwidth={"500px"} $onChange={setPlace} type="text" /></div>
+        <br />
+        <div > Date: &ensp; <Input $boxwidth={"300px"} $onChange={setDate} type="date" /></div>
+        <br />
+        <div > Duration: &ensp; <Input $boxwidth={"200px"} $onChange={setDuration} type="number" /></div>
+        <br />
+        <InputSubmit onClick={canListIncre} >+</InputSubmit>
+        <br />
+        <InputSubmit onClick={() => props.onPlaceAdded(place1, true, duration)}>-</InputSubmit>
+        {/* <InputSubmit onClick={() => props.onPlaceAdded(place1, false)} >+</InputSubmit> */}
+        <br></br>
+        <div>
+          {place1}
+        </div> <br />
+      </form>
+
+
+    </React.Fragment>
+  )
+}
+
+
+const DaysAndPlaces = (props: {
+  places: Array<string>,
+  dur: Array<string>,
+  date: string
+  reset: (shouldremove: boolean) => void
+}) => {
+
+  const [DateforEachDay, setDayforEachDay] = useState([''])
+  const [Day, setDay] = useState(1)
+
+  function DoneClickHandler() {
+    if (day1.length < 2 || DateforEachDay.length < 2 || dura1.length < 2) {
+      alert("You have not enter anything")
+      return;
+    }
+
+    daysDate = DateforEachDay;
+
+  }
+
+  function checkisDateDup(dateArr: string[]) {
+
+    console.log("props.date is " + props.date + " and dateArr is " + dateArr)
+    if (dateArr.includes(props.date))
+      return true;
+    else
+      return false;
+  }
+
+  const DayBlock = style('div', 'Search',
+    (props: {
+      width: string,
+      height: string,
+      bgcolor: string,
+      margin: string,
+    }) => ({
+      width: props.width,
+      height: props.height,
+      margin: props.margin,
+      backgroundColor: props.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em',
+
+    }))
+
+  const ListPlaces = style('li', 'Search', {
+    textAlign: 'left',
+    margin: '30px 60px',
+    visiblilty: 'visible',
+    //border: '1px red solid',
+
+  })
+
+  const NextButton = style('button', 'Search', (p: { bgcolor: string }) => (
+
+    {
+      width: '300px',
+      height: ' 65px',
+      margin: '10px 0',
+      backgroundColor: p.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em',
+
+    }))
+
+
+  function onClickNext(Next: boolean) {
+
+    let isDateDup = checkisDateDup(DateforEachDay)
+    if (Day == 1) {
+      day1 = props.places;
+      dura1 = props.dur;
+    }
+    if (Day == 2) {
+      day2 = props.places;
+      dura2 = props.dur;
+
+    }
+    if (Day == 3) {
+      day3 = props.places;
+      dura3 = props.dur;
+
+    }
+    if (Day == 4) {
+      day4 = props.places;
+      dura4 = props.dur;
+
+    }
+    if (Day == 5) {
+      day5 = props.places;
+      dura5 = props.dur;
+
+    }
+
+    if (Next && props.places.length == 1) {
+      alert("Day " + Day + " schedule is empty.")
+    }
+
+    if (Next && isDateDup) {
+      alert("Date is duplicate.")
+      props.reset(true)
+      return
+
+    }
+
+
+    if (Next && props.places.length != 1 && !isDateDup) {
+      if (Day < 5)
+        setDay(Day + 1)
+
+      setDayforEachDay(DateforEachDay.concat(props.date))
+      props.reset(true)
+    }
+    else {
+      if (Day > 1)
+        setDay(Day - 1)
+      let start = 0
+      let end = (DateforEachDay as Array<string>).length - 1;
+      setDayforEachDay((DateforEachDay as Array<string>).slice(start, end));
+
+    }
+
+
+  }
+
+
+
+
+  console.log(Day)
+  console.log("This is day1 array : " + day1 + " and Duration 1 : " + dura1)
+  console.log("This is day2 array : " + day2 + " and Duration 2 : " + dura2)
+  console.log("This is day3 array : " + day3 + " and Duration 3 : " + dura3)
+  console.log("This is day4 array : " + day4 + " and Duration 4 : " + dura4)
+  console.log("This is day5 array : " + day5 + " and Duration 5 : " + dura5)
+  // console.log("This is AllFiveDate : " + AllfiveDate)
+  console.log("This is DateForEachDay : " + DateforEachDay)
+
+
+
+
+  return (
+    <React.Fragment>
+      <DayBlock width={'500px'} height={'65px'} bgcolor={"#5882FA"} margin={"4px 0px"}>Day {Day} Schdule </DayBlock>
+      <br />
+      <DayBlock margin={'0px'} width={'500px'} height={'65px'} bgcolor={"#95128a"}>Date {props.date}</DayBlock>
+      <ul>
+        <ListPlaces > {props.places[1]}</ListPlaces>
+        <ListPlaces > {props.places[2]}</ListPlaces>
+        <ListPlaces > {props.places[3]}</ListPlaces>
+        <ListPlaces > {props.places[4]}</ListPlaces>
+        <ListPlaces > {props.places[5]}</ListPlaces>
+      </ul>
+
+      <NextButton bgcolor={"#77b300"} onClick={() => onClickNext(true)} >Next</NextButton>
+      <br />
+      <NextButton bgcolor={"#77b300"} onClick={() => onClickNext(false)} > Edit Previous</NextButton>
+      <br />
+      <NextButton bgcolor={"#0073e6"} onClick={DoneClickHandler}>Done</NextButton>
+
+
+    </React.Fragment>
+  )
+
+}
+
+
+
+
+
+
 const AboutUs = () => {
 
-
-
   const AboutUsStyle = style('div', 'About us', {
-    width: '500px',
-    height: '800px',
-    borderRadius: '7%',
+    width: '1500px',
+    height: '400px',
+    borderRadius: '35px',
     backgroundColor: '#81BEF7',
     fontSize: '35px',
     color: 'white',
-    textAlign: 'center',
-    lineHeight: '1em',
+    textAlign: 'justify',
+    lineHeight: '1.2em',
     float: "left",
-    visibility: 'hidden',
-    position: 'relative',
+    visibility: 'visible',
     wordWrap: 'break-word',
     padding: '30px',
     marginTop: '5px',
+    boxShadow: '3px 3px #4d79ff',
+
 
   })
   return (
     <React.Fragment>
 
       <AboutUsStyle>
-        Welcome to Travel Planner! This is a platform for you to manage
+        <h1 style={{ textDecoration: 'underline', textAlign: 'center' }}>  About Us </h1>
+        <br />
+        &ensp;  &ensp;  Welcome to Travel Planner! This is a platform for you to manage
         all your travel plans. Travelling to a new country, but don't know where to
         start? Travelling on a budget? Want to hit all the popular spots,
         but you are short on time? Don't worry. We got you. Simply let us know what places you'd
@@ -87,147 +686,3 @@ const AboutUs = () => {
 
   )
 }
-const UserLogin = () => {
-
-  const LoginStyle = style('div', 'Login', {
-    visibility: 'hidden'
-  })
-
-  return (
-    <LoginStyle>
-      Link to UserLogin
-    </LoginStyle>
-
-  )
-
-}
-
-// const SearchBar = style('div', 'About us', {
-//   width: '200px',
-//   height: '200px',
-//   borderRadius: '50%',
-//   backgroundColor: '#A4A4A4',
-//   fontSize: '30px',
-//   color: 'white',
-//   textAlign: 'center',
-//   lineHeight: '6em',
-//   float: "left",
-//   marginLeft: '100px',
-
-//   // marginLeft: 'auto',
-//   // marginRight: 'auto',
-//   wordWrap: 'break-word',
-
-// })
-
-
-
-
-const CircularDiv = (props: any) => {
-
-  const CircularStyle = style('div', 'CirularDiv', {
-    width: '200px',
-    height: '200px',
-    borderRadius: '50%',
-    backgroundColor: props.bgColor,
-    fontSize: '30px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '6em',
-    float: "left",
-    marginLeft: '100px',
-    wordWrap: 'break-word',
-
-  })
-
-
-
-
-
-
-  function clickHandler() {
-
-    let x = Array.from(document.getElementsByClassName("About Us") as HTMLCollectionOf<HTMLElement>)
-    let z = Array.from(document.getElementsByClassName("Search") as HTMLCollectionOf<HTMLElement>)
-    let y = Array.from(document.getElementsByClassName("Login") as HTMLCollectionOf<HTMLElement>)
-
-    if (props.para == "About Us") {
-      console.log(x);
-
-      for (let i = 0; i < x.length; i++) {
-
-        if (x[i].style.visibility == 'hidden') {
-          x[i].style.visibility = 'visible'
-
-          for (let j = 0; j < z.length; j++) {
-            z[i].style.visibility = 'hidden'
-          }
-
-        }
-        else {
-          x[i].style.visibility = 'hidden'
-        }
-      }
-
-    }
-    if (props.para == 'Login') {
-      for (let i = 0; i < y.length; i++) {
-
-        if (y[i].style.visibility == 'hidden') {
-          y[i].style.visibility = 'visible'
-
-          for (let j = 0; j < z.length; j++) {
-            z[i].style.visibility = 'hidden'
-          }
-
-        }
-        else {
-          y[i].style.visibility = 'hidden'
-        }
-      }
-
-    }
-    if (props.para = 'Search') {
-
-      for (let i = 0; i < z.length; i++) {
-
-        if (z[i].style.visibility == 'hidden') {
-          z[i].style.visibility = 'visible'
-
-          for (let j = 0; j < z.length; j++) {
-            x[i].style.visibility = 'hidden'
-          }
-
-        }
-        else {
-          z[i].style.visibility = 'hidden'
-        }
-      }
-
-    }
-  }
-
-  return (
-    <React.Fragment>
-      <button onClick={clickHandler}>
-        <CircularStyle>
-          {props.para}
-        </CircularStyle>
-      </button>
-    </React.Fragment>
-
-  )
-
-}
-
-// const LContent = style('div', 'flex-grow-0 w-70-l mr4-l')
-
-// const RContent = style('div', 'flex-grow-0  w-30-l')
-
-// const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
-//   borderLeftColor: '#0B2161 ' + '!important',
-//   borderLeftWidth: '10px',
-
-
-// }))
-

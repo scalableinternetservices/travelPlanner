@@ -9,6 +9,7 @@ interface InputProps {
   $hasSuccess?: boolean
   $onChange?: (val: string) => void
   $onSubmit?: (val: string) => void
+  $boxwidth?: string
 }
 
 const InputBase = style('input', 'pa2 input-reset ba bg-transparent w-100 measure', (p: InputProps) => ({
@@ -16,7 +17,10 @@ const InputBase = style('input', 'pa2 input-reset ba bg-transparent w-100 measur
   border: '1px solid ' + (p.$hasError ? Colors.coral : p.$hasSuccess ? Colors.mint : Colors.charcoal),
   ':focus': {
     border: '1px solid ' + (p.$hasError ? Colors.coral : p.$hasSuccess ? Colors.mint : Colors.charcoal),
+
   },
+  width: p.$boxwidth,
+  height: '50px',
 }))
 
 type Props = InputProps & JSX.IntrinsicElements['input']
