@@ -50427,7 +50427,110 @@ function routeParams(params) {
 }
 
 exports.routeParams = routeParams;
-},{}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
+},{}],"style/fonts.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Fonts = void 0;
+exports.Fonts = {
+  sansHeader: "'SF Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  sansBody: "'SF Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+  mono: "'SF Mono', monospace"
+};
+},{}],"style/input.tsx":[function(require,module,exports) {
+"use strict";
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Input = void 0;
+
+var React = __importStar(require("react"));
+
+var react_1 = require("react");
+
+var colors_1 = require("../../../common/src/colors");
+
+var fonts_1 = require("./fonts");
+
+var styled_1 = require("./styled");
+
+var InputBase = styled_1.style('input', 'pa2 input-reset ba bg-transparent w-100 measure', function (p) {
+  return {
+    fontFamily: fonts_1.Fonts.sansBody,
+    border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal),
+    ':focus': {
+      border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal)
+    },
+    width: p.$boxwidth,
+    height: '50px'
+  };
+});
+
+function Input(props) {
+  var inputRef = react_1.useRef(null);
+
+  function handleEnterKey(e) {
+    if (e.keyCode === 13 && props.$onSubmit) {
+      // enter
+      props.$onSubmit(inputRef.current.value);
+    }
+  }
+
+  function handleChange() {
+    if (props.$onChange) {
+      props.$onChange(inputRef.current.value);
+    }
+  }
+
+  return /*#__PURE__*/React.createElement(InputBase, _extends({
+    ref: inputRef
+  }, props, {
+    onChange: handleChange,
+    onKeyDown: handleEnterKey
+  }));
+}
+
+exports.Input = Input;
+},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
 var define;
 !function (root, factory) {
   "object" == typeof exports && "object" == typeof module ? module.exports = factory(require("react")) : "function" == typeof define && define.amd ? define(["react"], factory) : "object" == typeof exports ? exports.MediaQuery = factory(require("react")) : root.MediaQuery = factory(root.React);
@@ -52273,36 +52376,144 @@ var __importStar = this && this.__importStar || function (mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.HomePage = void 0;
+exports.HomePage = exports.userdata = void 0;
 
 var React = __importStar(require("react"));
 
+var react_1 = require("react");
+
+var input_1 = require("../../style/input");
+
 var styled_1 = require("../../style/styled");
 
-var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
+var Page_1 = require("./Page");
 
+var day1 = [];
+var day2 = [];
+var day3 = [];
+var day4 = [];
+var day5 = [];
+var dura1 = [];
+var dura2 = [];
+var dura3 = [];
+var dura4 = [];
+var dura5 = [];
+var daysDate = [];
 
-function HomePage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Welcome, null, " Welcome to Travel Planner  "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(CircularDiv, {
-    bgColor: "#81BEF7",
-    para: "About Us"
-  }, " "), /*#__PURE__*/React.createElement(CircularDiv, {
-    bgColor: "#F78181",
-    para: "Login"
-  }, " "), /*#__PURE__*/React.createElement(CircularDiv, {
-    bgColor: "#A4A4A4",
-    para: "Search"
-  }), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement(UserLogin, null));
+function DisplayItin(prop) {
+  return /*#__PURE__*/React.createElement("div", null, prop.addresses.map(function (a) {
+    return a.concat;
+  }));
 }
 
-exports.HomePage = HomePage; // const Hero = style('div', 'mb4 w-100 ba b--mid-gray br2 pa3 tc', {
-//   borderLeftColor: Colors.mint + '!important',
-//   borderRightColor: Colors.coral + '!important',
-//   borderLeftWidth: '4px',
-//   borderRightWidth: '4px',
-// })
-// const Content = style('div', 'flex-l')
+function userdata(data) {
+  if (data = "d1") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day1
+    }));
+  } else if (data = "d2") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day2
+    }));
+  } else if (data = "d3") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day3
+    }));
+  } else if (data = "d4") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day4
+    }));
+  } else if (data = "d5") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: day5
+    }));
+  } else if (data = "t1") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura1
+    }));
+  } else if (data = "t2") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura2
+    }));
+  } else if (data = "t3") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura3
+    }));
+  } else if (data = "t4") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura4
+    }));
+  } else if (data = "t5") {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: dura5
+    }));
+  } else {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
+      addresses: daysDate
+    }));
+  }
+}
 
+exports.userdata = userdata; // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+function HomePage(props) {
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Welcome, null, " Welcome to Travel Planner  "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(FlexibleDiv, {
+    width: '1500px',
+    height: '420px',
+    bgcolor: "#ccffcc",
+    textcolor: "#735999",
+    boxshadow: "#0dc291"
+  }, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontSize: "30px"
+    }
+  }, /*#__PURE__*/React.createElement("u", {
+    style: {
+      lineHeight: "2em"
+    }
+  }, "How it works")), /*#__PURE__*/React.createElement("ul", {
+    style: {
+      textAlign: "justify",
+      fontSize: "25px",
+      margin: "30px",
+      lineHeight: "2em"
+    }
+  }, /*#__PURE__*/React.createElement("li", null, " ", /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 1:\u2002"), /*#__PURE__*/React.createElement("b", null, "Type "), " in the place address you would like to visit. (Up to five locations)Select date for that place. ", /*#__PURE__*/React.createElement("b", null, "Select"), " the date that for the locations. ", /*#__PURE__*/React.createElement("b", null, "Type "), "in the estimcate duration you would like to stay there.")), /*#__PURE__*/React.createElement("li", null, " ", /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 2:\u2002"), /*#__PURE__*/React.createElement("b", null, "Click \"+\""), " to add to the list. (Up to five locations) (OR) ", /*#__PURE__*/React.createElement("b", null, "Click \"-\""), " to remove places from the list.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 3:\u2002"), "After adding addresses for day 1, ", /*#__PURE__*/React.createElement("b", null, "Click \"Next\""), " to add address for other day. (Or) ", /*#__PURE__*/React.createElement("b", null, "Click \"Edit Previous \""), " to edit the previous day plan.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      font: 'Alice'
+    }
+  }, /*#__PURE__*/React.createElement("b", {
+    style: {
+      fontSize: "25"
+    }
+  }, "Step 4:\u2002"), /*#__PURE__*/React.createElement("b", null, "Click \"Done\"."), " Our algorithm will generate most efficient and lowest price schedule for you.")))), /*#__PURE__*/React.createElement(Search, null));
+}
+
+exports.HomePage = HomePage;
 var Welcome = styled_1.style('div', 'welcomeboard', {
   backgroundColor: '#FAAC58',
   margin: '5px',
@@ -52316,185 +52527,408 @@ var Welcome = styled_1.style('div', 'welcomeboard', {
   fontSize: '70px',
   lineHeight: '3em'
 });
-
-var AboutUs = function AboutUs() {
-  var AboutUsStyle = styled_1.style('div', 'About us', {
-    width: '500px',
-    height: '800px',
-    borderRadius: '7%',
-    backgroundColor: '#81BEF7',
+var LeftSerchDive = styled_1.style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#F5A9A9',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "left",
+  visibility: 'visible',
+  // border: '2px solid red',
+  padding: '20px'
+});
+var RightSerchDive = styled_1.style('div', 'Search', {
+  width: '730px',
+  height: '800px',
+  borderRadius: '35px',
+  backgroundColor: '#A4A4A4',
+  fontSize: '35px',
+  color: 'white',
+  textAlign: 'center',
+  lineHeight: '1em',
+  float: "right",
+  visibility: 'visible',
+  // border: '2px solid red',
+  padding: '20px'
+});
+var FlexibleDiv = styled_1.style('div', 'Search', function (props) {
+  return {
+    width: props.width,
+    height: props.height,
+    borderRadius: '35px',
+    backgroundColor: props.bgcolor,
     fontSize: '35px',
-    color: 'white',
+    color: props.textcolor,
     textAlign: 'center',
-    lineHeight: '1em',
+    lineHeight: props.lineheight,
     float: "left",
-    visibility: 'hidden',
-    position: 'relative',
-    wordWrap: 'break-word',
-    padding: '30px',
-    marginTop: '5px'
-  });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(AboutUsStyle, null, "Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
-};
-
-var UserLogin = function UserLogin() {
-  var UserLogStyle = styled_1.style('div', 'Login', {
-    width: '900px',
-    height: '400px',
-    borderRadius: '5%',
-    backgroundColor: '#F78181',
-    lineHeight: '3em',
     visibility: 'visible',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: '10px'
-  });
-  var FromStyle = styled_1.style('form', 'Login', {
-    marginTop: '50px',
-    fontSize: '29px',
-    color: 'white',
-    textAlign: 'right',
-    lineHeight: '3em',
-    position: 'absolute'
-  });
-  var InputStyle = styled_1.style('input', 'Login', {
-    border: "1px solid #FA5858",
-    width: '500px',
-    marginleft: '10px',
-    backgroundColor: '#F6CECE'
-  });
-  var LabelStyle = styled_1.style('label', 'Login', {
-    marginLeft: '100px'
-  });
-  var SubmitStyle = styled_1.style('button', 'Login', {
-    color: "white",
-    position: 'static',
-    alignSelf: 'left',
-    border: '1px solid #FA5858'
-  });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(UserLogStyle, null, /*#__PURE__*/React.createElement(FromStyle, null, /*#__PURE__*/React.createElement(LabelStyle, null, "Username"), /*#__PURE__*/React.createElement(InputStyle, {
-    type: "text"
-  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(LabelStyle, null, " Password"), /*#__PURE__*/React.createElement(InputStyle, {
-    type: "password"
-  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(SubmitStyle, {
-    type: "submit"
-  }, "Submit"))));
-}; // const SearchBar = style('div', 'About us', {
-//   width: '200px',
-//   height: '200px',
-//   borderRadius: '50%',
-//   backgroundColor: '#A4A4A4',
-//   fontSize: '30px',
-//   color: 'white',
-//   textAlign: 'center',
-//   lineHeight: '6em',
-//   float: "left",
-//   marginLeft: '100px',
-//   // marginLeft: 'auto',
-//   // marginRight: 'auto',
-//   wordWrap: 'break-word',
-// })
+    //position: 'fixed',
+    wordWrap: 'break-word',
+    marginTop: '5px',
+    //border: '2px solid red',
+    boxShadow: '3px 3px ' + props.boxshadow
+  };
+});
 
+var Search = function Search() {
+  var _a = react_1.useState(['']),
+      places = _a[0],
+      setPlaces = _a[1];
 
-var CircularDiv = function CircularDiv(props) {
-  var CircularStyle = styled_1.style('div', 'CirularDiv', {
-    width: '200px',
-    height: '200px',
-    borderRadius: '50%',
-    backgroundColor: props.bgColor,
-    fontSize: '30px',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: '6em',
-    float: "left",
-    marginLeft: '100px',
-    wordWrap: 'break-word'
-  });
+  var _b = react_1.useState(['']),
+      durations = _b[0],
+      setDura = _b[1];
 
-  function clickHandler() {
-    var x = Array.from(document.getElementsByClassName("About Us"));
-    var y = Array.from(document.getElementsByClassName("Login"));
-    var z = Array.from(document.getElementsByClassName("Search"));
+  var _c = react_1.useState(''),
+      date = _c[0],
+      setDate = _c[1];
 
-    if (props.para == "About Us") {
-      console.log(x);
-
-      for (var i = 0; i < x.length; i++) {
-        if (x[i].style.visibility == 'hidden') {
-          x[i].style.visibility = 'visible';
-
-          for (var j = 0; j < y.length; j++) {
-            y[i].style.visibility = 'hidden';
-          }
-
-          for (var j = 0; j < z.length; j++) {
-            z[i].style.visibility = 'hidden';
-          }
-        } else {
-          x[i].style.visibility = 'hidden';
-        }
+  function Manage(x, y, z) {
+    if (!y) {
+      if (places.length < 6 && x != "null" && z > 5 && x != "") {
+        setPlaces(places.concat(x));
+        setDura(durations.concat(z));
       }
-    }
 
-    if (props.para == 'Login') {
-      for (var i = 0; i < y.length; i++) {
-        if (y[i].style.visibility == 'hidden') {
-          y[i].style.visibility = 'visible';
+      if (z <= 5) alert("Duration is too short.");
+      if (x == "") alert("Enter something in Address."); // else
+      //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
+    } else {
+      if (places.length > 1) {
+        var start = 0;
+        var end = places.length - 1;
+        setPlaces(places.slice(start, end));
+        setDura(durations.slice(start, end));
+      } else {
+        setPlaces([""]);
+        setDura([""]);
+      } // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
 
-          for (var j = 0; j < y.length; j++) {
-            x[i].style.visibility = 'hidden';
-          }
-
-          for (var j = 0; j < z.length; j++) {
-            z[i].style.visibility = 'hidden';
-          }
-        } else {
-          y[i].style.visibility = 'hidden';
-        }
-      }
-    }
-
-    if (props.para = 'Search') {
-      for (var i = 0; i < z.length; i++) {
-        if (z[i].style.visibility == 'hidden') {
-          z[i].style.visibility = 'visible';
-
-          for (var j = 0; j < y.length; j++) {
-            y[i].style.visibility = 'hidden';
-          }
-
-          for (var j = 0; j < z.length; j++) {
-            x[i].style.visibility = 'hidden';
-          }
-        } else {
-          z[i].style.visibility = 'hidden';
-        }
-      }
     }
   }
 
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
-    onClick: clickHandler
-  }, /*#__PURE__*/React.createElement(CircularStyle, null, props.para)));
-}; // const LContent = style('div', 'flex-grow-0 w-70-l mr4-l')
-// const RContent = style('div', 'flex-grow-0  w-30-l')
-// const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
-//   borderLeftColor: '#0B2161 ' + '!important',
-//   borderLeftWidth: '10px',
-// }))
-},{"react":"../../node_modules/react/index.js","../../style/styled":"style/styled.tsx","./Page":"view/page/Page.tsx"}],"style/fonts.ts":[function(require,module,exports) {
-"use strict";
+  console.log("after slice " + places);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Fonts = void 0;
-exports.Fonts = {
-  sansHeader: "'SF Display', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  sansBody: "'SF Text', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-  mono: "'SF Mono', monospace"
+  function resetplaces(y) {
+    if (y) {
+      setDura(['']);
+      setPlaces(['']);
+    }
+  }
+
+  console.log(places);
+  console.log(durations);
+  console.log(date);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FlexibleDiv, {
+    width: '1500px',
+    height: '800px',
+    bgcolor: '#A4A4A4',
+    textcolor: "white",
+    lineheight: "1em",
+    boxshadow: "#9c6687"
+  }, /*#__PURE__*/React.createElement(LeftSerchDive, null, /*#__PURE__*/React.createElement(DaysAndPlaces, {
+    places: places,
+    dur: durations,
+    date: date,
+    reset: function reset(shouldremove) {
+      return resetplaces(shouldremove);
+    }
+  })), /*#__PURE__*/React.createElement(RightSerchDive, null, /*#__PURE__*/React.createElement(SearchForm, {
+    addDate: function addDate(datex) {
+      return setDate(datex);
+    },
+    onPlaceAdded: function onPlaceAdded(place, remove, durationx) {
+      return Manage(place, remove, durationx);
+    }
+  }))));
+}; //user's input data
+
+
+var current_date = new Date();
+var current_date_string = current_date.toString();
+var current_day = current_date.getDate().toString();
+var current_month = (current_date.getMonth() + 1).toString();
+var current_year = current_date.getFullYear().toString();
+var defaultDate = current_year + '-' + current_month + '-' + current_day; // let AllfiveDate: string[] = []
+
+var SearchForm = function SearchForm(props) {
+  var _a = react_1.useState(''),
+      place1 = _a[0],
+      setPlace = _a[1];
+
+  var _b = react_1.useState(0),
+      placeCount = _b[0],
+      setPlaceCount = _b[1];
+
+  var _c = react_1.useState('80'),
+      duration = _c[0],
+      setDuration = _c[1];
+
+  var _d = react_1.useState(defaultDate),
+      date = _d[0],
+      setDate = _d[1];
+
+  var _e = react_1.useState(false),
+      dateError = _e[0],
+      setDateError = _e[1];
+
+  function checkDate(dtex) {
+    if (dtex == '') return true;
+    var splitted = dtex.split("-", 3);
+    var dtex_year = splitted[0];
+    var dtex_month = splitted[1];
+    var dtex_day = splitted[2];
+    console.log("dtex_day : " + dtex_day);
+    console.log("dtex_month : " + dtex_month);
+    console.log("dtex_year : " + dtex_year);
+    console.log("current date : ", current_date_string);
+    console.log("current day : " + current_day);
+    console.log("current month : " + current_month);
+    console.log("current year : " + current_year);
+    if (parseInt(dtex_year) < parseInt(current_year)) return true;
+    if (parseInt(dtex_month) < parseInt(current_month) && parseInt(dtex_year) == parseInt(current_year)) return true;
+    if (parseInt(dtex_year) == parseInt(current_year) && parseInt(dtex_month) == parseInt(current_month) && parseInt(dtex_day) < parseInt(current_day)) return true;
+    return false;
+  }
+
+  function AddDate(datex) {
+    var isDateError = checkDate(datex);
+    setDateError(isDateError);
+    console.log("isDateError is : " + isDateError);
+    console.log("Date error : " + dateError);
+
+    if (dateError) {
+      alert("Date is Invalid. Please Try select again.");
+      setDate(defaultDate);
+      return "DateError";
+    }
+
+    if (date != '' && !dateError) {
+      setDate(datex);
+      props.addDate(datex);
+    }
+
+    return "NoError";
+  }
+
+  function canListIncre() {
+    var isthereError = AddDate(date); //bug 4: Delay for one round.
+
+    if (isthereError == 'DateError') return;
+
+    if (placeCount < 5) {
+      if (place1 != '') setPlaceCount(placeCount + 1);
+      props.onPlaceAdded(place1, false, duration);
+    } else {
+      setPlaceCount(0);
+      props.onPlaceAdded("null", false, duration);
+    }
+  }
+
+  console.log("This is place count : " + placeCount);
+  var InputSubmit = styled_1.style('button', 'Search', {
+    width: '100px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: '#424242',
+    borderRadius: '5px',
+    color: 'white'
+  });
+  console.log("This is date in RightFrom" + date);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", null, " Address: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: "500px",
+    $onChange: setPlace,
+    type: "text"
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Date: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: "300px",
+    $onChange: setDate,
+    type: "date"
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Duration: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: "200px",
+    $onChange: setDuration,
+    type: "number"
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(InputSubmit, {
+    onClick: canListIncre
+  }, "+"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(InputSubmit, {
+    onClick: function onClick() {
+      return props.onPlaceAdded(place1, true, duration);
+    }
+  }, "-"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, place1), " ", /*#__PURE__*/React.createElement("br", null)));
 };
-},{}],"style/header.tsx":[function(require,module,exports) {
+
+var DaysAndPlaces = function DaysAndPlaces(props) {
+  var _a = react_1.useState(['']),
+      DateforEachDay = _a[0],
+      setDayforEachDay = _a[1];
+
+  var _b = react_1.useState(1),
+      Day = _b[0],
+      setDay = _b[1];
+
+  function DoneClickHandler() {
+    if (day1.length < 2 || DateforEachDay.length < 2 || dura1.length < 2) {
+      alert("You have not enter anything");
+      return;
+    }
+
+    daysDate = DateforEachDay;
+  }
+
+  function checkisDateDup(dateArr) {
+    console.log("props.date is " + props.date + " and dateArr is " + dateArr);
+    if (dateArr.includes(props.date)) return true;else return false;
+  }
+
+  var DayBlock = styled_1.style('div', 'Search', function (props) {
+    return {
+      width: props.width,
+      height: props.height,
+      margin: props.margin,
+      backgroundColor: props.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em'
+    };
+  });
+  var ListPlaces = styled_1.style('li', 'Search', {
+    textAlign: 'left',
+    margin: '30px 60px',
+    visiblilty: 'visible'
+  });
+  var NextButton = styled_1.style('button', 'Search', function (p) {
+    return {
+      width: '300px',
+      height: ' 65px',
+      margin: '10px 0',
+      backgroundColor: p.bgcolor,
+      boxShadow: '3px 3px #A9A9F5',
+      borderRadius: '5px',
+      color: 'white',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      textAlign: 'center',
+      lineHeight: '2em'
+    };
+  });
+
+  function onClickNext(Next) {
+    var isDateDup = checkisDateDup(DateforEachDay);
+
+    if (Day == 1) {
+      day1 = props.places;
+      dura1 = props.dur;
+    }
+
+    if (Day == 2) {
+      day2 = props.places;
+      dura2 = props.dur;
+    }
+
+    if (Day == 3) {
+      day3 = props.places;
+      dura3 = props.dur;
+    }
+
+    if (Day == 4) {
+      day4 = props.places;
+      dura4 = props.dur;
+    }
+
+    if (Day == 5) {
+      day5 = props.places;
+      dura5 = props.dur;
+    }
+
+    if (Next && props.places.length == 1) {
+      alert("Day " + Day + " schedule is empty.");
+    }
+
+    if (Next && isDateDup) {
+      alert("Date is duplicate.");
+      props.reset(true);
+      return;
+    }
+
+    if (Next && props.places.length != 1 && !isDateDup) {
+      if (Day < 5) setDay(Day + 1);
+      setDayforEachDay(DateforEachDay.concat(props.date));
+      props.reset(true);
+    } else {
+      if (Day > 1) setDay(Day - 1);
+      var start = 0;
+      var end = DateforEachDay.length - 1;
+      setDayforEachDay(DateforEachDay.slice(start, end));
+    }
+  }
+
+  console.log(Day);
+  console.log("This is day1 array : " + day1 + " and Duration 1 : " + dura1);
+  console.log("This is day2 array : " + day2 + " and Duration 2 : " + dura2);
+  console.log("This is day3 array : " + day3 + " and Duration 3 : " + dura3);
+  console.log("This is day4 array : " + day4 + " and Duration 4 : " + dura4);
+  console.log("This is day5 array : " + day5 + " and Duration 5 : " + dura5); // console.log("This is AllFiveDate : " + AllfiveDate)
+
+  console.log("This is DateForEachDay : " + DateforEachDay);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, {
+    width: '500px',
+    height: '65px',
+    bgcolor: "#5882FA",
+    margin: "4px 0px"
+  }, "Day ", Day, " Schdule "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(DayBlock, {
+    margin: '0px',
+    width: '500px',
+    height: '65px',
+    bgcolor: "#95128a"
+  }, "Date ", props.date), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[1]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5])), /*#__PURE__*/React.createElement(NextButton, {
+    bgcolor: "#77b300",
+    onClick: function onClick() {
+      return onClickNext(true);
+    }
+  }, "Next"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(NextButton, {
+    bgcolor: "#77b300",
+    onClick: function onClick() {
+      return onClickNext(false);
+    }
+  }, " Edit Previous"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(NextButton, {
+    bgcolor: "#0073e6",
+    onClick: DoneClickHandler
+  }, "Done"));
+};
+
+var AboutUs = function AboutUs() {
+  var AboutUsStyle = styled_1.style('div', 'About us', {
+    width: '1500px',
+    height: '400px',
+    borderRadius: '35px',
+    backgroundColor: '#81BEF7',
+    fontSize: '35px',
+    color: 'white',
+    textAlign: 'justify',
+    lineHeight: '1.2em',
+    float: "left",
+    visibility: 'visible',
+    wordWrap: 'break-word',
+    padding: '30px',
+    marginTop: '5px',
+    boxShadow: '3px 3px #4d79ff'
+  });
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(AboutUsStyle, null, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      textDecoration: 'underline',
+      textAlign: 'center'
+    }
+  }, "  About Us "), /*#__PURE__*/React.createElement("br", null), "\u2002  \u2002  Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
+};
+},{"react":"../../node_modules/react/index.js","../../style/input":"style/input.tsx","../../style/styled":"style/styled.tsx","./Page":"view/page/Page.tsx"}],"style/header.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53066,96 +53500,7 @@ var ButtonBase = styled_1.style('a', 'pointer link dim br3 ph3 pv2 black', funct
     backgroundColor: colors_1.Colors[p.$color || 'lemon']
   };
 });
-},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./styled":"style/styled.tsx"}],"style/input.tsx":[function(require,module,exports) {
-"use strict";
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Input = void 0;
-
-var React = __importStar(require("react"));
-
-var react_1 = require("react");
-
-var colors_1 = require("../../../common/src/colors");
-
-var fonts_1 = require("./fonts");
-
-var styled_1 = require("./styled");
-
-var InputBase = styled_1.style('input', 'pa2 input-reset ba bg-transparent w-100 measure', function (p) {
-  return {
-    fontFamily: fonts_1.Fonts.sansBody,
-    border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal),
-    ':focus': {
-      border: '1px solid ' + (p.$hasError ? colors_1.Colors.coral : p.$hasSuccess ? colors_1.Colors.mint : colors_1.Colors.charcoal)
-    }
-  };
-});
-
-function Input(props) {
-  var inputRef = react_1.useRef(null);
-
-  function handleEnterKey(e) {
-    if (e.keyCode === 13 && props.$onSubmit) {
-      // enter
-      props.$onSubmit(inputRef.current.value);
-    }
-  }
-
-  function handleChange() {
-    if (props.$onChange) {
-      props.$onChange(inputRef.current.value);
-    }
-  }
-
-  return /*#__PURE__*/React.createElement(InputBase, _extends({
-    ref: inputRef
-  }, props, {
-    onChange: handleChange,
-    onKeyDown: handleEnterKey
-  }));
-}
-
-exports.Input = Input;
-},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"view/auth/Login.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./styled":"style/styled.tsx"}],"view/auth/Login.tsx":[function(require,module,exports) {
 "use strict";
 
 var __assign = this && this.__assign || function () {
@@ -53360,7 +53705,8 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
-var util_1 = require("../../../../common/src/util");
+var util_1 = require("../../../../common/src/util"); // import { User } from '../../../../server/src/entities/User'
+
 
 var button_1 = require("../../style/button");
 
@@ -53500,16 +53846,7 @@ function Login() {
 exports.Login = Login;
 
 function Logout() {
-  var _a = react_1.useState({}),
-      userInfo = _a[0],
-      setUserInfo = _a[1]; //const { user } = useContext(UserContext)
-
-
-  fetch('/currUser').then(function (res) {
-    return res.json();
-  }).then(function (json) {
-    return setUserInfo(json);
-  }).catch(error_1.handleError);
+  var user = react_1.useContext(user_1.UserContext).user;
 
   function logout() {
     fetch('/auth/logout', {
@@ -53527,7 +53864,7 @@ function Logout() {
     $h5: true
   }), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
-  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
+  }, " ", user === null || user === void 0 ? void 0 : user.name), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout
@@ -53893,18 +54230,10 @@ function Signup() {
 exports.Signup = Signup;
 
 function Logout() {
-  var _a = react_1.useState({}),
-      userInfo = _a[0],
-      setUserInfo = _a[1];
-
-  fetch('/currUser').then(function (res) {
-    return res.json();
-  }).then(function (json) {
-    return setUserInfo(json);
-  }).catch(error_1.handleError);
+  var user = react_1.useContext(user_1.UserContext).user;
 
   function logout() {
-    return fetch('/auth/logout', {
+    fetch('/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -53919,7 +54248,7 @@ function Logout() {
     $h5: true
   }), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
-  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
+  }, " ", user === null || user === void 0 ? void 0 : user.name), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout
