@@ -100,8 +100,7 @@ export interface SurveyInput {
 export enum ItineraryType {
   Stop = 'STOP',
   Departure = 'DEPARTURE',
-  Arrival = 'ARRIVAL',
-  Travel = 'TRAVEL'
+  Arrival = 'ARRIVAL'
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
