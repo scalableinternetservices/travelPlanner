@@ -63,7 +63,6 @@ export enum ItineraryType {
   Stop = 'STOP',
   Departure = 'DEPARTURE',
   Arrival = 'ARRIVAL',
-  Travel = 'TRAVEL'
 }
 
 export interface Survey {
@@ -95,12 +94,6 @@ export interface SurveyAnswer {
 export interface SurveyInput {
   questionId: Scalars['Int']
   answer: Scalars['String']
-}
-
-export enum ItineraryType {
-  Stop = 'STOP',
-  Departure = 'DEPARTURE',
-  Arrival = 'ARRIVAL'
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
