@@ -22,8 +22,6 @@ export interface MutationAnswerSurveyArgs {
   input: SurveyInput
 }
 
-
-
 export interface MutationNextSurveyQuestionArgs {
   surveyId: Scalars['Int']
 }
@@ -90,6 +88,13 @@ export interface User {
 export enum UserType {
   Admin = 'ADMIN',
   User = 'USER',
+}
+
+export enum ItineraryType {
+  Stop = 'STOP',
+  Departure = 'DEPARTURE',
+  Arrival = 'ARRIVAL',
+  Travel = 'TRAVEL'
 }
 
 export type ResolverTypeWrapper<T> = Promise<T> | T
