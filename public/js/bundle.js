@@ -53360,7 +53360,8 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
-var util_1 = require("../../../../common/src/util");
+var util_1 = require("../../../../common/src/util"); // import { User } from '../../../../server/src/entities/User'
+
 
 var button_1 = require("../../style/button");
 
@@ -53500,16 +53501,7 @@ function Login() {
 exports.Login = Login;
 
 function Logout() {
-  var _a = react_1.useState({}),
-      userInfo = _a[0],
-      setUserInfo = _a[1]; //const { user } = useContext(UserContext)
-
-
-  fetch('/currUser').then(function (res) {
-    return res.json();
-  }).then(function (json) {
-    return setUserInfo(json);
-  }).catch(error_1.handleError);
+  var user = react_1.useContext(user_1.UserContext).user;
 
   function logout() {
     fetch('/auth/logout', {
@@ -53527,7 +53519,7 @@ function Logout() {
     $h5: true
   }), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
-  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
+  }, " ", user === null || user === void 0 ? void 0 : user.name), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout
@@ -53893,18 +53885,10 @@ function Signup() {
 exports.Signup = Signup;
 
 function Logout() {
-  var _a = react_1.useState({}),
-      userInfo = _a[0],
-      setUserInfo = _a[1];
-
-  fetch('/currUser').then(function (res) {
-    return res.json();
-  }).then(function (json) {
-    return setUserInfo(json);
-  }).catch(error_1.handleError);
+  var user = react_1.useContext(user_1.UserContext).user;
 
   function logout() {
-    return fetch('/auth/logout', {
+    fetch('/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -53919,7 +53903,7 @@ function Logout() {
     $h5: true
   }), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
-  }, " ", userInfo.email), /*#__PURE__*/React.createElement("div", {
+  }, " ", user === null || user === void 0 ? void 0 : user.name), /*#__PURE__*/React.createElement("div", {
     className: "mt3"
   }, /*#__PURE__*/React.createElement(button_1.Button, {
     onClick: logout

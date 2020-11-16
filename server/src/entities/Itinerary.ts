@@ -1,14 +1,9 @@
-import { integer } from 'aws-sdk/clients/cloudfront'
-import { float } from 'aws-sdk/clients/lightsail'
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { ItineraryType, User as GraphqlUser, UserType } from '../graphql/schema.types'
+import { ItineraryType } from '../graphql/schema.types'
 
 @Entity()
-export class Itinerary extends BaseEntity implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
-  name: string
+export class Itinerary extends BaseEntity implements  {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -25,11 +20,8 @@ export class Itinerary extends BaseEntity implements GraphqlUser {
 }
 
 @Entity()
-export class Day extends BaseEntity implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
-  name: string
+export class Day extends BaseEntity implements  {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -40,7 +32,7 @@ export class Day extends BaseEntity implements GraphqlUser {
   timeUpdated: Date
 
   @Column()
-  day: integer
+  day: number
 
   @Column({
     length: 100,
@@ -51,11 +43,8 @@ export class Day extends BaseEntity implements GraphqlUser {
   schedule: Location[]
 }
 
-@Entity()
-class Location extends BaseEntity implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export abstract class Location extends BaseEntity implements  {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -82,10 +71,8 @@ class Location extends BaseEntity implements GraphqlUser {
 }
 
 @Entity()
-export class Stop extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Stop extends Location implements  {
+
   @Column({
     length: 100,
   })
@@ -97,14 +84,12 @@ export class Stop extends Location implements GraphqlUser {
   departure: string
 
   @Column()
-  duration: integer
+  duration: number
 }
 
 @Entity()
-export class Departure extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Departure extends Location implements  {
+
   @Column({
     length: 100,
   })
@@ -112,10 +97,8 @@ export class Departure extends Location implements GraphqlUser {
 }
 
 @Entity()
-export class Arrival extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Arrival extends Location implements  {
+
   @Column({
     length: 100,
   })
@@ -123,10 +106,8 @@ export class Arrival extends Location implements GraphqlUser {
 }
 
 @Entity()
-export class Trip extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Trip extends Location implements  {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -144,10 +125,10 @@ export class Trip extends Location implements GraphqlUser {
   @Column({
     length: 100,
   })
-  duration: integer
+  duration: number
 
   @Column({
     length: 100,
   })
-  cost: float
+  cost: number
 }
