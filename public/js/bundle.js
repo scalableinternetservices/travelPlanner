@@ -52386,8 +52386,10 @@ var input_1 = require("../../style/input");
 
 var styled_1 = require("../../style/styled");
 
-var Page_1 = require("./Page");
+var Page_1 = require("./Page"); // const jsonData = require('./data.js')
 
+
+var JsonString;
 var day1 = [];
 var day2 = [];
 var day3 = [];
@@ -52571,7 +52573,8 @@ var FlexibleDiv = styled_1.style('div', 'Search', function (props) {
     wordWrap: 'break-word',
     marginTop: '5px',
     //border: '2px solid red',
-    boxShadow: '3px 3px ' + props.boxshadow
+    boxShadow: '3px 3px ' + props.boxshadow,
+    margin: "10px 10px"
   };
 });
 
@@ -52777,6 +52780,157 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
     }
 
     daysDate = DateforEachDay;
+    var json = {
+      user: "user name",
+      data: [{
+        day: 1,
+        date: daysDate[1],
+        stop: [{
+          place: day1[1],
+          address: day1[1],
+          coordinate: "null",
+          duration: dura1[1]
+        }, {
+          place: day1[2],
+          address: day1[2],
+          coordinate: "null",
+          duration: dura1[2]
+        }, {
+          place: day1[3],
+          address: day1[3],
+          coordinate: "null",
+          duration: dura1[3]
+        }, {
+          place: day1[4],
+          address: day1[4],
+          coordinate: "null",
+          duration: dura1[4]
+        }, {
+          place: day1[5],
+          address: day1[5],
+          coordinate: "null",
+          duration: dura1[5]
+        }]
+      }, {
+        day: 2,
+        date: daysDate[2],
+        stop: [{
+          place: day2[1],
+          address: day2[1],
+          coordinate: "null",
+          duration: dura2[1]
+        }, {
+          place: day2[2],
+          address: day2[2],
+          coordinate: "null",
+          duration: dura2[2]
+        }, {
+          place: day2[3],
+          address: day2[3],
+          coordinate: "null",
+          duration: dura2[3]
+        }, {
+          place: day2[4],
+          address: day2[4],
+          coordinate: "null",
+          duration: dura2[4]
+        }, {
+          place: day2[5],
+          address: day2[5],
+          coordinate: "null",
+          duration: dura2[5]
+        }]
+      }, {
+        day: 3,
+        date: daysDate[3],
+        stop: [{
+          place: day3[1],
+          address: day3[1],
+          coordinate: "null",
+          duration: dura3[1]
+        }, {
+          place: day3[2],
+          address: day3[2],
+          coordinate: "null",
+          duration: dura3[2]
+        }, {
+          place: day3[3],
+          address: day3[3],
+          coordinate: "null",
+          duration: dura3[3]
+        }, {
+          place: day3[4],
+          address: day3[4],
+          coordinate: "null",
+          duration: dura3[4]
+        }, {
+          place: day3[5],
+          address: day3[5],
+          coordinate: "null",
+          duration: dura3[5]
+        }]
+      }, {
+        day: 4,
+        date: daysDate[4],
+        stop: [{
+          place: day4[1],
+          address: day4[1],
+          coordinate: "null",
+          duration: dura4[1]
+        }, {
+          place: day4[2],
+          address: day4[2],
+          coordinate: "null",
+          duration: dura4[2]
+        }, {
+          place: day4[3],
+          address: day4[3],
+          coordinate: "null",
+          duration: dura4[3]
+        }, {
+          place: day4[4],
+          address: day4[4],
+          coordinate: "null",
+          duration: dura4[4]
+        }, {
+          place: day4[5],
+          address: day4[5],
+          coordinate: "null",
+          duration: dura4[5]
+        }]
+      }, {
+        day: 5,
+        date: daysDate[5],
+        stop: [{
+          place: day5[1],
+          address: day5[1],
+          coordinate: "null",
+          duration: dura5[1]
+        }, {
+          place: day5[2],
+          address: day5[2],
+          coordinate: "null",
+          duration: dura5[2]
+        }, {
+          place: day5[3],
+          address: day5[3],
+          coordinate: "null",
+          duration: dura5[3]
+        }, {
+          place: day5[4],
+          address: day5[4],
+          coordinate: "null",
+          duration: dura5[4]
+        }, {
+          place: day5[5],
+          address: day5[5],
+          coordinate: "null",
+          duration: dura5[5]
+        }]
+      }]
+    };
+    JsonString = JSON.stringify(json);
+    console.log(JsonString);
   }
 
   function checkisDateDup(dateArr) {
