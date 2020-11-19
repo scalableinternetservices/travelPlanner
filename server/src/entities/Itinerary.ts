@@ -1,50 +1,8 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { ItineraryType } from '../graphql/schema.types'
+import { Day as GraphqlDay, Itinerary as GraphqlItinerary, Location as GraphqlLocation, LocationType, Trip as GraphqlTrip } from '../graphql/schema.types'
 
 @Entity()
-export class Itinerary extends BaseEntity implements  {
-
-  @PrimaryGeneratedColumn()
-  id: number
-
-  @CreateDateColumn()
-  timeCreated: Date
-
-  @UpdateDateColumn()
-  timeUpdated: Date
-
-  @Column({
-    length: 100,
-  })
-  day1: number
-
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  day2: number
-
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  day3: number
-
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  day4: number
-
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  day5: number
-}
-
-@Entity()
-export class Day extends BaseEntity implements  {
+export class Itinerary extends BaseEntity implements GraphqlItinerary {
 
   @PrimaryGeneratedColumn()
   id: number
@@ -56,77 +14,128 @@ export class Day extends BaseEntity implements  {
   timeUpdated: Date
 
   @Column()
-  day: number
+  days: number[]
+
+  // @Column({
+  //   length: 100,
+  // })
+  // day1: number
+
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // day2: number
+
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // day3: number
+
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // day4: number
+
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // day5: number
+}
+
+@Entity()
+export class Day extends BaseEntity implements GraphqlDay {
+
+  @PrimaryGeneratedColumn()
+  id: number
+
+  @CreateDateColumn()
+  timeCreated: Date
+
+  @UpdateDateColumn()
+  timeUpdated: Date
+
+  @Column()
+  day_no: number
 
   @Column({
     length: 100,
   })
   date: string
 
-  @Column({
-    length: 100,
-  })
-  location1: number
+  @Column()
+  locations: number[]
 
-  @Column({
-    length: 100,
-    nullable: true
-  })
-  trip1: number
+  @Column()
+  trips: number[]
 
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  location2: number
+  // @Column({
+  //   length: 100,
+  // })
+  // location1: number
 
-  @Column({
-    length: 100,
-    nullable: true
-  })
-  trip2: number
+  // @Column({
+  //   length: 100,
+  //   nullable: true
+  // })
+  // trip1: number
 
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  location3: number
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // location2: number
 
-  @Column({
-    length: 100,
-    nullable: true
-  })
-  trip3: number
+  // @Column({
+  //   length: 100,
+  //   nullable: true
+  // })
+  // trip2: number
 
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  location4: number
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // location3: number
 
-  @Column({
-    length: 100,
-    nullable: true
-  })
-  trip4: number
+  // @Column({
+  //   length: 100,
+  //   nullable: true
+  // })
+  // trip3: number
 
-  @Column({
-    length: 100,
-    nullable: true,
-  })
-  location5: number
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // location4: number
+
+  // @Column({
+  //   length: 100,
+  //   nullable: true
+  // })
+  // trip4: number
+
+  // @Column({
+  //   length: 100,
+  //   nullable: true,
+  // })
+  // location5: number
 }
 
-export abstract class Location extends BaseEntity implements  {
+export abstract class Location extends BaseEntity implements GraphqlLocation {
 
   @PrimaryGeneratedColumn()
   id: number
 
   @Column({
     type: 'enum',
-    enum: ItineraryType
+    enum: LocationType
   })
-  type: ItineraryType
+  type: LocationType
 
   @Column({
     length: 100,
@@ -161,9 +170,8 @@ export abstract class Location extends BaseEntity implements  {
   duration: number
 }
 
-/*
 @Entity()
-export class Stop extends Location implements  {
+export class Stop extends Location implements GraphqlLocation {
 
   @Column({
     length: 100,
@@ -180,7 +188,7 @@ export class Stop extends Location implements  {
 }
 
 @Entity()
-export class Departure extends Location implements  {
+export class Departure extends Location implements GraphqlLocation {
 
   @Column({
     length: 100,
@@ -189,17 +197,16 @@ export class Departure extends Location implements  {
 }
 
 @Entity()
-export class Arrival extends Location implements  {
+export class Arrival extends Location implements GraphqlLocation {
 
   @Column({
     length: 100,
   })
   arrival: string
 }
-*/
 
 @Entity()
-export class Trip extends BaseEntity implements  {
+export class Trip extends BaseEntity implements GraphqlTrip {
 
   @PrimaryGeneratedColumn()
   id: number

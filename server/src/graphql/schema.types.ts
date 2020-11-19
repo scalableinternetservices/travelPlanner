@@ -54,12 +54,46 @@ export interface User {
   name: Scalars['String']
 }
 
+export interface Itinerary {
+  __typename?: 'Itinerary'
+  id: Scalars['Int']
+  days: Array<Scalars['Int']>
+}
+
+export interface Day {
+  __typename?: 'Day'
+  id: Scalars['Int']
+  day_no: Scalars['Int']
+  locations: Array<Scalars['Int']>
+  trips: Array<Scalars['Int']>
+}
+
+export interface Location {
+  __typename?: 'Location'
+  id: Scalars['Int']
+  type: LocationType
+  name: Scalars['String']
+  address: Scalars['String']
+  coordinates: Scalars['String']
+  arrival: Scalars['String']
+  departure: Scalars['String']
+  duration: Scalars['Int']
+}
+
+export interface Trip {
+  __typename?: 'Trip'
+  id: Scalars['Int']
+  transportation: Scalars['String']
+  duration: Scalars['Int']
+  cost: Scalars['Float']
+}
+
 export enum UserType {
   Admin = 'ADMIN',
   User = 'USER',
 }
 
-export enum ItineraryType {
+export enum LocationType {
   Stop = 'STOP',
   Departure = 'DEPARTURE',
   Arrival = 'ARRIVAL',
