@@ -1,14 +1,9 @@
-import { integer } from 'aws-sdk/clients/cloudfront'
-import { float } from 'aws-sdk/clients/lightsail'
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
-import { ItineraryType, User as GraphqlUser, UserType } from '../graphql/schema.types'
+import { ItineraryType } from '../graphql/schema.types'
 
 @Entity()
-export class Itinerary extends BaseEntity implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
-  name: string
+export class Itinerary extends BaseEntity implements  {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -21,15 +16,36 @@ export class Itinerary extends BaseEntity implements GraphqlUser {
   @Column({
     length: 100,
   })
-  itinerary: Day[]
+  day1: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day2: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day3: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day4: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  day5: number
 }
 
 @Entity()
-export class Day extends BaseEntity implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
-  name: string
+export class Day extends BaseEntity implements  {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -40,22 +56,69 @@ export class Day extends BaseEntity implements GraphqlUser {
   timeUpdated: Date
 
   @Column()
-  day: integer
+  day: number
 
   @Column({
     length: 100,
   })
   date: string
 
-  @Column()
-  schedule: Location[]
+  @Column({
+    length: 100,
+  })
+  location1: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip1: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location2: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip2: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location3: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip3: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location4: number
+
+  @Column({
+    length: 100,
+    nullable: true
+  })
+  trip4: number
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  location5: number
 }
 
-@Entity()
-class Location extends BaseEntity implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export abstract class Location extends BaseEntity implements  {
+
   @PrimaryGeneratedColumn()
   id: number
 
@@ -79,13 +142,29 @@ class Location extends BaseEntity implements GraphqlUser {
     length: 100,
   })
   coordinates: string
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  arrival: string
+
+  @Column({
+    length: 100,
+    nullable: true,
+  })
+  departure: string
+
+  @Column({
+    nullable: true,
+  })
+  duration: number
 }
 
+/*
 @Entity()
-export class Stop extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Stop extends Location implements  {
+
   @Column({
     length: 100,
   })
@@ -97,14 +176,12 @@ export class Stop extends Location implements GraphqlUser {
   departure: string
 
   @Column()
-  duration: integer
+  duration: number
 }
 
 @Entity()
-export class Departure extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Departure extends Location implements  {
+
   @Column({
     length: 100,
   })
@@ -112,29 +189,20 @@ export class Departure extends Location implements GraphqlUser {
 }
 
 @Entity()
-export class Arrival extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Arrival extends Location implements  {
+
   @Column({
     length: 100,
   })
   arrival: string
 }
+*/
 
 @Entity()
-export class Trip extends Location implements GraphqlUser {
-  __typename?: 'User' | undefined
-  userType: UserType
-  email: string
+export class Trip extends BaseEntity implements  {
+
   @PrimaryGeneratedColumn()
   id: number
-
-  @Column({
-    type: 'enum',
-    enum: ItineraryType
-  })
-  type: ItineraryType
 
   @Column({
     length: 100,
@@ -144,10 +212,10 @@ export class Trip extends Location implements GraphqlUser {
   @Column({
     length: 100,
   })
-  duration: integer
+  duration: number
 
   @Column({
     length: 100,
   })
-  cost: float
+  cost: number
 }
