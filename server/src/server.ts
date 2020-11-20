@@ -20,11 +20,12 @@ import { checkEqual, Unpromise } from '../../common/src/util'
 import { Config } from './config'
 import { migrate } from './db/migrate'
 import { initORM } from './db/sql'
+import { Arrival } from './entities/Itinerary'
 import { Session } from './entities/Session'
 import { User } from './entities/User'
 import { getSchema, graphqlRoot, pubsub } from './graphql/api'
 import { ConnectionManager } from './graphql/ConnectionManager'
-import { UserType } from './graphql/schema.types'
+import { LocationType, UserType } from './graphql/schema.types'
 import { expressLambdaProxy } from './lambda/handler'
 import { renderApp } from './render'
 
@@ -144,6 +145,47 @@ async function createSession(user: User): Promise<string> {
 
   return authToken
 }
+
+server.express.post(
+  '/home/saveItinerary',
+  asyncRoute(async (req, res) => {
+    console.log('POST /home/saveItinerary')
+    const authToken = req.cookies.authToken
+    if (authToken) {
+      const session = await Session.findOne({ authToken })
+      const userID = session?.user.id
+    } else {
+      res.status(403).send('Login or signup to save your itinerary.')
+      return
+    }
+
+    const days = req.body.itinerary
+    days.forEach(eachDay => {
+      let day_no= eachDay.day
+      let date = eachDay.date
+      let locations = eachDay.schedule  // locations or trips
+      locations.forEach(location => {
+        switch(location.type) {
+          case LocationType.Arrival: {
+            let arrival = new Arrival()
+            arrival.type = location.type
+          }
+          case LocationType.Departure: {
+            break
+          }
+          case LocationType.Stop: {
+            break
+          }
+          default: {
+
+          }
+        }
+      });
+    });
+
+
+  })
+)
 
 server.express.post(
   '/auth/logout',
