@@ -57,15 +57,15 @@ export interface User {
 export interface Itinerary {
   __typename?: 'Itinerary'
   id: Scalars['Int']
-  days: Array<Scalars['Int']>
+  days: Array<Day>
 }
 
 export interface Day {
   __typename?: 'Day'
   id: Scalars['Int']
   day_no: Scalars['Int']
-  locations: Array<Scalars['Int']>
-  trips: Array<Scalars['Int']>
+  locations: Array<Location>
+  trips: Array<Trip>
 }
 
 export interface Location {
