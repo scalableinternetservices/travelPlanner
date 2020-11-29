@@ -16,35 +16,6 @@ export class Itinerary extends BaseEntity implements GraphqlItinerary {
   @OneToOne(() => Day)
   @JoinColumn()
   days: Day[]
-
-  // @Column({
-  //   length: 100,
-  // })
-  // day1: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // day2: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // day3: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // day4: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // day5: number
 }
 
 @Entity()
@@ -74,59 +45,6 @@ export class Day extends BaseEntity implements GraphqlDay {
   @OneToOne(() => Trip)
   @JoinColumn()
   trips: Trip[]
-
-  // @Column({
-  //   length: 100,
-  // })
-  // location1: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true
-  // })
-  // trip1: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // location2: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true
-  // })
-  // trip2: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // location3: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true
-  // })
-  // trip3: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // location4: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true
-  // })
-  // trip4: number
-
-  // @Column({
-  //   length: 100,
-  //   nullable: true,
-  // })
-  // location5: number
 }
 
 export abstract class Location extends BaseEntity implements GraphqlLocation {

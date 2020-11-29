@@ -1,6 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { User as GraphqlUser, UserType } from '../graphql/schema.types'
-import { Itinerary } from './Itinerary'
 
 @Entity()
 export class User extends BaseEntity implements GraphqlUser {
@@ -37,7 +36,7 @@ export class User extends BaseEntity implements GraphqlUser {
   })
   password: string
 
-  @OneToOne(() => Itinerary)
-  @JoinColumn()
-  itinerary: Itinerary[]
+  // @OneToOne(() => Itinerary)
+  // @JoinColumn()
+  // itinerary: Itinerary[]
 }
