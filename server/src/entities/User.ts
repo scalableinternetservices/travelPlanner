@@ -35,8 +35,4 @@ export class User extends BaseEntity implements GraphqlUser {
  //   select: false,
   })
   password: string
-
-  // @OneToOne(() => Itinerary)
-  // @JoinColumn()
-  // itinerary: Itinerary[]
 }

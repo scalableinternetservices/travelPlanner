@@ -20,11 +20,12 @@ import { checkEqual, Unpromise } from '../../common/src/util'
 import { Config } from './config'
 import { migrate } from './db/migrate'
 import { initORM } from './db/sql'
+import { Arrival, Day, Departure, Itinerary, Stop, Trip } from './entities/Itinerary'
 import { Session } from './entities/Session'
 import { User } from './entities/User'
 import { getSchema, graphqlRoot, pubsub } from './graphql/api'
 import { ConnectionManager } from './graphql/ConnectionManager'
-import { UserType } from './graphql/schema.types'
+import { LocationType, UserType } from './graphql/schema.types'
 import { expressLambdaProxy } from './lambda/handler'
 import { renderApp } from './render'
 
@@ -97,7 +98,6 @@ server.express.post(
           user.name = req.body.email
           user.userType = UserType.User
           user.password = req.body.password
-          //user.itinerary = []
 
           // save the User model to the database, refresh `user` to get ID
           user = await user.save()
@@ -146,171 +146,115 @@ async function createSession(user: User): Promise<string> {
   return authToken
 }
 
-// server.express.post(
-//   '/home/saveItinerary',
-//   asyncRoute(async (req, res) => {
-//     console.log('POST /home/saveItinerary')
-//     const authToken = req.cookies.authToken
-//     if (authToken) {
-//       const session = await Session.findOne({ authToken })
-//       const userID = session?.user.id
-//     } else {
-//       res.status(403).send('Login or signup to save your itinerary.')
-//       return
-//     }
+server.express.post(
+  '/home/saveItinerary',
+  asyncRoute(async (req, res) => {
+    console.log('POST /home/saveItinerary')
+    const authToken = req.cookies.authToken
+    let user_id
+    if (authToken) {
+      const session = await Session.findOne({ authToken })
+      user_id = session?.user.id
+    } else {
+      res.status(403).send('Login or signup to save your itinerary.')
+      return
+    }
 
-//     const days = req.body.itinerary
-//     const newItinerary = new Itinerary()
-//     const newDays = new Array
-//     days.forEach((eachDay: { schedule: any; day_no: number; date: string }) => {
-//       const newDay  = new Day
+    const days = req.body.itinerary
+    const newItinerary = new Itinerary()
+    const newDays = new Array
+    days.forEach((eachDay: { schedule: any; day_no: number; date: string }) => {
+      const newDay  = new Day
 
-//       let locations = eachDay.schedule  // locations or trips
-//       let newLocations = new Array
-//       let newTrips = new Array
-//       for (let i = 0; i < locations.length; i++) {
-//         let location = locations[i]
-//         if (i % 2 == 0) {
-//           var newLocation
-//           switch(location.type) {
-//             case LocationType.Arrival: {
-//               newLocation = new Arrival()
-//               newLocation.arrival = location.arrival
-//               break
-//             }
-//             case LocationType.Departure: {
-//               newLocation = new Departure()
-//               newLocation.departure = location.departure
-//               break
-//             }
-//             case LocationType.Stop: {
-//               newLocation = new Stop()
-//               newLocation.arrival = location.arrival
-//               newLocation.departure = location.departure
-//               newLocation.duration = location.duration
-//               break
-//             }
-//             default: {
-//               res.status(403).send('Invalid location type')
-//               return
-//             }
-//           }
-//           newLocation.type = location.type
-//           newLocation.name = location.name
-//           newLocation.address = location.address
-//           newLocation.coordinates = location.coordinates
-//           newLocations.push(newLocation)
-//         } else {
-//           var newTrip = new Trip()
-//           switch (location.Type) {
-//             case "trip": {
-//               newTrip.transportation = location.transportation
-//               newTrip.duration = location.duration
-//               newTrip.cost = location.cost
-//               break
-//             }
-//             default: {
-//               res.status(403).send('Invalid location type')
-//               return
-//             }
-//           }
-//           newTrips.push(newTrip)
-//         }
-//       }
-//       newDay.day_no = eachDay.day_no
-//       newDay.date = eachDay.date
-//       newDay.locations = newLocations
-//       newDay.trips = newTrips
-//       newDays.push(newDay)
-//     })
+      let locations = eachDay.schedule  // locations or trips
+      let newLocations = new Array
+      let newTrips = new Array
+      for (let i = 0; i < locations.length; i++) {
+        let location = locations[i]
+        if (i % 2 == 0) {
+          var newLocation
+          switch(location.type) {
+            case LocationType.Arrival: {
+              newLocation = new Arrival()
+              newLocation.arrival = location.arrival
+              break
+            }
+            case LocationType.Departure: {
+              newLocation = new Departure()
+              newLocation.departure = location.departure
+              break
+            }
+            case LocationType.Stop: {
+              newLocation = new Stop()
+              newLocation.arrival = location.arrival
+              newLocation.departure = location.departure
+              newLocation.duration = location.duration
+              break
+            }
+            default: {
+              res.status(403).send('Invalid location type')
+              return
+            }
+          }
+          newLocation.type = location.type
+          newLocation.name = location.name
+          newLocation.address = location.address
+          newLocation.coordinates = location.coordinates
+          newLocations.push(newLocation)
+        } else {
+          var newTrip = new Trip()
+          switch (location.Type) {
+            case "trip": {
+              newTrip.transportation = location.transportation
+              newTrip.duration = location.duration
+              newTrip.cost = location.cost
+              break
+            }
+            default: {
+              res.status(403).send('Invalid location type')
+              return
+            }
+          }
+          newTrips.push(newTrip)
+        }
+      }
+      newDay.day_no = eachDay.day_no
+      newDay.date = eachDay.date
+      newDay.locations = newLocations
+      newDay.trips = newTrips
+      newDays.push(newDay)
+    })
 
-//     await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
+    if (user_id != undefined) {
+      newItinerary.user_id = user_id
+    } else {
+      res.status(403).send('Invalid user')
+      return
+    }
+    newItinerary.days = newDays
+    await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
+    res.status(200).send('Success')
+  })
+)
 
-//   })
-// )
-
-// server.express.post(
-//   '/home/getItineraries',
-//   asyncRoute(async (req, res) => {
-//     console.log('POST /home/getItineraries')
-//     const authToken = req.cookies.authToken
-//     if (authToken) {
-//       const session = await Session.findOne({ authToken })
-//       const userID = session?.user.id
-//     } else {
-//       res.status(403).send('Login or signup to save your itinerary.')
-//       return
-//     }
-
-//     const days = req.body.itinerary
-//     const newItinerary = new Itinerary()
-//     const newDays = new Array
-//     days.forEach((eachDay: { schedule: any; day_no: number; date: string }) => {
-//       const newDay  = new Day
-
-//       let locations = eachDay.schedule  // locations or trips
-//       let newLocations = new Array
-//       let newTrips = new Array
-//       for (let i = 0; i < locations.length; i++) {
-//         let location = locations[i]
-//         if (i % 2 == 0) {
-//           var newLocation
-//           switch(location.type) {
-//             case LocationType.Arrival: {
-//               newLocation = new Arrival()
-//               newLocation.arrival = location.arrival
-//               break
-//             }
-//             case LocationType.Departure: {
-//               newLocation = new Departure()
-//               newLocation.departure = location.departure
-//               break
-//             }
-//             case LocationType.Stop: {
-//               newLocation = new Stop()
-//               newLocation.arrival = location.arrival
-//               newLocation.departure = location.departure
-//               newLocation.duration = location.duration
-//               break
-//             }
-//             default: {
-//               res.status(403).send('Invalid location type.')
-//               return
-//             }
-//           }
-//           newLocation.type = location.type
-//           newLocation.name = location.name
-//           newLocation.address = location.address
-//           newLocation.coordinates = location.coordinates
-//           newLocations.push(newLocation)
-//         } else {
-//           var newTrip = new Trip()
-//           switch (location.Type) {
-//             case "trip": {
-//               newTrip.transportation = location.transportation
-//               newTrip.duration = location.duration
-//               newTrip.cost = location.cost
-//               break
-//             }
-//             default: {
-//               res.status(403).send('Invalid location type.')
-//               return
-//             }
-//           }
-//           newTrips.push(newTrip)
-//         }
-//       }
-//       newDay.day_no = eachDay.day_no
-//       newDay.date = eachDay.date
-//       newDay.locations = newLocations
-//       newDay.trips = newTrips
-//       newDays.push(newDay)
-//     })
-
-//     await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
-
-//   })
-// )
+server.express.post(
+  '/home/getItineraries',
+  asyncRoute(async (req, res) => {
+    console.log('POST /home/getItineraries')
+    const authToken = req.cookies.authToken
+    let user_id
+    if (authToken) {
+      const session = await Session.findOne({ authToken })
+      user_id = session?.user.id
+    } else {
+      res.status(403).send('Login to view your saved itineraries')
+      return
+    }
+    const itineraries = await Itinerary.findOne({ where: { user_id : user_id } })
+    res.status(200).type('json').send(itineraries)
+  }
+)
+)
 
 server.express.post(
   '/auth/logout',

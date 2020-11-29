@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Day as GraphqlDay, Itinerary as GraphqlItinerary, Location as GraphqlLocation, LocationType, Trip as GraphqlTrip } from '../graphql/schema.types'
 
 @Entity()
@@ -6,6 +6,9 @@ export class Itinerary extends BaseEntity implements GraphqlItinerary {
 
   @PrimaryGeneratedColumn()
   id: number
+
+  @PrimaryColumn()
+  user_id: number
 
   @CreateDateColumn()
   timeCreated: Date
