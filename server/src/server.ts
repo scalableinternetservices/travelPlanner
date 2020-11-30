@@ -148,7 +148,7 @@ async function createSession(user: User): Promise<string> {
 
 server.express.post(
   '/home/saveItinerary',
-  asyncRoute(async (req, res) => {
+  asyncRoute(async (req, res, next) => {
     console.log('POST /home/saveItinerary')
     const authToken = req.cookies.authToken
     let user_id
@@ -164,7 +164,8 @@ server.express.post(
     const days = req.body.itinerary
     const newItinerary = new Itinerary()
     const newDays = new Array
-    days.forEach((eachDay: { schedule: any; day_no: number; date: string }) => {
+    for (const eachDay of days) {
+    //days.forEach((eachDay: { schedule: any; day_no: number; date: string }) => {
       const newDay  = new Day
 
       let locations = eachDay.schedule  // locations or trips
@@ -193,6 +194,7 @@ server.express.post(
               break
             }
             default: {
+              //console.log("403 status reached: location = "  + location.type)
               res.status(403).send('Invalid location type')
               return
             }
@@ -212,6 +214,7 @@ server.express.post(
               break
             }
             default: {
+              //console.log("403 status reached: trip")
               res.status(403).send('Invalid location type')
               return
             }
@@ -224,7 +227,8 @@ server.express.post(
       newDay.locations = newLocations
       newDay.trips = newTrips
       newDays.push(newDay)
-    })
+    }
+    //)
 
     if (user_id != undefined) {
       newItinerary.user_id = user_id
@@ -235,6 +239,7 @@ server.express.post(
     newItinerary.days = newDays
     await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
     res.status(200).send('Success')
+    next()
   })
 )
 
