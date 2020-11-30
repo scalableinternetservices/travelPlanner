@@ -153,8 +153,9 @@ server.express.post(
     const authToken = req.cookies.authToken
     let user_id
     if (authToken) {
-      const session = await Session.findOne({ authToken })
+      const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
       user_id = session?.user.id
+      //console.log("user_id = " + user_id)
     } else {
       res.status(403).send('Login or signup to save your itinerary.')
       return
