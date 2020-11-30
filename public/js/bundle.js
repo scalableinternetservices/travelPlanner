@@ -50427,6 +50427,73 @@ function routeParams(params) {
 }
 
 exports.routeParams = routeParams;
+},{}],"../../common/src/util.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.strutil = exports.wait = exports.checkEqual = exports.check = exports.hashCode = void 0;
+/**
+ * Generates a numeric hashCode from a string content. Identical to Java .hashCode() implementation.
+ * https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
+ */
+
+function hashCode(contents) {
+  var hash = 0;
+
+  for (var i = 0; i < contents.length; i++) {
+    var chr = contents.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  return hash;
+}
+
+exports.hashCode = hashCode;
+
+function check(val, msg) {
+  if (!Boolean(val)) {
+    throw new Error(msg || "expected truthy value but got " + val);
+  }
+
+  return val;
+}
+
+exports.check = check;
+
+function checkEqual(expected, val, msg) {
+  if (val !== expected) {
+    throw new Error(msg || "expected " + expected + " but got " + val);
+  }
+
+  return val;
+}
+
+exports.checkEqual = checkEqual;
+
+function wait(millis) {
+  return new Promise(function (resolve) {
+    return setTimeout(resolve, millis);
+  });
+}
+
+exports.wait = wait;
+exports.strutil = {
+  /**
+   * Truncates a thing!
+   */
+  truncate: function truncate(str, maxLen) {
+    var len = maxLen || 100;
+
+    if (str.length <= len) {
+      return str;
+    }
+
+    return str.substr(0, len) + '…';
+  }
+};
 },{}],"style/fonts.ts":[function(require,module,exports) {
 "use strict";
 
@@ -50530,7 +50597,102 @@ function Input(props) {
 }
 
 exports.Input = Input;
-},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"view/toast/toast.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.removeToastListener = exports.addToastListener = exports.toastErr = exports.toast = exports.ToastType = void 0;
+var ToastType;
+
+(function (ToastType) {
+  ToastType[ToastType["INFO"] = 0] = "INFO";
+  ToastType[ToastType["ERROR"] = 1] = "ERROR";
+})(ToastType = exports.ToastType || (exports.ToastType = {}));
+
+var latest = undefined;
+var listeners = [];
+
+function addToast(message, type) {
+  type = type || ToastType.INFO;
+  latest = {
+    message: message,
+    type: type
+  };
+
+  for (var _i = 0, listeners_1 = listeners; _i < listeners_1.length; _i++) {
+    var listener = listeners_1[_i];
+    listener(latest);
+  }
+}
+
+function toast(message) {
+  addToast(message);
+}
+
+exports.toast = toast;
+
+function toastErr(message) {
+  addToast(message, ToastType.ERROR);
+}
+
+exports.toastErr = toastErr;
+
+function addToastListener(func) {
+  listeners.push(func);
+}
+
+exports.addToastListener = addToastListener;
+
+function removeToastListener(func) {
+  var ix = listeners.indexOf(func);
+
+  if (ix < 0) {
+    throw new Error('Listener not found');
+  }
+
+  listeners.splice(ix, 1);
+}
+
+exports.removeToastListener = removeToastListener;
+},{}],"view/toast/error.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.handleError = void 0;
+
+var toast_1 = require("./toast");
+
+function summarizeError(errs) {
+  if (errs == null || errs.length === 0) {
+    return '';
+  }
+
+  return errs.map(function (err) {
+    return err.message;
+  }).join(', ');
+}
+
+function handleError(err) {
+  var message = err.message,
+      graphQLErrors = err.graphQLErrors,
+      networkError = err.networkError,
+      extraInfo = err.extraInfo;
+  console.error({
+    message: message,
+    graphQLErrors: graphQLErrors,
+    networkError: networkError,
+    extraInfo: extraInfo
+  });
+  var errMsg = summarizeError(graphQLErrors) || message;
+  toast_1.toastErr(errMsg);
+}
+
+exports.handleError = handleError;
+},{"./toast":"view/toast/toast.ts"}],"../../node_modules/react-responsive/dist/react-responsive.js":[function(require,module,exports) {
 var define;
 !function (root, factory) {
   "object" == typeof exports && "object" == typeof module ? module.exports = factory(require("react")) : "function" == typeof define && define.amd ? define(["react"], factory) : "object" == typeof exports ? exports.MediaQuery = factory(require("react")) : root.MediaQuery = factory(root.React);
@@ -51788,102 +51950,7 @@ function MenuIcon(props) {
 }
 
 exports.MenuIcon = MenuIcon;
-},{"react":"../../node_modules/react/index.js"}],"view/toast/toast.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.removeToastListener = exports.addToastListener = exports.toastErr = exports.toast = exports.ToastType = void 0;
-var ToastType;
-
-(function (ToastType) {
-  ToastType[ToastType["INFO"] = 0] = "INFO";
-  ToastType[ToastType["ERROR"] = 1] = "ERROR";
-})(ToastType = exports.ToastType || (exports.ToastType = {}));
-
-var latest = undefined;
-var listeners = [];
-
-function addToast(message, type) {
-  type = type || ToastType.INFO;
-  latest = {
-    message: message,
-    type: type
-  };
-
-  for (var _i = 0, listeners_1 = listeners; _i < listeners_1.length; _i++) {
-    var listener = listeners_1[_i];
-    listener(latest);
-  }
-}
-
-function toast(message) {
-  addToast(message);
-}
-
-exports.toast = toast;
-
-function toastErr(message) {
-  addToast(message, ToastType.ERROR);
-}
-
-exports.toastErr = toastErr;
-
-function addToastListener(func) {
-  listeners.push(func);
-}
-
-exports.addToastListener = addToastListener;
-
-function removeToastListener(func) {
-  var ix = listeners.indexOf(func);
-
-  if (ix < 0) {
-    throw new Error('Listener not found');
-  }
-
-  listeners.splice(ix, 1);
-}
-
-exports.removeToastListener = removeToastListener;
-},{}],"view/toast/error.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.handleError = void 0;
-
-var toast_1 = require("./toast");
-
-function summarizeError(errs) {
-  if (errs == null || errs.length === 0) {
-    return '';
-  }
-
-  return errs.map(function (err) {
-    return err.message;
-  }).join(', ');
-}
-
-function handleError(err) {
-  var message = err.message,
-      graphQLErrors = err.graphQLErrors,
-      networkError = err.networkError,
-      extraInfo = err.extraInfo;
-  console.error({
-    message: message,
-    graphQLErrors: graphQLErrors,
-    networkError: networkError,
-    extraInfo: extraInfo
-  });
-  var errMsg = summarizeError(graphQLErrors) || message;
-  toast_1.toastErr(errMsg);
-}
-
-exports.handleError = handleError;
-},{"./toast":"view/toast/toast.ts"}],"view/nav/Link.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"view/nav/Link.tsx":[function(require,module,exports) {
 "use strict";
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -52382,9 +52449,13 @@ var React = __importStar(require("react"));
 
 var react_1 = require("react");
 
+var util_1 = require("../../../../common/src/util");
+
 var input_1 = require("../../style/input");
 
 var styled_1 = require("../../style/styled");
+
+var error_1 = require("../toast/error");
 
 var Page_1 = require("./Page"); // const jsonData = require('./data.js')
 
@@ -52781,156 +52852,290 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
 
     daysDate = DateforEachDay;
     var json = {
-      user: "user name",
-      data: [{
+      itinerary: [{
         day: 1,
         date: daysDate[1],
-        stop: [{
-          place: day1[1],
+        schedule: [{
+          type: "departure",
+          name: day1[1],
           address: day1[1],
-          coordinate: "null",
-          duration: dura1[1]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura1[1],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day1[2],
+          type: "trip",
+          name: day1[2],
           address: day1[2],
-          coordinate: "null",
-          duration: dura1[2]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura1[2],
+          transportation: "null",
+          cost: "needGoogleAPI"
         }, {
-          place: day1[3],
+          type: "trip",
+          name: day1[3],
           address: day1[3],
-          coordinate: "null",
-          duration: dura1[3]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura1[3],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day1[4],
+          type: "stop",
+          name: day1[4],
           address: day1[4],
-          coordinate: "null",
-          duration: dura1[4]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura1[4],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day1[5],
+          type: "tarrival",
+          name: day1[5],
           address: day1[5],
-          coordinate: "null",
-          duration: dura1[5]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura1[5],
+          transportation: "null",
+          cost: "null"
         }]
       }, {
         day: 2,
         date: daysDate[2],
-        stop: [{
-          place: day2[1],
+        schedule: [{
+          type: "departure",
+          name: day2[1],
           address: day2[1],
-          coordinate: "null",
-          duration: dura2[1]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura2[1],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day2[2],
+          type: "trip",
+          name: day2[2],
           address: day2[2],
-          coordinate: "null",
-          duration: dura2[2]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura2[2],
+          transportation: "null",
+          cost: "needGoogleAPI"
         }, {
-          place: day2[3],
+          type: "trip",
+          name: day2[3],
           address: day2[3],
-          coordinate: "null",
-          duration: dura2[3]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura2[3],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day2[4],
+          type: "stop",
+          name: day2[4],
           address: day2[4],
-          coordinate: "null",
-          duration: dura2[4]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura2[4],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day2[5],
+          type: "tarrival",
+          name: day2[5],
           address: day2[5],
-          coordinate: "null",
-          duration: dura2[5]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura2[5],
+          transportation: "null",
+          cost: "null"
         }]
       }, {
         day: 3,
         date: daysDate[3],
-        stop: [{
-          place: day3[1],
+        schedule: [{
+          type: "departure",
+          name: day3[1],
           address: day3[1],
-          coordinate: "null",
-          duration: dura3[1]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura3[1],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day3[2],
+          type: "trip",
+          name: day3[2],
           address: day3[2],
-          coordinate: "null",
-          duration: dura3[2]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura3[2],
+          transportation: "null",
+          cost: "needGoogleAPI"
         }, {
-          place: day3[3],
+          type: "trip",
+          name: day3[3],
           address: day3[3],
-          coordinate: "null",
-          duration: dura3[3]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura3[3],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day3[4],
+          type: "stop",
+          name: day3[4],
           address: day3[4],
-          coordinate: "null",
-          duration: dura3[4]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura3[4],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day3[5],
+          type: "tarrival",
+          name: day3[5],
           address: day3[5],
-          coordinate: "null",
-          duration: dura3[5]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura3[5],
+          transportation: "null",
+          cost: "null"
         }]
       }, {
         day: 4,
         date: daysDate[4],
-        stop: [{
-          place: day4[1],
+        schedule: [{
+          type: "departure",
+          name: day4[1],
           address: day4[1],
-          coordinate: "null",
-          duration: dura4[1]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura4[1],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day4[2],
+          type: "trip",
+          name: day4[2],
           address: day4[2],
-          coordinate: "null",
-          duration: dura4[2]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura4[2],
+          transportation: "null",
+          cost: "needGoogleAPI"
         }, {
-          place: day4[3],
+          type: "trip",
+          name: day4[3],
           address: day4[3],
-          coordinate: "null",
-          duration: dura4[3]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura4[3],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day4[4],
+          type: "stop",
+          name: day4[4],
           address: day4[4],
-          coordinate: "null",
-          duration: dura4[4]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura4[4],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day4[5],
+          type: "tarrival",
+          name: day4[5],
           address: day4[5],
-          coordinate: "null",
-          duration: dura4[5]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura4[5],
+          transportation: "null",
+          cost: "null"
         }]
       }, {
         day: 5,
         date: daysDate[5],
-        stop: [{
-          place: day5[1],
+        schedule: [{
+          type: "departure",
+          name: day5[1],
           address: day5[1],
-          coordinate: "null",
-          duration: dura5[1]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura5[1],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day5[2],
+          type: "trip",
+          name: day5[2],
           address: day5[2],
-          coordinate: "null",
-          duration: dura5[2]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura5[2],
+          transportation: "null",
+          cost: "needGoogleAPI"
         }, {
-          place: day5[3],
+          type: "trip",
+          name: day5[3],
           address: day5[3],
-          coordinate: "null",
-          duration: dura5[3]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura5[3],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day5[4],
+          type: "stop",
+          name: day5[4],
           address: day5[4],
-          coordinate: "null",
-          duration: dura5[4]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura5[4],
+          transportation: "null",
+          cost: "null"
         }, {
-          place: day5[5],
+          type: "tarrival",
+          name: day5[5],
           address: day5[5],
-          coordinate: "null",
-          duration: dura5[5]
+          coordinates: "null",
+          arrival: "null",
+          departure: "null",
+          duration: dura5[5],
+          transportation: "null",
+          cost: "null"
         }]
       }]
     };
     JsonString = JSON.stringify(json);
     console.log(JsonString);
+    fetch('/home/saveItinerary', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(json)
+    }).then(function (res) {
+      util_1.check(res.ok, 'response status ' + res.status);
+      window.location.reload();
+    }).catch(error_1.handleError);
   }
 
   function checkisDateDup(dateArr) {
@@ -53082,7 +53287,7 @@ var AboutUs = function AboutUs() {
     }
   }, "  About Us "), /*#__PURE__*/React.createElement("br", null), "\u2002  \u2002  Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
 };
-},{"react":"../../node_modules/react/index.js","../../style/input":"style/input.tsx","../../style/styled":"style/styled.tsx","./Page":"view/page/Page.tsx"}],"style/header.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/input":"style/input.tsx","../../style/styled":"style/styled.tsx","../toast/error":"view/toast/error.ts","./Page":"view/page/Page.tsx"}],"style/header.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53520,74 +53725,7 @@ var TD = styled_1.style('td', 'mid-gray pa3 v-mid', {
 var TD_1 = styled_1.style('td', 'dark-blue pa3 v-mid', {
   minWidth: '7em'
 });
-},{"react":"../../node_modules/react/index.js","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","./Page":"view/page/Page.tsx"}],"../../common/src/util.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.strutil = exports.wait = exports.checkEqual = exports.check = exports.hashCode = void 0;
-/**
- * Generates a numeric hashCode from a string content. Identical to Java .hashCode() implementation.
- * https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
- */
-
-function hashCode(contents) {
-  var hash = 0;
-
-  for (var i = 0; i < contents.length; i++) {
-    var chr = contents.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-
-  return hash;
-}
-
-exports.hashCode = hashCode;
-
-function check(val, msg) {
-  if (!Boolean(val)) {
-    throw new Error(msg || "expected truthy value but got " + val);
-  }
-
-  return val;
-}
-
-exports.check = check;
-
-function checkEqual(expected, val, msg) {
-  if (val !== expected) {
-    throw new Error(msg || "expected " + expected + " but got " + val);
-  }
-
-  return val;
-}
-
-exports.checkEqual = checkEqual;
-
-function wait(millis) {
-  return new Promise(function (resolve) {
-    return setTimeout(resolve, millis);
-  });
-}
-
-exports.wait = wait;
-exports.strutil = {
-  /**
-   * Truncates a thing!
-   */
-  truncate: function truncate(str, maxLen) {
-    var len = maxLen || 100;
-
-    if (str.length <= len) {
-      return str;
-    }
-
-    return str.substr(0, len) + '…';
-  }
-};
-},{}],"style/button.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","./Page":"view/page/Page.tsx"}],"style/button.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -54652,7 +54790,7 @@ function ProjectRequirements() {
           <li>Must be deployable (and load-testable) web applications of non-trivial complexity</li>
           <li>Must be developed in teams of 4</li>
           <li>
-            Must use the class project framework located <Link href="https://github.com/rothfels/bespin">here</Link>
+            Must use the class project framework located <Link href="https://github.com/rothfels/travelPlanner">here</Link>
           </li>
           <li>Must use TypeScript (or JavaScript)</li>
           <li>Must use at least 4 MySQL tables</li>
@@ -54716,7 +54854,7 @@ function SprintSchedule() {
             checklistFull={[
               {
                 name: 'follow Quickstart section until you have a running dev server',
-                href: 'https://github.com/rothfels/bespin#quickstart',
+                href: 'https://github.com/rothfels/travelPlanner#quickstart',
               },
               {
                 name: 'learn TypeScript',
@@ -54728,7 +54866,7 @@ function SprintSchedule() {
               },
               {
                 name: 'write a React component in TypeScript / Storybook',
-                href: 'https://github.com/rothfels/bespin#run-react-storybook',
+                href: 'https://github.com/rothfels/travelPlanner#run-react-storybook',
               },
             ]}
           />

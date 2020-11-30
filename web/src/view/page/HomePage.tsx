@@ -1,9 +1,11 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
 import { useState } from 'react'
+import { check } from '../../../../common/src/util'
 import { Input } from '../../style/input'
 import { style } from '../../style/styled'
 import { AppRouteParams } from '../nav/route'
+import { handleError } from '../toast/error'
 import { Page } from './Page'
 
 // const jsonData = require('./data.js')
@@ -487,92 +489,142 @@ const DaysAndPlaces = (props: {
     daysDate = DateforEachDay;
 
     const json = {
-      user: "user name",
-      data: [ {
-
+      itinerary: [ {
 
         day: 1,
         date: daysDate[1],
-        stop: [
+        schedule: [
           {
-            place: day1[1],
-            address: day1[1],
-            coordinate: "null",
-            duration: dura1[1]
+            type: "departure",
+					  name: day1[1],
+					  address: day1[1],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura1[1],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
 
-            place: day1[2],
-            address: day1[2],
-            coordinate: "null",
-            duration: dura1[2]
+            type: "trip",
+					  name: day1[2],
+					  address: day1[2],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura1[2],
+            transportation: "null",
+            cost: "needGoogleAPI"
           }
           ,
           {
-            place: day1[3],
-            address: day1[3],
-            coordinate: "null",
-            duration: dura1[3]
+            type: "trip",
+					  name: day1[3],
+					  address: day1[3],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura1[3],
+            transportation: "null",
+            cost: "null"
 
           }
           ,
           {
-            place: day1[4],
-            address: day1[4],
-            coordinate: "null",
-            duration: dura1[4]
+            type: "stop",
+					  name: day1[4],
+					  address: day1[4],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura1[4],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
-            place: day1[5],
-            address: day1[5],
-            coordinate: "null",
-            duration: dura1[5]
+            type: "tarrival",
+					  name: day1[5],
+					  address: day1[5],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura1[5],
+            transportation: "null",
+            cost: "null"
           }
 
         ]
 
       }
       ,
-      {day: 2,
+      {
+
+        day: 2,
         date: daysDate[2],
-        stop: [
+        schedule: [
           {
-            place: day2[1],
-            address: day2[1],
-            coordinate: "null",
-            duration: dura2[1]
+            type: "departure",
+					  name: day2[1],
+					  address: day2[1],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura2[1],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
 
-            place: day2[2],
-            address: day2[2],
-            coordinate: "null",
-            duration: dura2[2]
+            type: "trip",
+					  name: day2[2],
+					  address: day2[2],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura2[2],
+            transportation: "null",
+            cost: "needGoogleAPI"
           }
           ,
           {
-            place: day2[3],
-            address: day2[3],
-            coordinate: "null",
-            duration: dura2[3]
+            type: "trip",
+					  name: day2[3],
+					  address: day2[3],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura2[3],
+            transportation: "null",
+            cost: "null"
 
           }
           ,
           {
-            place: day2[4],
-            address: day2[4],
-            coordinate: "null",
-            duration: dura2[4]
+            type: "stop",
+					  name: day2[4],
+					  address: day2[4],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura2[4],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
-            place: day2[5],
-            address: day2[5],
-            coordinate: "null",
-            duration: dura2[5]
+            type: "tarrival",
+					  name: day2[5],
+					  address: day2[5],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura2[5],
+            transportation: "null",
+            cost: "null"
           }
 
         ]
@@ -580,44 +632,70 @@ const DaysAndPlaces = (props: {
       },
 
       {
+
         day: 3,
         date: daysDate[3],
-        stop: [
+        schedule: [
           {
-            place: day3[1],
-            address: day3[1],
-            coordinate: "null",
-            duration: dura3[1]
+            type: "departure",
+					  name: day3[1],
+					  address: day3[1],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura3[1],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
 
-            place: day3[2],
-            address: day3[2],
-            coordinate: "null",
-            duration: dura3[2]
+            type: "trip",
+					  name: day3[2],
+					  address: day3[2],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura3[2],
+            transportation: "null",
+            cost: "needGoogleAPI"
           }
           ,
           {
-            place: day3[3],
-            address: day3[3],
-            coordinate: "null",
-            duration: dura3[3]
+            type: "trip",
+					  name: day3[3],
+					  address: day3[3],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura3[3],
+            transportation: "null",
+            cost: "null"
 
           }
           ,
           {
-            place: day3[4],
-            address: day3[4],
-            coordinate: "null",
-            duration: dura3[4]
+            type: "stop",
+					  name: day3[4],
+					  address: day3[4],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura3[4],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
-            place: day3[5],
-            address: day3[5],
-            coordinate: "null",
-            duration: dura3[5]
+            type: "tarrival",
+					  name: day3[5],
+					  address: day3[5],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura3[5],
+            transportation: "null",
+            cost: "null"
           }
 
         ]
@@ -625,99 +703,163 @@ const DaysAndPlaces = (props: {
       }
       ,
       {
+
         day: 4,
         date: daysDate[4],
-        stop: [
+        schedule: [
           {
-            place: day4[1],
-            address: day4[1],
-            coordinate: "null",
-            duration: dura4[1]
+            type: "departure",
+					  name: day4[1],
+					  address: day4[1],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura4[1],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
 
-            place: day4[2],
-            address: day4[2],
-            coordinate: "null",
-            duration: dura4[2]
+            type: "trip",
+					  name: day4[2],
+					  address: day4[2],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura4[2],
+            transportation: "null",
+            cost: "needGoogleAPI"
           }
           ,
           {
-            place: day4[3],
-            address: day4[3],
-            coordinate: "null",
-            duration: dura4[3]
+            type: "trip",
+					  name: day4[3],
+					  address: day4[3],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura4[3],
+            transportation: "null",
+            cost: "null"
 
           }
           ,
           {
-            place: day4[4],
-            address: day4[4],
-            coordinate: "null",
-            duration: dura4[4]
+            type: "stop",
+					  name: day4[4],
+					  address: day4[4],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura4[4],
+            transportation: "null",
+            cost: "null"
           }
           ,
           {
-            place: day4[5],
-            address: day4[5],
-            coordinate: "null",
-            duration: dura4[5]
-          }
-
-        ]
-
-      }
-      ,
-      {
-        day: 5,
-        date: daysDate[5],
-        stop: [
-          {
-            place: day5[1],
-            address: day5[1],
-            coordinate: "null",
-            duration: dura5[1]
-          }
-          ,
-          {
-
-            place: day5[2],
-            address: day5[2],
-            coordinate: "null",
-            duration: dura5[2]
-          }
-          ,
-          {
-            place: day5[3],
-            address: day5[3],
-            coordinate: "null",
-            duration: dura5[3]
-
-          }
-          ,
-          {
-            place: day5[4],
-            address: day5[4],
-            coordinate: "null",
-            duration: dura5[4]
-          }
-          ,
-          {
-            place: day5[5],
-            address: day5[5],
-            coordinate: "null",
-            duration: dura5[5]
+            type: "tarrival",
+					  name: day4[5],
+					  address: day4[5],
+            coordinates: "null",
+            arrival:"null",
+					  departure: "null",
+            duration: dura4[5],
+            transportation: "null",
+            cost: "null"
           }
 
         ]
 
       }
+          ,
+          {
+
+            day: 5,
+            date: daysDate[5],
+            schedule: [
+              {
+                type: "departure",
+                name: day5[1],
+                address: day5[1],
+                coordinates: "null",
+                arrival:"null",
+                departure: "null",
+                duration: dura5[1],
+                transportation: "null",
+                cost: "null"
+              }
+              ,
+              {
+
+                type: "trip",
+                name: day5[2],
+                address: day5[2],
+                coordinates: "null",
+                arrival:"null",
+                departure: "null",
+                duration: dura5[2],
+                transportation: "null",
+                cost: "needGoogleAPI"
+              }
+              ,
+              {
+                type: "trip",
+                name: day5[3],
+                address: day5[3],
+                coordinates: "null",
+                arrival:"null",
+                departure: "null",
+                duration: dura5[3],
+                transportation: "null",
+                cost: "null"
+
+              }
+              ,
+              {
+                type: "stop",
+                name: day5[4],
+                address: day5[4],
+                coordinates: "null",
+                arrival:"null",
+                departure: "null",
+                duration: dura5[4],
+                transportation: "null",
+                cost: "null"
+              }
+              ,
+              {
+                type: "tarrival",
+                name: day5[5],
+                address: day5[5],
+                coordinates: "null",
+                arrival:"null",
+                departure: "null",
+                duration: dura5[5],
+                transportation: "null",
+                cost: "null"
+              }
+
+            ]
+
+          }
 
     ]
     }
+
     JsonString = JSON.stringify(json);
     console.log(JsonString)
+
+    fetch('/home/saveItinerary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(json),
+    })
+    .then(res => {
+      check(res.ok, 'response status ' + res.status)
+      window.location.reload()
+    })
+    .catch(handleError)
 
   }
 
