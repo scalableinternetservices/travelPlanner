@@ -10,7 +10,7 @@ Welcome to Travel Planner
 ![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/akanksha.png)
 
 ### Lorance Aung
-![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/lorance.png)
+![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/maung.jpg)
 
 ### Yingge He
 ![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/yingge.jpg)
