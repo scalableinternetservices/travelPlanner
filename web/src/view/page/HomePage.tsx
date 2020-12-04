@@ -509,7 +509,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 20,
             transportation: "bus",
-            cost: "3.25"
+            cost: 3.25
           }
           ,
           {
@@ -529,7 +529,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 30,
             transportation: "metro",
-            cost: "5.25"
+            cost: 5.25
           }
           ,
           {
@@ -548,7 +548,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 50,
             transportation: "cab",
-            cost: "30.25"
+            cost: 30.25
           }
           ,
           {
@@ -585,7 +585,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 20,
             transportation: "bus",
-            cost: "3.25"
+            cost: 3.25
           }
           ,
           {
@@ -605,7 +605,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 30,
             transportation: "metro",
-            cost: "5.25"
+            cost: 5.25
           }
           ,
           {
@@ -624,7 +624,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 50,
             transportation: "cab",
-            cost: "30.25"
+            cost: 30.25
           }
           ,
           {
@@ -660,7 +660,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 20,
             transportation: "bus",
-            cost: "3.25"
+            cost: 3.25
           }
           ,
           {
@@ -680,7 +680,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 30,
             transportation: "metro",
-            cost: "5.25"
+            cost: 5.25
           }
           ,
           {
@@ -699,7 +699,7 @@ const DaysAndPlaces = (props: {
             type: "trip",
             duration: 50,
             transportation: "cab",
-            cost: "30.25"
+            cost: 30.25
           }
           ,
           {
