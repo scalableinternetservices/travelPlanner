@@ -148,20 +148,21 @@ async function createSession(user: User): Promise<string> {
 
 server.express.post(
   '/home/saveItinerary',
-  asyncRoute(async (req, res, next) => {
+  asyncRoute(async (req, res) => {
     console.log('POST /home/saveItinerary')
     const authToken = req.cookies.authToken
     let user_id
     if (authToken) {
       const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
       user_id = session?.user.id
-      //console.log("user_id = " + user_id)
+      console.log("user_email = " + session?.user.email)
     } else {
       res.status(403).send('Login or signup to save your itinerary.')
       return
     }
 
     const days = req.body.itinerary
+    console.log(days)
     const newItinerary = new Itinerary()
     const newDays = new Array
     for (const eachDay of days) {
@@ -206,7 +207,7 @@ server.express.post(
           newLocations.push(newLocation)
         } else {
           var newTrip = new Trip()
-          switch (location.Type) {
+          switch (location.type) {
             case "trip": {
               newTrip.transportation = location.transportation
               newTrip.duration = location.duration
@@ -214,8 +215,8 @@ server.express.post(
               break
             }
             default: {
-              //console.log("403 status reached: trip")
-              res.status(403).send('Invalid location type')
+              // console.log("403 status reached: trip")
+              res.status(403).send('Invalid trip type')
               return
             }
           }
@@ -228,7 +229,6 @@ server.express.post(
       newDay.trips = newTrips
       newDays.push(newDay)
     }
-    //)
 
     if (user_id != undefined) {
       newItinerary.user_id = user_id
@@ -239,7 +239,6 @@ server.express.post(
     newItinerary.days = newDays
     await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
     res.status(200).send('Success')
-    next()
   })
 )
 

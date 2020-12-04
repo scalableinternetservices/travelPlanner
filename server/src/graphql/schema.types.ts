@@ -75,10 +75,11 @@ export interface Location {
   name: Scalars['String']
   address: Scalars['String']
   coordinates: Scalars['String']
-  arrival: Scalars['String']
-  departure: Scalars['String']
-  duration: Scalars['Int']
+  // arrival: Scalars['String']
+  // departure: Scalars['String']
+  // duration: Scalars['Int']
 }
+
 
 export interface Trip {
   __typename?: 'Trip'
@@ -94,9 +95,9 @@ export enum UserType {
 }
 
 export enum LocationType {
-  Stop = 'STOP',
-  Departure = 'DEPARTURE',
-  Arrival = 'ARRIVAL',
+  Stop = 'stop',
+  Departure = 'departure',
+  Arrival = 'arrival',
 }
 
 export interface Survey {
