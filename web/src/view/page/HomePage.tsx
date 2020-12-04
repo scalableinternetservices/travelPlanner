@@ -500,7 +500,7 @@ const DaysAndPlaces = (props: {
 					  address: day1[1],
             coordinates: "null",
 					  departure: "null",
-            duration: dura1[1],
+            //duration: dura1[1],
 
           }
           ,
@@ -576,7 +576,7 @@ const DaysAndPlaces = (props: {
 					  address: day2[1],
             coordinates: "null",
 					  departure: "null",
-            duration: dura2[1],
+            //duration: dura2[1],
 
           }
           ,
@@ -651,7 +651,7 @@ const DaysAndPlaces = (props: {
 					  address: day3[1],
             coordinates: "null",
 					  departure: "null",
-            duration: dura3[1],
+            //duration: dura3[1],
 
           }
           ,
