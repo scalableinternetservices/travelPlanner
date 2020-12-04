@@ -1,16 +1,36 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
+import { check } from '../../../../common/src/util'
 import { H2 } from '../../style/header'
 import { Spacer } from '../../style/spacer'
 import { style } from '../../style/styled'
 import { BodyText } from '../../style/text'
 import { AppRouteParams } from '../nav/route'
+import { handleError } from '../toast/error'
 import { Page } from './Page'
+
 
 interface LecturesPageProps extends RouteComponentProps, AppRouteParams {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function LecturesPage(props: LecturesPageProps) {
+
+  var itinerary
+  fetch('/home/getItineraries', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+
+  })
+  .then(res => {
+    itinerary = res
+    check(res.ok, 'response status ' + res.status)
+    window.location.reload()
+  })
+  .catch(handleError)
+
+  console.log(itinerary)
+
+
   return (
     <Page>
 
