@@ -1,5 +1,5 @@
 require('honeycomb-beeline')({
-  writeKey: process.env.HONEYCOMB_KEY || 'd29d5f5ec24178320dae437383480737',
+  writeKey: process.env.HONEYCOMB_KEY || '856046ade51588caf88af56a75f80d50',
   dataset: process.env.APP_NAME || 'cs188',
   serviceName: process.env.APPSERVER_TAG || 'local',
   enabledInstrumentations: ['express', 'mysql2', 'react-dom/server'],
@@ -50,7 +50,7 @@ server.express.get('/', (req, res) => {
 
 server.express.get('/app/*', (req, res) => {
   console.log('GET /app')
-  renderApp(req, res)
+  renderApp(req, res, server.executableSchema)
 })
 
 server.express.get(
