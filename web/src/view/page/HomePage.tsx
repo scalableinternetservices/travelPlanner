@@ -455,11 +455,14 @@ const DaysAndPlaces = (props: {
       '  34.0689° N, 118.4452° W',
     ]
 
-    let departureForLoc: string[] = ['', '09:00', '08:20', '11:30', '12:30', '5:30']
-
+    //dummy variable
+    let departureForLoc: string[] = ['', '09:00', '12:20', '2:00', '4:30', '6:00']
+    let arrivalForLoc: string[] = ['', '10:20', '1:30', '3:20', '5:20', '7:20']
     let costforstop: number[] = [0, 32.23, 1233, 23.0, 2134.0]
+    let duration_trip: number[] = [0, 80, 70, 80, 50, 80]
+    let duration_for_stop: number[] = [0, 80, 70, 80, 50, 80]
 
-    let duration_for_stop: string[] = ['', '09:00', '08:20', '11:30', '12:30', '5:30']
+    //for duration user enter, use 'duration' at line15. That one is string array though
 
     let x: any[] = []
     let firstime: boolean = true
@@ -468,7 +471,7 @@ const DaysAndPlaces = (props: {
         x.push({
           type: 'trip',
           transportation: 'bus',
-          duration: duration_for_stop[i],
+          duration: duration_trip[i],
           cost: costforstop[i],
         })
       }
@@ -496,8 +499,9 @@ const DaysAndPlaces = (props: {
           name: daylocation[i],
           address: daylocation[i],
           coordinate: coordinateArray_for_realLocation[i],
+          arrival: arrivalForLoc[i],
           departure: departureForLoc[i],
-          arrival: departureForLoc[i],
+          duration: duration_for_stop[i],
         })
       }
     }
@@ -523,15 +527,6 @@ const DaysAndPlaces = (props: {
       })
       .catch(handleError)
   }
-
-  // function checkisDateDup(dateArr: string[]) {
-
-  //   console.log("props.date is " + props.date + " and dateArr is " + dateArr)
-  //   if (dateArr.includes(props.date))
-  //     return true;
-  //   else
-  //     return false;
-  // }
 
   const DayBlock = style(
     'div',
