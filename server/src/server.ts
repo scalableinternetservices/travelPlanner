@@ -20,7 +20,9 @@ import { checkEqual, Unpromise } from '../../common/src/util'
 import { Config } from './config'
 import { migrate } from './db/migrate'
 import { initORM } from './db/sql'
-import { Arrival, Day, Departure, Itinerary, Stop, Trip } from './entities/Itinerary'
+import { Day } from './entities/Day'
+import { Itinerary } from './entities/Itinerary'
+import { Arrival, Departure, Stop, Trip } from './entities/Location'
 import { Session } from './entities/Session'
 import { User } from './entities/User'
 import { getSchema, graphqlRoot, pubsub } from './graphql/api'
@@ -161,74 +163,68 @@ server.express.post(
       return
     }
 
-    const days = req.body.itinerary
-    console.log(days)
+    const day = req.body.itinerary
+    console.log(day)
     const newItinerary = new Itinerary()
-    const newDays = new Array
-    for (const eachDay of days) {
-    //days.forEach((eachDay: { schedule: any; day_no: number; date: string }) => {
-      const newDay  = new Day
+    const newDay  = new Day
 
-      let locations = eachDay.schedule  // locations or trips
-      let newLocations = new Array
-      let newTrips = new Array
-      for (let i = 0; i < locations.length; i++) {
-        let location = locations[i]
-        if (i % 2 == 0) {
-          var newLocation
-          switch(location.type) {
-            case LocationType.Arrival: {
-              newLocation = new Arrival()
-              newLocation.arrival = location.arrival
-              break
-            }
-            case LocationType.Departure: {
-              newLocation = new Departure()
-              newLocation.departure = location.departure
-              break
-            }
-            case LocationType.Stop: {
-              newLocation = new Stop()
-              newLocation.arrival = location.arrival
-              newLocation.departure = location.departure
-              newLocation.duration = location.duration
-              break
-            }
-            default: {
-              //console.log("403 status reached: location = "  + location.type)
-              res.status(403).send('Invalid location type')
-              return
-            }
+    let locations = day.schedule  // locations or trips
+    let newLocations = new Array
+    let newTrips = new Array
+    for (let i = 0; i < locations.length; i++) {
+      let location = locations[i]
+      if (i % 2 == 0) {
+        var newLocation
+        switch(location.type) {
+          case LocationType.Arrival: {
+            newLocation = new Arrival()
+            newLocation.arrival = location.arrival
+            break
           }
-          newLocation.type = location.type
-          newLocation.name = location.name
-          newLocation.address = location.address
-          newLocation.coordinates = location.coordinates
-          newLocations.push(newLocation)
-        } else {
-          var newTrip = new Trip()
-          switch (location.type) {
-            case "trip": {
-              newTrip.transportation = location.transportation
-              newTrip.duration = location.duration
-              newTrip.cost = location.cost
-              break
-            }
-            default: {
-              // console.log("403 status reached: trip")
-              res.status(403).send('Invalid trip type')
-              return
-            }
+          case LocationType.Departure: {
+            newLocation = new Departure()
+            newLocation.departure = location.departure
+            break
           }
-          newTrips.push(newTrip)
+          case LocationType.Stop: {
+            newLocation = new Stop()
+            newLocation.arrival = location.arrival
+            newLocation.departure = location.departure
+            newLocation.duration = location.duration
+            break
+          }
+          default: {
+            //console.log("403 status reached: location = "  + location.type)
+            res.status(403).send('Invalid location type')
+            return
+          }
         }
+        newLocation.type = location.type
+        newLocation.name = location.name
+        newLocation.address = location.address
+        newLocation.coordinates = location.coordinates
+        newLocations.push(newLocation)
+      } else {
+        var newTrip = new Trip()
+        switch (location.type) {
+          case "trip": {
+            newTrip.transportation = location.transportation
+            newTrip.duration = location.duration
+            newTrip.cost = location.cost
+            break
+          }
+          default: {
+            // console.log("403 status reached: trip")
+            res.status(403).send('Invalid trip type')
+            return
+          }
+        }
+        newTrips.push(newTrip)
       }
-      newDay.day_no = eachDay.day_no
-      newDay.date = eachDay.date
-      newDay.locations = newLocations
-      newDay.trips = newTrips
-      newDays.push(newDay)
     }
+    newDay.date = day.date
+    newDay.locations = newLocations
+    newDay.trips = newTrips
 
     if (user_id != undefined) {
       newItinerary.user_id = user_id
@@ -236,7 +232,7 @@ server.express.post(
       res.status(403).send('Invalid user')
       return
     }
-    newItinerary.days = newDays
+    newItinerary.day = newDay
     await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
     res.status(200).send('Success')
   })
