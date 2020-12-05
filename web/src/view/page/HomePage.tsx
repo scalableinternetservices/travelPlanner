@@ -9,7 +9,11 @@ import { handleError } from '../toast/error'
 import { Page } from './Page'
 
 // const jsonData = require('./data.js')
-let JsonString :string;
+let JsonString: string
+
+let daylocation: string[] = []
+let duration: string[] = []
+let date3: string
 
 let day1: string[] = []
 let day2: string[] = []
@@ -30,139 +34,130 @@ interface UserDataProps {
 }
 
 function DisplayItin(prop: UserDataProps) {
-  return (
-    <div>{prop.addresses.map(a => a.concat)}</div>
-
-  )
+  return <div>{prop.addresses.map(a => a.concat)}</div>
 }
 
 export function userdata(data: string) {
-
-  if (data = "d1") {
+  if ((data = 'd1')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={day1} />
       </React.Fragment>
     )
-  }
-  else if (data = "d2") {
+  } else if ((data = 'd2')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={day2} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "d3") {
+  } else if ((data = 'd3')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={day3} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "d4") {
+  } else if ((data = 'd4')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={day4} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "d5") {
+  } else if ((data = 'd5')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={day5} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "t1") {
+  } else if ((data = 't1')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={dura1} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "t2") {
+  } else if ((data = 't2')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={dura2} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "t3") {
+  } else if ((data = 't3')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={dura3} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "t4") {
+  } else if ((data = 't4')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={dura4} />
       </React.Fragment>
     )
-
-  }
-  else if (data = "t5") {
+  } else if ((data = 't5')) {
     return (
       <React.Fragment>
         <DisplayItin addresses={dura5} />
       </React.Fragment>
     )
-
-  }
-  else {
+  } else {
     return (
       <React.Fragment>
         <DisplayItin addresses={daysDate} />
       </React.Fragment>
     )
   }
-
 }
 
-
-
-interface HomePageProps extends RouteComponentProps, AppRouteParams { }
+interface HomePageProps extends RouteComponentProps, AppRouteParams {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function HomePage(props: HomePageProps) {
   return (
     <Page>
-      <Welcome> Welcome to Travel Planner  </Welcome>
+      <Welcome> Welcome to Travel Planner </Welcome>
       <br />
-      <AboutUs ></AboutUs>
+      <AboutUs></AboutUs>
       <br />
-      <FlexibleDiv width={'1500px'} height={'420px'} bgcolor={"#ccffcc"} textcolor={"#735999"} boxshadow={"#0dc291"} >
-        <h1 style={{ fontSize: "30px" }}><u style={{ lineHeight: "2em" }}>How it works</u></h1>
-        <ul style={{ textAlign: "justify", fontSize: "25px", margin: "30px", lineHeight: "2em" }}>
-          <li> <p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 1:&ensp;</b>
-            <b>Type </b> in the place address you would like to visit. (Up to five locations)Select date for that place. <b>Select</b> the date that
-               for the locations. <b>Type </b>in the estimcate duration you would like to stay there.
-
-          </p></li>
-          <li> <p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 2:&ensp;</b>
-            <b>Click "+"</b> to add to the list. (Up to five locations) (OR) <b>Click "-"</b> to remove places from the list.
-          </p></li>
-          <li><p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 3:&ensp;</b>
-            After adding addresses for day 1, <b>Click "Next"</b> to add address for other day. (Or) <b>Click "Edit Previous "</b> to edit the previous day plan.
-          </p></li>
-          <li><p style={{ font: 'Alice' }}><b style={{ fontSize: "25" }}>Step 4:&ensp;</b>
-            <b>Click "Done".</b> Our algorithm will generate most efficient and lowest price schedule for you.
-          </p></li>
+      <FlexibleDiv width={'1500px'} height={'420px'} bgcolor={'#ccffcc'} textcolor={'#735999'} boxshadow={'#0dc291'}>
+        <h1 style={{ fontSize: '30px' }}>
+          <u style={{ lineHeight: '2em' }}>How it works</u>
+        </h1>
+        <ul style={{ textAlign: 'justify', fontSize: '25px', margin: '30px', lineHeight: '2em' }}>
+          <li>
+            {' '}
+            <p style={{ font: 'Alice' }}>
+              <b style={{ fontSize: '25' }}>Step 1:&ensp;</b>
+              <b>Type </b> in the place address you would like to visit. (Up to five locations)Select date for that
+              place. <b>Select</b> the date that for the locations. <b>Type </b>in the estimcate duration you would like
+              to stay there.
+            </p>
+          </li>
+          <li>
+            {' '}
+            <p style={{ font: 'Alice' }}>
+              <b style={{ fontSize: '25' }}>Step 2:&ensp;</b>
+              <b>Click "+"</b> to add to the list. (Up to five locations) (OR) <b>Click "-"</b> to remove places from
+              the list.
+            </p>
+          </li>
+          <li>
+            <p style={{ font: 'Alice' }}>
+              <b style={{ fontSize: '25' }}>Step 3:&ensp;</b>
+              After adding addresses for day 1, <b>Click "Next"</b> to add address for other day. (Or){' '}
+              <b>Click "Edit Previous "</b> to edit the previous day plan.
+            </p>
+          </li>
+          <li>
+            <p style={{ font: 'Alice' }}>
+              <b style={{ fontSize: '25' }}>Step 4:&ensp;</b>
+              <b>Click "Done".</b> Our algorithm will generate most efficient and lowest price schedule for you.
+            </p>
+          </li>
         </ul>
       </FlexibleDiv>
       <Search></Search>
     </Page>
   )
 }
-
 
 const Welcome = style('div', 'welcomeboard', {
   backgroundColor: '#FAAC58',
@@ -177,10 +172,7 @@ const Welcome = style('div', 'welcomeboard', {
   marginRight: 'auto',
   fontSize: '70px',
   lineHeight: '3em',
-
-
 })
-
 
 const LeftSerchDive = style('div', 'Search', {
   width: '730px',
@@ -191,10 +183,10 @@ const LeftSerchDive = style('div', 'Search', {
   color: 'white',
   textAlign: 'center',
   lineHeight: '1em',
-  float: "left",
+  float: 'left',
   visibility: 'visible',
   // border: '2px solid red',
-  padding: '20px'
+  padding: '20px',
 })
 
 const RightSerchDive = style('div', 'Search', {
@@ -206,130 +198,116 @@ const RightSerchDive = style('div', 'Search', {
   color: 'white',
   textAlign: 'center',
   lineHeight: '1em',
-  float: "right",
+  float: 'right',
   visibility: 'visible',
   // border: '2px solid red',
-  padding: '20px'
+  padding: '20px',
 })
 
-
-const FlexibleDiv = style('div', 'Search',
+const FlexibleDiv = style(
+  'div',
+  'Search',
   (props: {
-    width: string,
-    height: string,
-    bgcolor: string,
-    textcolor: string,
-    lineheight?: string,
+    width: string
+    height: string
+    bgcolor: string
+    textcolor: string
+    lineheight?: string
     boxshadow?: string
-  }) => (
-      {
-        width: props.width,
-        height: props.height,
-        borderRadius: '35px',
-        backgroundColor: props.bgcolor,
-        fontSize: '35px',
-        color: props.textcolor,
-        textAlign: 'center',
-        lineHeight: props.lineheight,
-        float: "left",
-        visibility: 'visible',
-        //position: 'fixed',
-        wordWrap: 'break-word',
-        marginTop: '5px',
-        //border: '2px solid red',
-        boxShadow: '3px 3px ' + props.boxshadow,
-        margin: "10px 10px"
-      }))
-
-
-
-
-
-
-
+  }) => ({
+    width: props.width,
+    height: props.height,
+    borderRadius: '35px',
+    backgroundColor: props.bgcolor,
+    fontSize: '35px',
+    color: props.textcolor,
+    textAlign: 'center',
+    lineHeight: props.lineheight,
+    float: 'left',
+    visibility: 'visible',
+    //position: 'fixed',
+    wordWrap: 'break-word',
+    marginTop: '5px',
+    //border: '2px solid red',
+    boxShadow: '3px 3px ' + props.boxshadow,
+    margin: '10px 10px',
+  })
+)
 
 const Search = () => {
-
   const [places, setPlaces] = useState([''])
   const [durations, setDura] = useState([''])
   const [date, setDate] = useState('')
 
-
-
   function Manage(x: any, y: boolean, z: any) {
-
-
     if (!y) {
-
-      if ((places as Array<string>).length < 6 && x != "null" && z > 5 && x != "") {
+      if ((places as Array<string>).length < 6 && x != 'null' && z > 5 && x != '') {
         setPlaces(places.concat(x))
         setDura(durations.concat(z))
       }
 
-      if (z <= 5)
-        alert("Duration is too short.")
-      if (x == "")
-        alert("Enter something in Address.")
+      if (z <= 5) alert('Duration is too short.')
+      if (x == '') alert('Enter something in Address.')
       // else
       //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
-    }
-    else {
+    } else {
       if ((places as Array<string>).length > 1) {
         let start = 0
-        let end = (places as Array<string>).length - 1;
-        setPlaces((places as Array<string>).slice(start, end));
-        setDura((durations as Array<string>).slice(start, end));
-      }
-      else {
-        setPlaces([""])
-        setDura([""])
+        let end = (places as Array<string>).length - 1
+        setPlaces((places as Array<string>).slice(start, end))
+        setDura((durations as Array<string>).slice(start, end))
+      } else {
+        setPlaces([''])
+        setDura([''])
       }
       // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
-
     }
   }
 
-  console.log("after slice " + places)
-
+  console.log('after slice ' + places)
 
   function resetplaces(y: boolean) {
     if (y) {
-      setDura(['']);
-      setPlaces(['']);
+      setDura([''])
+      setPlaces([''])
     }
   }
-
 
   console.log(places)
   console.log(durations)
   console.log(date)
   return (
     <React.Fragment>
-      <FlexibleDiv width={'1500px'} height={'800px'} bgcolor={'#A4A4A4'} textcolor={"white"} lineheight={"1em"} boxshadow={"#9c6687"}>
-
+      <FlexibleDiv
+        width={'1500px'}
+        height={'800px'}
+        bgcolor={'#A4A4A4'}
+        textcolor={'white'}
+        lineheight={'1em'}
+        boxshadow={'#9c6687'}
+      >
         <LeftSerchDive>
-          <DaysAndPlaces places={places} dur={durations} date={date} reset={(shouldremove) => resetplaces(shouldremove)} />
+          <DaysAndPlaces
+            places={places}
+            dur={durations}
+            date={date}
+            reset={shouldremove => resetplaces(shouldremove)}
+          />
           {/* <DaysAndPlaces places={places} /> */}
         </LeftSerchDive>
 
-
-
-
-
         <RightSerchDive>
-          <SearchForm addDate={(datex) => setDate(datex)}
-            onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)} />
+          <SearchForm
+            addDate={datex => setDate(datex)}
+            onPlaceAdded={(place, remove, durationx) => Manage(place, remove, durationx)}
+          />
         </RightSerchDive>
-
       </FlexibleDiv>
     </React.Fragment>
-
   )
 }
 
 //user's input data
-
-
 
 let current_date = new Date()
 let current_date_string = current_date.toString()
@@ -338,99 +316,81 @@ let current_month = (current_date.getMonth() + 1).toString()
 let current_year = current_date.getFullYear().toString()
 let defaultDate = current_year + '-' + current_month + '-' + current_day
 
-
 // let AllfiveDate: string[] = []
 
 const SearchForm = (props: {
-  onPlaceAdded: (place: string, remove: boolean, durationx: string) => void,
+  onPlaceAdded: (place: string, remove: boolean, durationx: string) => void
   addDate: (datex: string) => void
-}
-) => {
-
-
-
+}) => {
   const [place1, setPlace] = useState('')
   const [placeCount, setPlaceCount] = useState(0)
   const [duration, setDuration] = useState('80')
   const [date, setDate] = useState(defaultDate)
   const [dateError, setDateError] = useState(false)
 
-
   function checkDate(dtex: string) {
+    if (dtex == '') return true
 
-    if (dtex == '')
-      return true
-
-
-
-    let splitted = dtex.split("-", 3)
+    let splitted = dtex.split('-', 3)
     let dtex_year = splitted[0]
     let dtex_month = splitted[1]
     let dtex_day = splitted[2]
 
-    console.log("dtex_day : " + dtex_day)
-    console.log("dtex_month : " + dtex_month)
-    console.log("dtex_year : " + dtex_year)
-    console.log("current date : ", current_date_string)
-    console.log("current day : " + current_day)
-    console.log("current month : " + current_month)
-    console.log("current year : " + current_year)
+    console.log('dtex_day : ' + dtex_day)
+    console.log('dtex_month : ' + dtex_month)
+    console.log('dtex_year : ' + dtex_year)
+    console.log('current date : ', current_date_string)
+    console.log('current day : ' + current_day)
+    console.log('current month : ' + current_month)
+    console.log('current year : ' + current_year)
 
-    if (parseInt(dtex_year) < parseInt(current_year))
-      return true
-    if ((parseInt(dtex_month) < parseInt(current_month)) && (parseInt(dtex_year) == parseInt(current_year)))
-      return true
-    if ((parseInt(dtex_year) == parseInt(current_year)) && (parseInt(dtex_month) == parseInt(current_month))
-      && (parseInt(dtex_day) < parseInt(current_day)))
+    if (parseInt(dtex_year) < parseInt(current_year)) return true
+    if (parseInt(dtex_month) < parseInt(current_month) && parseInt(dtex_year) == parseInt(current_year)) return true
+    if (
+      parseInt(dtex_year) == parseInt(current_year) &&
+      parseInt(dtex_month) == parseInt(current_month) &&
+      parseInt(dtex_day) < parseInt(current_day)
+    )
       return true
 
     return false
-
   }
 
   function AddDate(datex: string) {
-
     let isDateError = checkDate(datex)
     setDateError(isDateError)
 
-    console.log("isDateError is : " + isDateError)
+    console.log('isDateError is : ' + isDateError)
 
-    console.log("Date error : " + dateError)
+    console.log('Date error : ' + dateError)
     if (dateError) {
-      alert("Date is Invalid. Please Try select again.")
+      alert('Date is Invalid. Please Try select again.')
       setDate(defaultDate)
-      return "DateError"
+      return 'DateError'
     }
     if (date != '' && !dateError) {
       setDate(datex)
       props.addDate(datex)
     }
 
-    return "NoError"
+    return 'NoError'
   }
 
   function canListIncre() {
+    let isthereError = AddDate(date) //bug 4: Delay for one round.
 
-    let isthereError = AddDate(date)      //bug 4: Delay for one round.
-
-    if (isthereError == 'DateError')
-      return
+    if (isthereError == 'DateError') return
     if (placeCount < 5) {
-
-      if (place1 != '')
-        setPlaceCount(placeCount + 1)
+      if (place1 != '') setPlaceCount(placeCount + 1)
 
       props.onPlaceAdded(place1, false, duration)
-    }
-    else {
+    } else {
       setPlaceCount(0)
-      props.onPlaceAdded("null", false, duration)
+      props.onPlaceAdded('null', false, duration)
     }
   }
 
-  console.log("This is place count : " + placeCount)
-
-
+  console.log('This is place count : ' + placeCount)
 
   const InputSubmit = style('button', 'Search', {
     width: '100px',
@@ -439,286 +399,101 @@ const SearchForm = (props: {
     backgroundColor: '#424242',
     borderRadius: '5px',
     color: 'white',
-
   })
 
-
-  console.log("This is date in RightFrom" + date)
+  console.log('This is date in RightFrom' + date)
 
   return (
     <React.Fragment>
       <form>
-        <div > Address: &ensp; <Input $boxwidth={"500px"} $onChange={setPlace} type="text" /></div>
+        <div>
+          {' '}
+          Address: &ensp; <Input $boxwidth={'500px'} $onChange={setPlace} type="text" />
+        </div>
         <br />
-        <div > Date: &ensp; <Input $boxwidth={"300px"} $onChange={setDate} type="date" /></div>
+        <div>
+          {' '}
+          Date: &ensp; <Input $boxwidth={'300px'} $onChange={setDate} type="date" />
+        </div>
         <br />
-        <div > Duration: &ensp; <Input $boxwidth={"200px"} $onChange={setDuration} type="number" /></div>
+        <div>
+          {' '}
+          Duration: &ensp; <Input $boxwidth={'200px'} $onChange={setDuration} type="number" />
+        </div>
         <br />
-        <InputSubmit onClick={canListIncre} >+</InputSubmit>
+        <InputSubmit onClick={canListIncre}>+</InputSubmit>
         <br />
         <InputSubmit onClick={() => props.onPlaceAdded(place1, true, duration)}>-</InputSubmit>
         {/* <InputSubmit onClick={() => props.onPlaceAdded(place1, false)} >+</InputSubmit> */}
         <br></br>
-        <div>
-          {place1}
-        </div> <br />
+        <div>{place1}</div> <br />
       </form>
-
-
     </React.Fragment>
   )
 }
 
-
 const DaysAndPlaces = (props: {
-  places: Array<string>,
-  dur: Array<string>,
+  places: Array<string>
+  dur: Array<string>
   date: string
   reset: (shouldremove: boolean) => void
 }) => {
-
-  const [DateforEachDay, setDayforEachDay] = useState([''])
-  const [Day, setDay] = useState(1)
+  //const [DateforEachDay, setDayforEachDay] = useState('')
+  //const [Day, setDay] = useState(1)
 
   function DoneClickHandler() {
-    if (day1.length < 2 || DateforEachDay.length < 2 || dura1.length < 2) {
-      alert("You have not enter anything")
-      return;
-    }
-
-    daysDate = DateforEachDay;
-
     const json = {
-      itinerary: [ {
-
-        day: 1,
-        date: daysDate[1],
+      itinerary: {
+        date: date3,
         schedule: [
           {
-            type: "departure",
-					  name: day1[1],
-					  address: day1[1],
-            coordinates: "null",
-					  departure: "null",
-            //duration: dura1[1],
-
-          }
-          ,
+            type: 'departure',
+            name: 'University of California, Los Angeles',
+            address: daylocation[1],
+            coordinate: '34.0689° N, 118.4452° W',
+            departure: '09:00',
+            duration: duration[1],
+          },
           {
-
-            type: "trip",
-            duration: 20,
-            transportation: "bus",
-            cost: 3.25
-          }
-          ,
+            type: 'trip',
+            name: 'Asgard',
+            address: daylocation[2],
+            coordinate: '34.0689° N, 118.4452° W',
+            duration: duration[2],
+            cost: 3.25,
+          },
           {
-
-            type: "stop",
-					  name: day1[2],
-					  address: day1[2],
-            coordinates: "null",
-            arrival:"null",
-					  departure: "null",
-            duration: dura1[2],
-
-          }
-          ,
+            type: 'stop',
+            name: 'Griffith Observatory',
+            address: daylocation[3],
+            coordinate: '34.0689° N, 118.4452° W',
+            arrival: '09:00',
+            departure: '12:00',
+            duration: duration[3],
+          },
           {
-
-            type: "trip",
-            duration: 30,
-            transportation: "metro",
-            cost: 5.25
-          }
-          ,
+            type: 'trip',
+            name: 'University of California, Los Angeles',
+            address: daylocation[4],
+            coordinate: '34.0689° N, 118.4452° W',
+            departure: '09:00',
+            duration: duration[4],
+            arrival: '09:00',
+          },
           {
-            type: "stop",
-					  name: day1[3],
-					  address: day1[3],
-            coordinates: "null",
-            arrival:"null",
-					  departure: "null",
-            duration: dura1[3],
-
-          }
-          ,
-          {
-
-            type: "trip",
-            duration: 50,
-            transportation: "cab",
-            cost: 30.25
-          }
-          ,
-          {
-            type: "arrival",
-					  name: day1[4],
-					  address: day1[4],
-            coordinates: "null",
-            arrival:"null",
-
-          }
-
-
-        ]
-
-      }
-      ,
-      {
-
-        day: 2,
-        date: daysDate[2],
-        schedule: [
-          {
-            type: "departure",
-					  name: day2[1],
-					  address: day2[1],
-            coordinates: "null",
-					  departure: "null",
-            //duration: dura2[1],
-
-          }
-          ,
-          {
-
-            type: "trip",
-            duration: 20,
-            transportation: "bus",
-            cost: 3.25
-          }
-          ,
-          {
-
-            type: "stop",
-					  name: day2[2],
-					  address: day2[2],
-            coordinates: "null",
-            arrival:"null",
-					  departure: "null",
-            duration: dura2[2],
-
-          }
-          ,
-          {
-
-            type: "trip",
-            duration: 30,
-            transportation: "metro",
-            cost: 5.25
-          }
-          ,
-          {
-            type: "stop",
-					  name: day2[3],
-					  address: day2[3],
-            coordinates: "null",
-            arrival:"null",
-					  departure: "null",
-            duration: dura2[3],
-
-          }
-          ,
-          {
-
-            type: "trip",
-            duration: 50,
-            transportation: "cab",
-            cost: 30.25
-          }
-          ,
-          {
-            type: "arrival",
-					  name: day2[4],
-					  address: day2[4],
-            coordinates: "null",
-            arrival:"null",
-
-          }
-
-
-        ]
-
+            type: 'departure',
+            name: 'University of California, Los Angeles',
+            address: daylocation[5],
+            coordinate: '34.0689° N, 118.4452° W',
+            departure: '09:00',
+            duration: duration[5],
+            arrival: '09:00',
+          },
+        ],
       },
-      {
-
-        day: 3,
-        date: daysDate[3],
-        schedule: [
-          {
-            type: "departure",
-					  name: day3[1],
-					  address: day3[1],
-            coordinates: "null",
-					  departure: "null",
-            //duration: dura3[1],
-
-          }
-          ,
-          {
-
-            type: "trip",
-            duration: 20,
-            transportation: "bus",
-            cost: 3.25
-          }
-          ,
-          {
-
-            type: "stop",
-					  name: day3[2],
-					  address: day3[2],
-            coordinates: "null",
-            arrival:"null",
-					  departure: "null",
-            duration: dura3[2],
-
-          }
-          ,
-          {
-
-            type: "trip",
-            duration: 30,
-            transportation: "metro",
-            cost: 5.25
-          }
-          ,
-          {
-            type: "stop",
-					  name: day3[3],
-					  address: day3[3],
-            coordinates: "null",
-            arrival:"null",
-					  departure: "null",
-            duration: dura3[3],
-
-          }
-          ,
-          {
-
-            type: "trip",
-            duration: 50,
-            transportation: "cab",
-            cost: 30.25
-          }
-          ,
-          {
-            type: "arrival",
-					  name: day3[4],
-					  address: day3[4],
-            coordinates: "null",
-            arrival:"null",
-
-          }
-
-
-        ]
-
-      }
-
-    ]
     }
-    JsonString = JSON.stringify(json);
+
+    JsonString = JSON.stringify(json)
     console.log(JsonString)
 
     fetch('/home/saveItinerary', {
@@ -726,30 +501,26 @@ const DaysAndPlaces = (props: {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(json),
     })
-    .then(res => {
-      check(res.ok, 'response status ' + res.status)
-      window.location.reload()
-    })
-    .catch(handleError)
-
+      .then(res => {
+        check(res.ok, 'response status ' + res.status)
+        window.location.reload()
+      })
+      .catch(handleError)
   }
 
-  function checkisDateDup(dateArr: string[]) {
+  // function checkisDateDup(dateArr: string[]) {
 
-    console.log("props.date is " + props.date + " and dateArr is " + dateArr)
-    if (dateArr.includes(props.date))
-      return true;
-    else
-      return false;
-  }
+  //   console.log("props.date is " + props.date + " and dateArr is " + dateArr)
+  //   if (dateArr.includes(props.date))
+  //     return true;
+  //   else
+  //     return false;
+  // }
 
-  const DayBlock = style('div', 'Search',
-    (props: {
-      width: string,
-      height: string,
-      bgcolor: string,
-      margin: string,
-    }) => ({
+  const DayBlock = style(
+    'div',
+    'Search',
+    (props: { width: string; height: string; bgcolor: string; margin: string }) => ({
       width: props.width,
       height: props.height,
       margin: props.margin,
@@ -761,141 +532,143 @@ const DaysAndPlaces = (props: {
       marginRight: 'auto',
       textAlign: 'center',
       lineHeight: '2em',
-
-    }))
+    })
+  )
 
   const ListPlaces = style('li', 'Search', {
     textAlign: 'left',
     margin: '30px 60px',
     visiblilty: 'visible',
     //border: '1px red solid',
-
   })
 
-  const NextButton = style('button', 'Search', (p: { bgcolor: string }) => (
-
-    {
-      width: '300px',
-      height: ' 65px',
-      margin: '10px 0',
-      backgroundColor: p.bgcolor,
-      boxShadow: '3px 3px #A9A9F5',
-      borderRadius: '5px',
-      color: 'white',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      textAlign: 'center',
-      lineHeight: '2em',
-
-    }))
-
+  const NextButton = style('button', 'Search', (p: { bgcolor: string }) => ({
+    width: '300px',
+    height: ' 65px',
+    margin: '10px 0',
+    backgroundColor: p.bgcolor,
+    boxShadow: '3px 3px #A9A9F5',
+    borderRadius: '5px',
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
+    lineHeight: '2em',
+  }))
 
   function onClickNext(Next: boolean) {
-
-    let isDateDup = checkisDateDup(DateforEachDay)
-    if (Day == 1) {
-      day1 = props.places;
-      dura1 = props.dur;
-    }
-    if (Day == 2) {
-      day2 = props.places;
-      dura2 = props.dur;
-
-    }
-    if (Day == 3) {
-      day3 = props.places;
-      dura3 = props.dur;
-
-    }
-    if (Day == 4) {
-      day4 = props.places;
-      dura4 = props.dur;
-
-    }
-    if (Day == 5) {
-      day5 = props.places;
-      dura5 = props.dur;
-
-    }
-
+    daylocation = props.places
+    duration = props.dur
+    date3 = props.date
     if (Next && props.places.length == 1) {
-      alert("Day " + Day + " schedule is empty.")
+      alert('Day schedule is empty.')
     }
-
-    if (Next && isDateDup) {
-      alert("Date is duplicate.")
-      props.reset(true)
-      return
-
-    }
-
-
-    if (Next && props.places.length != 1 && !isDateDup) {
-      if (Day < 5)
-        setDay(Day + 1)
-
-      setDayforEachDay(DateforEachDay.concat(props.date))
-      props.reset(true)
-    }
-    else {
-      if (Day > 1)
-        setDay(Day - 1)
-      let start = 0
-      let end = (DateforEachDay as Array<string>).length - 1;
-      setDayforEachDay((DateforEachDay as Array<string>).slice(start, end));
-
-    }
-
-
+    props.reset(true)
+    DoneClickHandler()
+    console.log('this is Jsonstring : ' + JsonString)
   }
+  // function onClickNext(Next: boolean) {
 
+  //   let isDateDup = checkisDateDup(DateforEachDay)
+  //   if (Day == 1) {
+  //     day1 = props.places;
+  //     dura1 = props.dur;
+  //   }
+  //   if (Day == 2) {
+  //     day2 = props.places;
+  //     dura2 = props.dur;
 
+  //   }
+  //   if (Day == 3) {
+  //     day3 = props.places;
+  //     dura3 = props.dur;
 
+  //   }
+  //   if (Day == 4) {
+  //     day4 = props.places;
+  //     dura4 = props.dur;
 
-  console.log(Day)
-  console.log("This is day1 array : " + day1 + " and Duration 1 : " + dura1)
-  console.log("This is day2 array : " + day2 + " and Duration 2 : " + dura2)
-  console.log("This is day3 array : " + day3 + " and Duration 3 : " + dura3)
-  console.log("This is day4 array : " + day4 + " and Duration 4 : " + dura4)
-  console.log("This is day5 array : " + day5 + " and Duration 5 : " + dura5)
+  //   }
+  //   if (Day == 5) {
+  //     day5 = props.places;
+  //     dura5 = props.dur;
+
+  //   }
+
+  //   if (Next && props.places.length == 1) {
+  //     alert("Day " + Day + " schedule is empty.")
+  //   }
+
+  //   if (Next && isDateDup) {
+  //     alert("Date is duplicate.")
+  //     props.reset(true)
+  //     return
+
+  //   }
+
+  //   if (Next && props.places.length != 1 && !isDateDup) {
+  //     if (Day < 5)
+  //       setDay(Day + 1)
+
+  //     setDayforEachDay(DateforEachDay.concat(props.date))
+  //     props.reset(true)
+  //   }
+  //   else {
+  //     if (Day > 1)
+  //       setDay(Day - 1)
+  //     let start = 0
+  //     let end = (DateforEachDay as Array<string>).length - 1;
+  //     setDayforEachDay((DateforEachDay as Array<string>).slice(start, end));
+
+  //   }
+
+  // }
+
+  console.log('Fix day ' + daylocation + ' duration is ' + duration + ' and date ' + date3)
+
+  //console.log(Day)
+  console.log('This is day1 array : ' + day1 + ' and Duration 1 : ' + dura1)
+  console.log('This is day2 array : ' + day2 + ' and Duration 2 : ' + dura2)
+  console.log('This is day3 array : ' + day3 + ' and Duration 3 : ' + dura3)
+  console.log('This is day4 array : ' + day4 + ' and Duration 4 : ' + dura4)
+  console.log('This is day5 array : ' + day5 + ' and Duration 5 : ' + dura5)
   // console.log("This is AllFiveDate : " + AllfiveDate)
-  console.log("This is DateForEachDay : " + DateforEachDay)
-
-
-
+  // console.log('This is DateForEachDay : ' + DateforEachDay)
 
   return (
     <React.Fragment>
-      <DayBlock width={'500px'} height={'65px'} bgcolor={"#5882FA"} margin={"4px 0px"}>Day {Day} Schdule </DayBlock>
+      <DayBlock width={'500px'} height={'65px'} bgcolor={'#5882FA'} margin={'4px 0px'}>
+        Day Schdule{' '}
+      </DayBlock>
       <br />
-      <DayBlock margin={'0px'} width={'500px'} height={'65px'} bgcolor={"#95128a"}>Date {props.date}</DayBlock>
+      <DayBlock margin={'0px'} width={'500px'} height={'65px'} bgcolor={'#95128a'}>
+        Date {props.date}
+      </DayBlock>
       <ul>
-        <ListPlaces > {props.places[1]}</ListPlaces>
-        <ListPlaces > {props.places[2]}</ListPlaces>
-        <ListPlaces > {props.places[3]}</ListPlaces>
-        <ListPlaces > {props.places[4]}</ListPlaces>
-        <ListPlaces > {props.places[5]}</ListPlaces>
+        <ListPlaces> {props.places[1]}</ListPlaces>
+        <ListPlaces> {props.places[2]}</ListPlaces>
+        <ListPlaces> {props.places[3]}</ListPlaces>
+        <ListPlaces> {props.places[4]}</ListPlaces>
+        <ListPlaces> {props.places[5]}</ListPlaces>
       </ul>
 
-      <NextButton bgcolor={"#77b300"} onClick={() => onClickNext(true)} >Next</NextButton>
+      <NextButton bgcolor={'#77b300'} onClick={() => onClickNext(true)}>
+        Done
+      </NextButton>
       <br />
-      <NextButton bgcolor={"#77b300"} onClick={() => onClickNext(false)} > Edit Previous</NextButton>
+      {/* <NextButton bgcolor={'#77b300'} onClick={() => onClickNext(false)}>
+        {' '}
+        Edit Previous
+      </NextButton> */}
       <br />
-      <NextButton bgcolor={"#0073e6"} onClick={DoneClickHandler}>Done</NextButton>
-
-
+      {/* <NextButton bgcolor={'#0073e6'} onClick={DoneClickHandler}>
+        Done
+      </NextButton> */}
     </React.Fragment>
   )
-
 }
 
-
-
-
-
-
 const AboutUs = () => {
-
   const AboutUsStyle = style('div', 'About us', {
     width: '1500px',
     height: '400px',
@@ -905,32 +678,24 @@ const AboutUs = () => {
     color: 'white',
     textAlign: 'justify',
     lineHeight: '1.2em',
-    float: "left",
+    float: 'left',
     visibility: 'visible',
     wordWrap: 'break-word',
     padding: '30px',
     marginTop: '5px',
     boxShadow: '3px 3px #4d79ff',
-
-
   })
   return (
     <React.Fragment>
-
       <AboutUsStyle>
-        <h1 style={{ textDecoration: 'underline', textAlign: 'center' }}>  About Us </h1>
+        <h1 style={{ textDecoration: 'underline', textAlign: 'center' }}> About Us </h1>
         <br />
-        &ensp;  &ensp;  Welcome to Travel Planner! This is a platform for you to manage
-        all your travel plans. Travelling to a new country, but don't know where to
-        start? Travelling on a budget? Want to hit all the popular spots,
-        but you are short on time? Don't worry. We got you. Simply let us know what places you'd
-        like to visit, and we'll generate an itinerary for you telling
-        you exactly how to get from one place to the next, while also keeping your budget
-        and time preferences in mind :)
-        </AboutUsStyle>
-
-
+        &ensp; &ensp; Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling
+        to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but
+        you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll
+        generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your
+        budget and time preferences in mind :)
+      </AboutUsStyle>
     </React.Fragment>
-
   )
 }
