@@ -245,7 +245,7 @@ server.express.post(
     const authToken = req.cookies.authToken
     let user_id
     if (authToken) {
-      const session = await Session.findOne({ authToken })
+      const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
       user_id = session?.user.id
     } else {
       res.status(403).send('Login to view your saved itineraries')
