@@ -442,54 +442,69 @@ const DaysAndPlaces = (props: {
   //const [Day, setDay] = useState(1)
 
   function DoneClickHandler() {
+    let size_of_daylocation = daylocation.length
+
+    let nameArray: string[] = ['', 'UCLA', 'Asgard', 'Khonoha', 'Selfie Museum', 'Some Where on Earth']
+
+    let coordinateArray_for_realLocation: string[] = [
+      '',
+      ' 34.0689° N, 118.4452° W',
+      ' 34.0689° N, 118.4452° W ',
+      ' 34.0689° N, 118.4452° W ',
+      ' 34.0689° N, 118.4452° W ',
+      '  34.0689° N, 118.4452° W',
+    ]
+
+    let departureForLoc: string[] = ['', '09:00', '08:20', '11:30', '12:30', '5:30']
+
+    let costforstop: number[] = [0, 32.23, 1233, 23.0, 2134.0]
+
+    let duration_for_stop: string[] = ['', '09:00', '08:20', '11:30', '12:30', '5:30']
+
+    let x: any[] = []
+    let firstime: boolean = true
+    for (let i = 1; i < size_of_daylocation; i++) {
+      if (i % 2 == 0) {
+        x.push({
+          type: 'trip',
+          transportation: 'bus',
+          duration: duration_for_stop[i],
+          cost: costforstop[i],
+        })
+      }
+
+      if (firstime) {
+        x.push({
+          type: 'departure',
+          name: nameArray[i],
+          address: daylocation[i],
+          coordinate: coordinateArray_for_realLocation[i],
+          departure: departureForLoc[i],
+        })
+        firstime = false
+      } else if (i == size_of_daylocation - 1) {
+        x.push({
+          type: 'arrival',
+          name: nameArray[i],
+          address: daylocation[i],
+          coordinate: coordinateArray_for_realLocation[i],
+          arrival: departureForLoc[i],
+        })
+      } else {
+        x.push({
+          type: 'stop',
+          name: nameArray[i],
+          address: daylocation[i],
+          coordinate: coordinateArray_for_realLocation[i],
+          arrival: departureForLoc[i],
+        })
+      }
+    }
+
     const json = {
       itinerary: {
         date: date3,
-        schedule: [
-          {
-            type: 'departure',
-            name: 'University of California, Los Angeles',
-            address: daylocation[1],
-            coordinate: '34.0689° N, 118.4452° W',
-            departure: '09:00',
-            duration: duration[1],
-          },
-          {
-            type: 'trip',
-            name: 'Asgard',
-            address: daylocation[2],
-            coordinate: '34.0689° N, 118.4452° W',
-            duration: duration[2],
-            cost: 3.25,
-          },
-          {
-            type: 'stop',
-            name: 'Griffith Observatory',
-            address: daylocation[3],
-            coordinate: '34.0689° N, 118.4452° W',
-            arrival: '09:00',
-            departure: '12:00',
-            duration: duration[3],
-          },
-          {
-            type: 'trip',
-            name: 'University of California, Los Angeles',
-            address: daylocation[4],
-            coordinate: '34.0689° N, 118.4452° W',
-            departure: '09:00',
-            duration: duration[4],
-            arrival: '09:00',
-          },
-          {
-            type: 'departure',
-            name: 'University of California, Los Angeles',
-            address: daylocation[5],
-            coordinate: '34.0689° N, 118.4452° W',
-            departure: '09:00',
-            duration: duration[5],
-            arrival: '09:00',
-          },
-        ],
+        schedule: x,
       },
     }
 
