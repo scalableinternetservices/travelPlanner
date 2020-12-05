@@ -1,13 +1,6 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import { check } from '../../../../common/src/util'
-import { H2 } from '../../style/header'
-import { Spacer } from '../../style/spacer'
-import { style } from '../../style/styled'
-import { BodyText } from '../../style/text'
 import { AppRouteParams } from '../nav/route'
-import { handleError } from '../toast/error'
-import { Page } from './Page'
 
 
 interface LecturesPageProps extends RouteComponentProps, AppRouteParams {}
@@ -15,73 +8,20 @@ interface LecturesPageProps extends RouteComponentProps, AppRouteParams {}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function LecturesPage(props: LecturesPageProps) {
 
-  var itinerary
   fetch('/home/getItineraries', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
 
   })
-  .then(res => {
-    itinerary = res
-    check(res.ok, 'response status ' + res.status)
-    window.location.reload()
-  })
-  .catch(handleError)
-
-  console.log(itinerary)
+  .then(response => response.json())
+  .then(json => console.log(json))
+  .catch(err => console.log(err))
 
 
-  return (
-    <Page>
 
-        <H2>My Itineraries</H2>
-        <Spacer $h4 />
-
-        <Spacer $h4 />
-        <Table>
-          <tbody>
-            <Itinerary
-              title="Trip 1 Sample Itinerary"
-              days={[
-                {name:"Day 1",
-                schedule:[
-                    {
-                      name:"UCLA",
-                      coordinates: "34.0689° N, 118.4452° W",
-                      departure: "9:00 AM",
-                    },
-                    {
-                      name:"Bus",
-                      duration:"80 minutes",
-                      cost:"$3.25",
-                    }
-                ]
-                },
-                {name:"Day 2",
-                schedule:[
-                    {
-                      name:"UCB",
-                      coordinates: "34.0689° N, 118.4452° W",
-                      departure: "9:00 AM",
-                    },
-                    {
-                      name:"Bus",
-                      duration:"80 minutes",
-                      cost:"$3.25",
-                    }
-                ]
-                }
-              ]
-              }
-
-            />
-          </tbody>
-        </Table>
-
-    </Page>
-  )
+  return <div> Testing GET ITINERARIES</div>
 }
-
+/*
 interface StopOrTravel {
   name: string
   coordinates?: string
@@ -132,7 +72,7 @@ function Itinerary(props: {
         </TR>
       </BodyText>
   )
-}
+}*/
 /*interface RequiredReading {
   title: string
   href: string
@@ -178,14 +118,64 @@ function Lecture(props: {
   )
 }*/
 
-const Table = style('table', 'w-100 ba b--black')
+//const Table = style('table', 'w-100 ba b--black')
 
 /*const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
   borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
   borderLeftWidth: '3px',
 }))*/
 
-const TR = style('tr', 'ba b--black')
+//const TR = style('tr', 'ba b--black')
 
-const TD = style('td', 'mid-gray pa3 v-mid', { minWidth: '7em' })
-const TD_1 = style('td', 'dark-blue pa3 v-mid', { minWidth: '7em' })
+//const TD = style('td', 'mid-gray pa3 v-mid', { minWidth: '7em' })
+//const TD_1 = style('td', 'dark-blue pa3 v-mid', { minWidth: '7em' })
+
+/*return (
+  <Page>
+
+      <H2>My Itineraries</H2>
+      <Spacer $h4 />
+
+      <Spacer $h4 />
+      <Table>
+        <tbody>
+          <Itinerary
+            title="Trip 1 Sample Itinerary"
+            days={[
+              {name:"Day 1",
+              schedule:[
+                  {
+                    name:"UCLA",
+                    coordinates: "34.0689° N, 118.4452° W",
+                    departure: "9:00 AM",
+                  },
+                  {
+                    name:"Bus",
+                    duration:"80 minutes",
+                    cost:"$3.25",
+                  }
+              ]
+              },
+              {name:"Day 2",
+              schedule:[
+                  {
+                    name:"UCB",
+                    coordinates: "34.0689° N, 118.4452° W",
+                    departure: "9:00 AM",
+                  },
+                  {
+                    name:"Bus",
+                    duration:"80 minutes",
+                    cost:"$3.25",
+                  }
+              ]
+              }
+            ]
+            }
+
+          />
+        </tbody>
+      </Table>
+
+  </Page>
+)*/
