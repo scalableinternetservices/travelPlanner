@@ -444,7 +444,7 @@ const DaysAndPlaces = (props: {
   function DoneClickHandler() {
     let size_of_daylocation = daylocation.length
 
-    let nameArray: string[] = ['', 'UCLA', 'Asgard', 'Khonoha', 'Selfie Museum', 'Some Where on Earth']
+    let addressArray: string[] = ['', 'UCLA', 'Asgard', 'Khonoha', 'Selfie Museum', 'Some Where on Earth']
 
     let coordinateArray_for_realLocation: string[] = [
       '',
@@ -476,8 +476,8 @@ const DaysAndPlaces = (props: {
       if (firstime) {
         x.push({
           type: 'departure',
-          name: nameArray[i],
-          address: daylocation[i],
+          name: daylocation[i],
+          address: addressArray[i],
           coordinate: coordinateArray_for_realLocation[i],
           departure: departureForLoc[i],
         })
@@ -485,16 +485,16 @@ const DaysAndPlaces = (props: {
       } else if (i == size_of_daylocation - 1) {
         x.push({
           type: 'arrival',
-          name: nameArray[i],
-          address: daylocation[i],
+          name: daylocation[i],
+          address: addressArray[i],
           coordinate: coordinateArray_for_realLocation[i],
           arrival: departureForLoc[i],
         })
       } else {
         x.push({
           type: 'stop',
-          name: nameArray[i],
-          address: daylocation[i],
+          name: daylocation[i],
+          address: addressArray[i],
           coordinate: coordinateArray_for_realLocation[i],
           arrival: departureForLoc[i],
         })
