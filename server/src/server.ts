@@ -251,7 +251,7 @@ server.express.post(
       res.status(403).send('Login to view your saved itineraries')
       return
     }
-    const itineraries = await Itinerary.findOne({ where: { user_id : user_id } })
+    const itineraries = await Itinerary.findOne({ where: { user_id : user_id }, relations:["day"] })
     res.status(200).type('json').send(itineraries)
   }
 )
