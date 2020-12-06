@@ -8,13 +8,13 @@ interface LecturesPageProps extends RouteComponentProps, AppRouteParams {}
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function LecturesPage(props: LecturesPageProps) {
 
+  console.log("LECTURE PAGE")
   fetch('/home/getItineraries', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
 
   })
-  .then(response => response.json())
-  .then(json => console.log(json))
+  .then(response => console.log(JSON.stringify(response)))
   .catch(err => console.log(err))
 
 

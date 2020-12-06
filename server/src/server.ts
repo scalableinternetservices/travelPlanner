@@ -165,13 +165,16 @@ server.express.post(
 
     const day = req.body.itinerary
     console.log(day)
+    const schedule = req.body.itinerary['schedule']
+    console.log(schedule)
     const newItinerary = new Itinerary()
     const newDay  = new Day
-
+    console.log("PRINTING OUT WHAT IS STORED IN TABLE BELOW")
     let locations = day.schedule  // locations or trips
     let newLocations = new Array
     let newTrips = new Array
     for (let i = 0; i < locations.length; i++) {
+      console.log("NO OF LOCATIONS: " + locations.length)
       let location = locations[i]
       if (i % 2 == 0) {
         var newLocation
@@ -179,11 +182,13 @@ server.express.post(
           case LocationType.Arrival: {
             newLocation = new Arrival()
             newLocation.arrival = location.arrival
+            console.log("ARRIVAL:" + newLocation.arrival)
             break
           }
           case LocationType.Departure: {
             newLocation = new Departure()
             newLocation.departure = location.departure
+            console.log('DEPARTURE:' + newLocation.departure)
             break
           }
           case LocationType.Stop: {
@@ -191,6 +196,7 @@ server.express.post(
             newLocation.arrival = location.arrival
             newLocation.departure = location.departure
             newLocation.duration = location.duration
+            console.log('STOP:' + newLocation.duration)
             break
           }
           default: {
@@ -203,6 +209,7 @@ server.express.post(
         newLocation.name = location.name
         newLocation.address = location.address
         newLocation.coordinates = location.coordinates
+
         newLocations.push(newLocation)
       } else {
         var newTrip = new Trip()
@@ -211,6 +218,7 @@ server.express.post(
             newTrip.transportation = location.transportation
             newTrip.duration = location.duration
             newTrip.cost = location.cost
+            console.log('TRIP:' + location.cost)
             break
           }
           default: {
@@ -224,6 +232,7 @@ server.express.post(
     }
     newDay.date = day.date
     newDay.locations = newLocations
+    console.log('locations are' + JSON.stringify(newLocation))
     newDay.trips = newTrips
 
     if (user_id != undefined) {
@@ -232,8 +241,20 @@ server.express.post(
       res.status(403).send('Invalid user')
       return
     }
+
     newItinerary.day = newDay
-    await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
+    console.log('PLS GOD PLS WORK')
+
+
+
+    await Day.save(newDay).then(t => console.log(JSON.stringify(t)))
+    await Itinerary.save(newItinerary).then(t => console.log(JSON.stringify(t)))
+    await Itinerary.findOne({ where: { user_id : user_id }, relations:["day"]}).then(t => console.log(JSON.stringify(t)))
+    await Day.findOne({ where: { date: "2020-12-07" }}).then(t => console.log(JSON.stringify(t)))
+    await Trip.findOne({ where: {transportation: "bus" }}).then(t => console.log(JSON.stringify(t)))
+
+
+    //console.log(newItinerary.day)
     res.status(200).send('Success')
   })
 )
@@ -251,8 +272,12 @@ server.express.post(
       res.status(403).send('Login to view your saved itineraries')
       return
     }
-    const itineraries = await Itinerary.findOne({ where: { user_id : user_id }, relations:["day"] })
-    res.status(200).type('json').send(itineraries)
+    var arr = await Itinerary.findAndCount({ where: { user_id : user_id }, relations:["day"] }).then(t => console.log(JSON.stringify(t)))
+    console.log(arr)
+    //await Day.findAndCount({ where: { id : it?.id }}).then(t => console.log(JSON.stringify(t)))
+
+    //console.log(SON.stringify(itineraries)
+    res.status(200).type('json').send('Success')
   }
 )
 )
