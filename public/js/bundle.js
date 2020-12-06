@@ -52461,6 +52461,9 @@ var Page_1 = require("./Page"); // const jsonData = require('./data.js')
 
 
 var JsonString;
+var daylocation = [];
+var duration = [];
+var date3;
 var day1 = [];
 var day2 = [];
 var day3 = [];
@@ -52480,43 +52483,43 @@ function DisplayItin(prop) {
 }
 
 function userdata(data) {
-  if (data = "d1") {
+  if (data = 'd1') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: day1
     }));
-  } else if (data = "d2") {
+  } else if (data = 'd2') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: day2
     }));
-  } else if (data = "d3") {
+  } else if (data = 'd3') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: day3
     }));
-  } else if (data = "d4") {
+  } else if (data = 'd4') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: day4
     }));
-  } else if (data = "d5") {
+  } else if (data = 'd5') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: day5
     }));
-  } else if (data = "t1") {
+  } else if (data = 't1') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: dura1
     }));
-  } else if (data = "t2") {
+  } else if (data = 't2') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: dura2
     }));
-  } else if (data = "t3") {
+  } else if (data = 't3') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: dura3
     }));
-  } else if (data = "t4") {
+  } else if (data = 't4') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: dura4
     }));
-  } else if (data = "t5") {
+  } else if (data = 't5') {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DisplayItin, {
       addresses: dura5
     }));
@@ -52530,42 +52533,42 @@ function userdata(data) {
 exports.userdata = userdata; // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 function HomePage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Welcome, null, " Welcome to Travel Planner  "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(FlexibleDiv, {
+  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(Welcome, null, " Welcome to Travel Planner "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(AboutUs, null), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(FlexibleDiv, {
     width: '1500px',
     height: '420px',
-    bgcolor: "#ccffcc",
-    textcolor: "#735999",
-    boxshadow: "#0dc291"
+    bgcolor: '#ccffcc',
+    textcolor: '#735999',
+    boxshadow: '#0dc291'
   }, /*#__PURE__*/React.createElement("h1", {
     style: {
-      fontSize: "30px"
+      fontSize: '30px'
     }
   }, /*#__PURE__*/React.createElement("u", {
     style: {
-      lineHeight: "2em"
+      lineHeight: '2em'
     }
   }, "How it works")), /*#__PURE__*/React.createElement("ul", {
     style: {
-      textAlign: "justify",
-      fontSize: "25px",
-      margin: "30px",
-      lineHeight: "2em"
+      textAlign: 'justify',
+      fontSize: '25px',
+      margin: '30px',
+      lineHeight: '2em'
     }
-  }, /*#__PURE__*/React.createElement("li", null, " ", /*#__PURE__*/React.createElement("p", {
+  }, /*#__PURE__*/React.createElement("li", null, ' ', /*#__PURE__*/React.createElement("p", {
     style: {
       font: 'Alice'
     }
   }, /*#__PURE__*/React.createElement("b", {
     style: {
-      fontSize: "25"
+      fontSize: '25'
     }
-  }, "Step 1:\u2002"), /*#__PURE__*/React.createElement("b", null, "Type "), " in the place address you would like to visit. (Up to five locations)Select date for that place. ", /*#__PURE__*/React.createElement("b", null, "Select"), " the date that for the locations. ", /*#__PURE__*/React.createElement("b", null, "Type "), "in the estimcate duration you would like to stay there.")), /*#__PURE__*/React.createElement("li", null, " ", /*#__PURE__*/React.createElement("p", {
+  }, "Step 1:\u2002"), /*#__PURE__*/React.createElement("b", null, "Type "), " in the place address you would like to visit. (Up to five locations)Select date for that place. ", /*#__PURE__*/React.createElement("b", null, "Select"), " the date that for the locations. ", /*#__PURE__*/React.createElement("b", null, "Type "), "in the estimcate duration you would like to stay there.")), /*#__PURE__*/React.createElement("li", null, ' ', /*#__PURE__*/React.createElement("p", {
     style: {
       font: 'Alice'
     }
   }, /*#__PURE__*/React.createElement("b", {
     style: {
-      fontSize: "25"
+      fontSize: '25'
     }
   }, "Step 2:\u2002"), /*#__PURE__*/React.createElement("b", null, "Click \"+\""), " to add to the list. (Up to five locations) (OR) ", /*#__PURE__*/React.createElement("b", null, "Click \"-\""), " to remove places from the list.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -52573,15 +52576,15 @@ function HomePage(props) {
     }
   }, /*#__PURE__*/React.createElement("b", {
     style: {
-      fontSize: "25"
+      fontSize: '25'
     }
-  }, "Step 3:\u2002"), "After adding addresses for day 1, ", /*#__PURE__*/React.createElement("b", null, "Click \"Next\""), " to add address for other day. (Or) ", /*#__PURE__*/React.createElement("b", null, "Click \"Edit Previous \""), " to edit the previous day plan.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("p", {
+  }, "Step 3:\u2002"), "After adding addresses for day 1, ", /*#__PURE__*/React.createElement("b", null, "Click \"Next\""), " to add address for other day. (Or)", ' ', /*#__PURE__*/React.createElement("b", null, "Click \"Edit Previous \""), " to edit the previous day plan.")), /*#__PURE__*/React.createElement("li", null, /*#__PURE__*/React.createElement("p", {
     style: {
       font: 'Alice'
     }
   }, /*#__PURE__*/React.createElement("b", {
     style: {
-      fontSize: "25"
+      fontSize: '25'
     }
   }, "Step 4:\u2002"), /*#__PURE__*/React.createElement("b", null, "Click \"Done\"."), " Our algorithm will generate most efficient and lowest price schedule for you.")))), /*#__PURE__*/React.createElement(Search, null));
 }
@@ -52609,7 +52612,7 @@ var LeftSerchDive = styled_1.style('div', 'Search', {
   color: 'white',
   textAlign: 'center',
   lineHeight: '1em',
-  float: "left",
+  float: 'left',
   visibility: 'visible',
   // border: '2px solid red',
   padding: '20px'
@@ -52623,7 +52626,7 @@ var RightSerchDive = styled_1.style('div', 'Search', {
   color: 'white',
   textAlign: 'center',
   lineHeight: '1em',
-  float: "right",
+  float: 'right',
   visibility: 'visible',
   // border: '2px solid red',
   padding: '20px'
@@ -52638,14 +52641,14 @@ var FlexibleDiv = styled_1.style('div', 'Search', function (props) {
     color: props.textcolor,
     textAlign: 'center',
     lineHeight: props.lineheight,
-    float: "left",
+    float: 'left',
     visibility: 'visible',
     //position: 'fixed',
     wordWrap: 'break-word',
     marginTop: '5px',
     //border: '2px solid red',
     boxShadow: '3px 3px ' + props.boxshadow,
-    margin: "10px 10px"
+    margin: '10px 10px'
   };
 });
 
@@ -52664,13 +52667,13 @@ var Search = function Search() {
 
   function Manage(x, y, z) {
     if (!y) {
-      if (places.length < 6 && x != "null" && z > 5 && x != "") {
+      if (places.length < 6 && x != 'null' && z > 5 && x != '') {
         setPlaces(places.concat(x));
         setDura(durations.concat(z));
       }
 
-      if (z <= 5) alert("Duration is too short.");
-      if (x == "") alert("Enter something in Address."); // else
+      if (z <= 5) alert('Duration is too short.');
+      if (x == '') alert('Enter something in Address.'); // else
       //   setPlaces(places) //bug 3: want do nothing to the array but instead doing hard refresh
     } else {
       if (places.length > 1) {
@@ -52679,14 +52682,14 @@ var Search = function Search() {
         setPlaces(places.slice(start, end));
         setDura(durations.slice(start, end));
       } else {
-        setPlaces([""]);
-        setDura([""]);
+        setPlaces(['']);
+        setDura(['']);
       } // setPlaces(places)    //bug 1: want to pop but instead doing hard refresh
 
     }
   }
 
-  console.log("after slice " + places);
+  console.log('after slice ' + places);
 
   function resetplaces(y) {
     if (y) {
@@ -52702,9 +52705,9 @@ var Search = function Search() {
     width: '1500px',
     height: '800px',
     bgcolor: '#A4A4A4',
-    textcolor: "white",
-    lineheight: "1em",
-    boxshadow: "#9c6687"
+    textcolor: 'white',
+    lineheight: '1em',
+    boxshadow: '#9c6687'
   }, /*#__PURE__*/React.createElement(LeftSerchDive, null, /*#__PURE__*/React.createElement(DaysAndPlaces, {
     places: places,
     dur: durations,
@@ -52753,17 +52756,17 @@ var SearchForm = function SearchForm(props) {
 
   function checkDate(dtex) {
     if (dtex == '') return true;
-    var splitted = dtex.split("-", 3);
+    var splitted = dtex.split('-', 3);
     var dtex_year = splitted[0];
     var dtex_month = splitted[1];
     var dtex_day = splitted[2];
-    console.log("dtex_day : " + dtex_day);
-    console.log("dtex_month : " + dtex_month);
-    console.log("dtex_year : " + dtex_year);
-    console.log("current date : ", current_date_string);
-    console.log("current day : " + current_day);
-    console.log("current month : " + current_month);
-    console.log("current year : " + current_year);
+    console.log('dtex_day : ' + dtex_day);
+    console.log('dtex_month : ' + dtex_month);
+    console.log('dtex_year : ' + dtex_year);
+    console.log('current date : ', current_date_string);
+    console.log('current day : ' + current_day);
+    console.log('current month : ' + current_month);
+    console.log('current year : ' + current_year);
     if (parseInt(dtex_year) < parseInt(current_year)) return true;
     if (parseInt(dtex_month) < parseInt(current_month) && parseInt(dtex_year) == parseInt(current_year)) return true;
     if (parseInt(dtex_year) == parseInt(current_year) && parseInt(dtex_month) == parseInt(current_month) && parseInt(dtex_day) < parseInt(current_day)) return true;
@@ -52773,13 +52776,13 @@ var SearchForm = function SearchForm(props) {
   function AddDate(datex) {
     var isDateError = checkDate(datex);
     setDateError(isDateError);
-    console.log("isDateError is : " + isDateError);
-    console.log("Date error : " + dateError);
+    console.log('isDateError is : ' + isDateError);
+    console.log('Date error : ' + dateError);
 
     if (dateError) {
-      alert("Date is Invalid. Please Try select again.");
+      alert('Date is Invalid. Please Try select again.');
       setDate(defaultDate);
-      return "DateError";
+      return 'DateError';
     }
 
     if (date != '' && !dateError) {
@@ -52787,7 +52790,7 @@ var SearchForm = function SearchForm(props) {
       props.addDate(datex);
     }
 
-    return "NoError";
+    return 'NoError';
   }
 
   function canListIncre() {
@@ -52800,11 +52803,11 @@ var SearchForm = function SearchForm(props) {
       props.onPlaceAdded(place1, false, duration);
     } else {
       setPlaceCount(0);
-      props.onPlaceAdded("null", false, duration);
+      props.onPlaceAdded('null', false, duration);
     }
   }
 
-  console.log("This is place count : " + placeCount);
+  console.log('This is place count : ' + placeCount);
   var InputSubmit = styled_1.style('button', 'Search', {
     width: '100px',
     height: ' 65px',
@@ -52813,17 +52816,17 @@ var SearchForm = function SearchForm(props) {
     borderRadius: '5px',
     color: 'white'
   });
-  console.log("This is date in RightFrom" + date);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", null, " Address: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
-    $boxwidth: "500px",
+  console.log('This is date in RightFrom' + date);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("div", null, ' ', "Address: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: '500px',
     $onChange: setPlace,
     type: "text"
-  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Date: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
-    $boxwidth: "300px",
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, ' ', "Date: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: '300px',
     $onChange: setDate,
     type: "date"
-  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, " Duration: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
-    $boxwidth: "200px",
+  })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", null, ' ', "Duration: \u2002 ", /*#__PURE__*/React.createElement(input_1.Input, {
+    $boxwidth: '200px',
     $onChange: setDuration,
     type: "number"
   })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(InputSubmit, {
@@ -52836,293 +52839,67 @@ var SearchForm = function SearchForm(props) {
 };
 
 var DaysAndPlaces = function DaysAndPlaces(props) {
-  var _a = react_1.useState(['']),
-      DateforEachDay = _a[0],
-      setDayforEachDay = _a[1];
-
-  var _b = react_1.useState(1),
-      Day = _b[0],
-      setDay = _b[1];
-
+  //const [DateforEachDay, setDayforEachDay] = useState('')
+  //const [Day, setDay] = useState(1)
   function DoneClickHandler() {
-    if (day1.length < 2 || DateforEachDay.length < 2 || dura1.length < 2) {
-      alert("You have not enter anything");
-      return;
+    var size_of_daylocation = daylocation.length; //let addressArray: string[] = ['', 'UCLA', 'Asgard', 'Khonoha', 'Selfie Museum', 'Some Where on Earth']
+
+    var coordinateArray_for_realLocation = ['', ' 34.0689° N, 118.4452° W', ' 34.0689° N, 118.4452° W ', ' 34.0689° N, 118.4452° W ', ' 34.0689° N, 118.4452° W ', '  34.0689° N, 118.4452° W']; //dummy variable
+
+    var departureForLoc = ['', '09:00', '12:20', '2:00', '4:30', '6:00'];
+    var arrivalForLoc = ['', '10:20', '1:30', '3:20', '5:20', '7:20'];
+    var costforstop = [0, 32.23, 1233, 23.0, 2134.0];
+    var duration_trip = [0, 80, 70, 80, 50, 80];
+    var duration_for_stop = [0, 80, 70, 80, 50, 80]; //for duration user enter, use 'duration' at line15. That one is string array though
+
+    var x = [];
+    var firstime = true;
+
+    for (var i = 1; i < size_of_daylocation; i++) {
+      if (i >= 2) {
+        x.push({
+          type: 'trip',
+          transportation: 'bus',
+          duration: duration_trip[i],
+          cost: costforstop[i]
+        });
+      }
+
+      if (firstime) {
+        x.push({
+          type: 'departure',
+          name: daylocation[i],
+          address: daylocation[i],
+          coordinate: coordinateArray_for_realLocation[i],
+          departure: departureForLoc[i]
+        });
+        firstime = false;
+      } else if (i == size_of_daylocation - 1) {
+        x.push({
+          type: 'arrival',
+          name: daylocation[i],
+          address: daylocation[i],
+          coordinate: coordinateArray_for_realLocation[i],
+          arrival: departureForLoc[i]
+        });
+      } else {
+        x.push({
+          type: 'stop',
+          name: daylocation[i],
+          address: daylocation[i],
+          coordinate: coordinateArray_for_realLocation[i],
+          arrival: arrivalForLoc[i],
+          departure: departureForLoc[i],
+          duration: duration_for_stop[i]
+        });
+      }
     }
 
-    daysDate = DateforEachDay;
     var json = {
-      itinerary: [{
-        day: 1,
-        date: daysDate[1],
-        schedule: [{
-          type: "departure",
-          name: day1[1],
-          address: day1[1],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura1[1],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "trip",
-          name: day1[2],
-          address: day1[2],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura1[2],
-          transportation: "null",
-          cost: "needGoogleAPI"
-        }, {
-          type: "trip",
-          name: day1[3],
-          address: day1[3],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura1[3],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "stop",
-          name: day1[4],
-          address: day1[4],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura1[4],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "tarrival",
-          name: day1[5],
-          address: day1[5],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura1[5],
-          transportation: "null",
-          cost: "null"
-        }]
-      }, {
-        day: 2,
-        date: daysDate[2],
-        schedule: [{
-          type: "departure",
-          name: day2[1],
-          address: day2[1],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura2[1],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "trip",
-          name: day2[2],
-          address: day2[2],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura2[2],
-          transportation: "null",
-          cost: "needGoogleAPI"
-        }, {
-          type: "trip",
-          name: day2[3],
-          address: day2[3],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura2[3],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "stop",
-          name: day2[4],
-          address: day2[4],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura2[4],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "tarrival",
-          name: day2[5],
-          address: day2[5],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura2[5],
-          transportation: "null",
-          cost: "null"
-        }]
-      }, {
-        day: 3,
-        date: daysDate[3],
-        schedule: [{
-          type: "departure",
-          name: day3[1],
-          address: day3[1],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura3[1],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "trip",
-          name: day3[2],
-          address: day3[2],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura3[2],
-          transportation: "null",
-          cost: "needGoogleAPI"
-        }, {
-          type: "trip",
-          name: day3[3],
-          address: day3[3],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura3[3],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "stop",
-          name: day3[4],
-          address: day3[4],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura3[4],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "tarrival",
-          name: day3[5],
-          address: day3[5],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura3[5],
-          transportation: "null",
-          cost: "null"
-        }]
-      }, {
-        day: 4,
-        date: daysDate[4],
-        schedule: [{
-          type: "departure",
-          name: day4[1],
-          address: day4[1],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura4[1],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "trip",
-          name: day4[2],
-          address: day4[2],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura4[2],
-          transportation: "null",
-          cost: "needGoogleAPI"
-        }, {
-          type: "trip",
-          name: day4[3],
-          address: day4[3],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura4[3],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "stop",
-          name: day4[4],
-          address: day4[4],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura4[4],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "tarrival",
-          name: day4[5],
-          address: day4[5],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura4[5],
-          transportation: "null",
-          cost: "null"
-        }]
-      }, {
-        day: 5,
-        date: daysDate[5],
-        schedule: [{
-          type: "departure",
-          name: day5[1],
-          address: day5[1],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura5[1],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "trip",
-          name: day5[2],
-          address: day5[2],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura5[2],
-          transportation: "null",
-          cost: "needGoogleAPI"
-        }, {
-          type: "trip",
-          name: day5[3],
-          address: day5[3],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura5[3],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "stop",
-          name: day5[4],
-          address: day5[4],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura5[4],
-          transportation: "null",
-          cost: "null"
-        }, {
-          type: "tarrival",
-          name: day5[5],
-          address: day5[5],
-          coordinates: "null",
-          arrival: "null",
-          departure: "null",
-          duration: dura5[5],
-          transportation: "null",
-          cost: "null"
-        }]
-      }]
+      itinerary: {
+        date: date3,
+        schedule: x
+      }
     };
     JsonString = JSON.stringify(json);
     console.log(JsonString);
@@ -53136,11 +52913,6 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
       util_1.check(res.ok, 'response status ' + res.status);
       window.location.reload();
     }).catch(error_1.handleError);
-  }
-
-  function checkisDateDup(dateArr) {
-    console.log("props.date is " + props.date + " and dateArr is " + dateArr);
-    if (dateArr.includes(props.date)) return true;else return false;
   }
 
   var DayBlock = styled_1.style('div', 'Search', function (props) {
@@ -53180,87 +52952,88 @@ var DaysAndPlaces = function DaysAndPlaces(props) {
   });
 
   function onClickNext(Next) {
-    var isDateDup = checkisDateDup(DateforEachDay);
-
-    if (Day == 1) {
-      day1 = props.places;
-      dura1 = props.dur;
-    }
-
-    if (Day == 2) {
-      day2 = props.places;
-      dura2 = props.dur;
-    }
-
-    if (Day == 3) {
-      day3 = props.places;
-      dura3 = props.dur;
-    }
-
-    if (Day == 4) {
-      day4 = props.places;
-      dura4 = props.dur;
-    }
-
-    if (Day == 5) {
-      day5 = props.places;
-      dura5 = props.dur;
-    }
+    daylocation = props.places;
+    duration = props.dur;
+    date3 = props.date;
 
     if (Next && props.places.length == 1) {
-      alert("Day " + Day + " schedule is empty.");
+      alert('Day schedule is empty.');
     }
 
-    if (Next && isDateDup) {
-      alert("Date is duplicate.");
-      props.reset(true);
-      return;
-    }
+    props.reset(true);
+    DoneClickHandler();
+    console.log('this is Jsonstring : ' + JsonString);
+  } // function onClickNext(Next: boolean) {
+  //   let isDateDup = checkisDateDup(DateforEachDay)
+  //   if (Day == 1) {
+  //     day1 = props.places;
+  //     dura1 = props.dur;
+  //   }
+  //   if (Day == 2) {
+  //     day2 = props.places;
+  //     dura2 = props.dur;
+  //   }
+  //   if (Day == 3) {
+  //     day3 = props.places;
+  //     dura3 = props.dur;
+  //   }
+  //   if (Day == 4) {
+  //     day4 = props.places;
+  //     dura4 = props.dur;
+  //   }
+  //   if (Day == 5) {
+  //     day5 = props.places;
+  //     dura5 = props.dur;
+  //   }
+  //   if (Next && props.places.length == 1) {
+  //     alert("Day " + Day + " schedule is empty.")
+  //   }
+  //   if (Next && isDateDup) {
+  //     alert("Date is duplicate.")
+  //     props.reset(true)
+  //     return
+  //   }
+  //   if (Next && props.places.length != 1 && !isDateDup) {
+  //     if (Day < 5)
+  //       setDay(Day + 1)
+  //     setDayforEachDay(DateforEachDay.concat(props.date))
+  //     props.reset(true)
+  //   }
+  //   else {
+  //     if (Day > 1)
+  //       setDay(Day - 1)
+  //     let start = 0
+  //     let end = (DateforEachDay as Array<string>).length - 1;
+  //     setDayforEachDay((DateforEachDay as Array<string>).slice(start, end));
+  //   }
+  // }
 
-    if (Next && props.places.length != 1 && !isDateDup) {
-      if (Day < 5) setDay(Day + 1);
-      setDayforEachDay(DateforEachDay.concat(props.date));
-      props.reset(true);
-    } else {
-      if (Day > 1) setDay(Day - 1);
-      var start = 0;
-      var end = DateforEachDay.length - 1;
-      setDayforEachDay(DateforEachDay.slice(start, end));
-    }
-  }
 
-  console.log(Day);
-  console.log("This is day1 array : " + day1 + " and Duration 1 : " + dura1);
-  console.log("This is day2 array : " + day2 + " and Duration 2 : " + dura2);
-  console.log("This is day3 array : " + day3 + " and Duration 3 : " + dura3);
-  console.log("This is day4 array : " + day4 + " and Duration 4 : " + dura4);
-  console.log("This is day5 array : " + day5 + " and Duration 5 : " + dura5); // console.log("This is AllFiveDate : " + AllfiveDate)
+  console.log('Fix day ' + daylocation + ' duration is ' + duration + ' and date ' + date3); //console.log(Day)
 
-  console.log("This is DateForEachDay : " + DateforEachDay);
+  console.log('This is day1 array : ' + day1 + ' and Duration 1 : ' + dura1);
+  console.log('This is day2 array : ' + day2 + ' and Duration 2 : ' + dura2);
+  console.log('This is day3 array : ' + day3 + ' and Duration 3 : ' + dura3);
+  console.log('This is day4 array : ' + day4 + ' and Duration 4 : ' + dura4);
+  console.log('This is day5 array : ' + day5 + ' and Duration 5 : ' + dura5); // console.log("This is AllFiveDate : " + AllfiveDate)
+  // console.log('This is DateForEachDay : ' + DateforEachDay)
+
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DayBlock, {
     width: '500px',
     height: '65px',
-    bgcolor: "#5882FA",
-    margin: "4px 0px"
-  }, "Day ", Day, " Schdule "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(DayBlock, {
+    bgcolor: '#5882FA',
+    margin: '4px 0px'
+  }, "Day Schdule", ' '), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(DayBlock, {
     margin: '0px',
     width: '500px',
     height: '65px',
-    bgcolor: "#95128a"
+    bgcolor: '#95128a'
   }, "Date ", props.date), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[1]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[2]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[3]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[4]), /*#__PURE__*/React.createElement(ListPlaces, null, " ", props.places[5])), /*#__PURE__*/React.createElement(NextButton, {
-    bgcolor: "#77b300",
+    bgcolor: '#77b300',
     onClick: function onClick() {
       return onClickNext(true);
     }
-  }, "Next"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(NextButton, {
-    bgcolor: "#77b300",
-    onClick: function onClick() {
-      return onClickNext(false);
-    }
-  }, " Edit Previous"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(NextButton, {
-    bgcolor: "#0073e6",
-    onClick: DoneClickHandler
-  }, "Done"));
+  }, "Done"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null));
 };
 
 var AboutUs = function AboutUs() {
@@ -53273,7 +53046,7 @@ var AboutUs = function AboutUs() {
     color: 'white',
     textAlign: 'justify',
     lineHeight: '1.2em',
-    float: "left",
+    float: 'left',
     visibility: 'visible',
     wordWrap: 'break-word',
     padding: '30px',
@@ -53285,100 +53058,294 @@ var AboutUs = function AboutUs() {
       textDecoration: 'underline',
       textAlign: 'center'
     }
-  }, "  About Us "), /*#__PURE__*/React.createElement("br", null), "\u2002  \u2002  Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
+  }, " About Us "), /*#__PURE__*/React.createElement("br", null), "\u2002 \u2002 Welcome to Travel Planner! This is a platform for you to manage all your travel plans. Travelling to a new country, but don't know where to start? Travelling on a budget? Want to hit all the popular spots, but you are short on time? Don't worry. We got you. Simply let us know what places you'd like to visit, and we'll generate an itinerary for you telling you exactly how to get from one place to the next, while also keeping your budget and time preferences in mind :)"));
 };
-},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/input":"style/input.tsx","../../style/styled":"style/styled.tsx","../toast/error":"view/toast/error.ts","./Page":"view/page/Page.tsx"}],"style/header.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../../common/src/util":"../../common/src/util.ts","../../style/input":"style/input.tsx","../../style/styled":"style/styled.tsx","../toast/error":"view/toast/error.ts","./Page":"view/page/Page.tsx"}],"view/page/LecturesPage.tsx":[function(require,module,exports) {
 "use strict";
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.H5 = exports.H4 = exports.H3 = exports.H2 = exports.H1 = void 0;
+exports.LecturesPage = void 0;
+
+var React = __importStar(require("react")); // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+
+function LecturesPage(props) {
+  fetch('/home/getItineraries', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(function (response) {
+    return response.json();
+  }).then(function (json) {
+    return console.log(json);
+  }).catch(function (err) {
+    return console.log(err);
+  });
+  return /*#__PURE__*/React.createElement("div", null, " Testing GET ITINERARIES");
+}
+
+exports.LecturesPage = LecturesPage;
+/*
+interface StopOrTravel {
+  name: string
+  coordinates?: string
+  arrival?: string
+  departure?: string
+  duration?: string
+  cost?: string
+}
+
+interface Day{
+  name: string
+  schedule: StopOrTravel[]
+}
+
+function Itinerary(props: {
+  title: string
+  days: Day[]
+}) {
+  return (
+      <BodyText>
+        <TR>
+        <TD_1>{props.title}</TD_1>
+
+          {props.days && (
+            <>
+              <Spacer $h2 />
+                <TD>
+                {props.days.map((rr, i) => (
+                  <ul>
+                    <b>⏰ {rr.name}</b>
+                    {rr.schedule.map((r2, j) => (
+                    < ul key={j}>
+                    <ul>
+                    <Spacer $w2/><b>🚩 {r2.name}</b>
+                    {r2.arrival && <p><Spacer $w2/>🌎  Arrival: {r2.arrival}</p> }
+                    {r2.departure && <p><Spacer $w2/>🌎  Departure: {r2.departure}</p>}
+                    {r2.duration && <p><Spacer $w2/>🌎  Duration: {r2.duration}</p> }
+                    {r2.cost && <p><Spacer $w2/>🌎  Cost: {r2.cost}</p>}
+                    <Spacer $w8/> <b> ⬇️</b>
+                    </ul>
+                    </ul>))}
+
+                  </ul>
+                ))}
+                </TD>
+            </>
+          )}
+        </TR>
+      </BodyText>
+  )
+}*/
+
+/*interface RequiredReading {
+  title: string
+  href: string
+}
+
+function Lecture(props: {
+  day: string
+  title: string
+  description?: string
+  href?: string
+  requiredReading?: RequiredReading[]
+}) {
+  return (
+    <Table>
+      <BodyText>
+        <TD>{props.day}</TD>
+        <TD>
+          <b>{props.href ? <Link href={props.href}>{props.title}</Link> : props.title}</b>
+
+          {props.description && (
+            <>
+              <Spacer $h2 />
+              <i>{props.description}</i>
+            </>
+          )}
+          {props.requiredReading && (
+            <>
+              <Spacer $h4 />
+              <b>Reading</b>
+              <Spacer $h2 />
+              <ul className="ml4">
+                {props.requiredReading.map((rr, i) => (
+                  <li key={i}>
+                    <Link href={rr.href}>{rr.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </TD>
+      </BodyText>
+    </Table>
+  )
+}*/
+//const Table = style('table', 'w-100 ba b--black')
+
+/*const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+  borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
+  borderLeftWidth: '3px',
+}))*/
+//const TR = style('tr', 'ba b--black')
+//const TD = style('td', 'mid-gray pa3 v-mid', { minWidth: '7em' })
+//const TD_1 = style('td', 'dark-blue pa3 v-mid', { minWidth: '7em' })
+
+/*return (
+  <Page>
+
+      <H2>My Itineraries</H2>
+      <Spacer $h4 />
+
+      <Spacer $h4 />
+      <Table>
+        <tbody>
+          <Itinerary
+            title="Trip 1 Sample Itinerary"
+            days={[
+              {name:"Day 1",
+              schedule:[
+                  {
+                    name:"UCLA",
+                    coordinates: "34.0689° N, 118.4452° W",
+                    departure: "9:00 AM",
+                  },
+                  {
+                    name:"Bus",
+                    duration:"80 minutes",
+                    cost:"$3.25",
+                  }
+              ]
+              },
+              {name:"Day 2",
+              schedule:[
+                  {
+                    name:"UCB",
+                    coordinates: "34.0689° N, 118.4452° W",
+                    departure: "9:00 AM",
+                  },
+                  {
+                    name:"Bus",
+                    duration:"80 minutes",
+                    cost:"$3.25",
+                  }
+              ]
+              }
+            ]
+            }
+
+          />
+        </tbody>
+      </Table>
+
+  </Page>
+)*/
+},{"react":"../../node_modules/react/index.js"}],"style/button.tsx":[function(require,module,exports) {
+"use strict";
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  Object.defineProperty(o, k2, {
+    enumerable: true,
+    get: function get() {
+      return m[k];
+    }
+  });
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Button = void 0;
+
+var React = __importStar(require("react"));
 
 var colors_1 = require("../../../common/src/colors");
 
-var fonts_1 = require("./fonts");
-
 var styled_1 = require("./styled");
 
-exports.H1 = styled_1.style('h1', function (p) {
-  return headerStyle(1, p);
-});
-exports.H2 = styled_1.style('h2', function (p) {
-  return headerStyle(2, p);
-});
-exports.H3 = styled_1.style('h3', 'i', function (p) {
-  return headerStyle(3, p);
-});
-exports.H4 = styled_1.style('h4', function (p) {
-  return headerStyle(4, p);
-});
-exports.H5 = styled_1.style('h5', function (p) {
-  return headerStyle(5, p);
-});
+exports.Button = function (props) {
+  return /*#__PURE__*/React.createElement(ButtonBase, props);
+};
 
-function headerStyle(level, p) {
+var ButtonBase = styled_1.style('a', 'pointer link dim br3 ph3 pv2 black', function (p) {
+  // return {}
+  // const { $color, $filled, $width, onClick, $small, $block } = p
+  // const fgName = $color || 'sky'
+  // const fg = Colors[fgName]
+  // const fgRgb = ColorsRGB[fgName]
+  // const fgLight = LightColors[fgName]
+  // const fgDark = DarkColors[fgName]
+  // const colBorder = fg
+  // const col = $filled ? Colors.ink : fg
+  // const colBg = $filled ? fg : 'transparent'
   return {
-    color: p.$color ? colors_1.Colors[p.$color] : p.$theme.headerColor(),
-    fontFamily: fonts_1.Fonts.sansHeader,
-    fontSize: fontSize(level),
-    fontWeight: fontWeight(level),
-    lineHeight: lineHeight(level),
-    textTransform: level === 4 ? 'uppercase' : undefined
+    backgroundColor: colors_1.Colors[p.$color || 'lemon']
   };
-}
-
-function fontSize(level) {
-  switch (level) {
-    case 1:
-      return '32px';
-
-    case 2:
-      return '24px';
-
-    case 3:
-      return '21px';
-
-    default:
-      return '16px';
-  }
-}
-
-function fontWeight(level) {
-  switch (level) {
-    case 1:
-      return 800;
-
-    case 2:
-      return 600;
-
-    case 3:
-      return 400;
-
-    default:
-      return 'normal';
-  }
-}
-
-function lineHeight(level) {
-  switch (level) {
-    case 1:
-      return 1.5;
-
-    case 2:
-      return 1.33;
-
-    case 3:
-      return '27px';
-
-    case 5:
-      return 1.5;
-
-    default:
-      return undefined;
-  }
-}
-},{"../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"style/spacer.tsx":[function(require,module,exports) {
+});
+},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./styled":"style/styled.tsx"}],"style/spacer.tsx":[function(require,module,exports) {
 "use strict";
 
 var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
@@ -53516,283 +53483,7 @@ function getHeight(p) {
 
   return 0;
 }
-},{"react":"../../node_modules/react/index.js","./styled":"style/styled.tsx"}],"style/text.tsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ErrorText = exports.SmallText = exports.BodyText = exports.IntroText = void 0;
-
-var colors_1 = require("../../../common/src/colors");
-
-var fonts_1 = require("./fonts");
-
-var styled_1 = require("./styled");
-
-exports.IntroText = styled_1.style('div', 'lh-title sans-serif f5', function (p) {
-  return textStyle('intro', p);
-});
-exports.BodyText = styled_1.style('div', 'lh-copy sans-serif f5', function (p) {
-  return textStyle('body', p);
-});
-exports.SmallText = styled_1.style('div', 'lh-copy sans-serif f6', function (p) {
-  return textStyle('small', p);
-});
-exports.ErrorText = styled_1.style('div', 'lh-copy sans-serif f5', function (p) {
-  return textStyle('error', p);
-});
-
-function textStyle(type, p) {
-  return {
-    color: p.$color ? colors_1.Colors[p.$color] : p.$theme.textColor(type === 'error'),
-    fontFamily: p.$monospace ? fonts_1.Fonts.mono : fonts_1.Fonts.sansBody,
-    display: p.$inline ? 'inline-block' : 'block',
-    fontWeight: 'normal',
-    fontFeatureSettings: 'inherit',
-    whiteSpace: p.$monospace ? 'pre-wrap' : undefined
-  };
-}
-},{"../../../common/src/colors":"../../common/src/colors.ts","./fonts":"style/fonts.ts","./styled":"style/styled.tsx"}],"view/page/LecturesPage.tsx":[function(require,module,exports) {
-"use strict";
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.LecturesPage = void 0;
-
-var React = __importStar(require("react"));
-
-var header_1 = require("../../style/header");
-
-var spacer_1 = require("../../style/spacer");
-
-var styled_1 = require("../../style/styled");
-
-var text_1 = require("../../style/text");
-
-var Page_1 = require("./Page"); // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
-
-function LecturesPage(props) {
-  return /*#__PURE__*/React.createElement(Page_1.Page, null, /*#__PURE__*/React.createElement(header_1.H2, null, "My Itineraries"), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h4: true
-  }), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement("tbody", null, /*#__PURE__*/React.createElement(Itinerary, {
-    title: "Trip 1 Sample Itinerary",
-    days: [{
-      name: "Day 1",
-      schedule: [{
-        name: "UCLA",
-        coordinates: "34.0689° N, 118.4452° W",
-        departure: "9:00 AM"
-      }, {
-        name: "Bus",
-        duration: "80 minutes",
-        cost: "$3.25"
-      }]
-    }, {
-      name: "Day 2",
-      schedule: [{
-        name: "UCB",
-        coordinates: "34.0689° N, 118.4452° W",
-        departure: "9:00 AM"
-      }, {
-        name: "Bus",
-        duration: "80 minutes",
-        cost: "$3.25"
-      }]
-    }]
-  }))));
-}
-
-exports.LecturesPage = LecturesPage;
-
-function Itinerary(props) {
-  return /*#__PURE__*/React.createElement(text_1.BodyText, null, /*#__PURE__*/React.createElement(TR, null, /*#__PURE__*/React.createElement(TD_1, null, props.title), props.days && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-    $h2: true
-  }), /*#__PURE__*/React.createElement(TD, null, props.days.map(function (rr, i) {
-    return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("b", null, "\u23F0 ", rr.name), rr.schedule.map(function (r2, j) {
-      return /*#__PURE__*/React.createElement("ul", {
-        key: j
-      }, /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-        $w2: true
-      }), /*#__PURE__*/React.createElement("b", null, "\uD83D\uDEA9 ", r2.name), r2.arrival && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-        $w2: true
-      }), "\uD83C\uDF0E  Arrival: ", r2.arrival), r2.departure && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-        $w2: true
-      }), "\uD83C\uDF0E  Departure: ", r2.departure), r2.duration && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-        $w2: true
-      }), "\uD83C\uDF0E  Duration: ", r2.duration), r2.cost && /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-        $w2: true
-      }), "\uD83C\uDF0E  Cost: ", r2.cost), /*#__PURE__*/React.createElement(spacer_1.Spacer, {
-        $w8: true
-      }), " ", /*#__PURE__*/React.createElement("b", null, " \u2B07\uFE0F")));
-    }));
-  })))));
-}
-/*interface RequiredReading {
-  title: string
-  href: string
-}
-
-function Lecture(props: {
-  day: string
-  title: string
-  description?: string
-  href?: string
-  requiredReading?: RequiredReading[]
-}) {
-  return (
-    <Table>
-      <BodyText>
-        <TD>{props.day}</TD>
-        <TD>
-          <b>{props.href ? <Link href={props.href}>{props.title}</Link> : props.title}</b>
-
-          {props.description && (
-            <>
-              <Spacer $h2 />
-              <i>{props.description}</i>
-            </>
-          )}
-          {props.requiredReading && (
-            <>
-              <Spacer $h4 />
-              <b>Reading</b>
-              <Spacer $h2 />
-              <ul className="ml4">
-                {props.requiredReading.map((rr, i) => (
-                  <li key={i}>
-                    <Link href={rr.href}>{rr.title}</Link>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </TD>
-      </BodyText>
-    </Table>
-  )
-}*/
-
-
-var Table = styled_1.style('table', 'w-100 ba b--black');
-/*const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
-  borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
-  borderLeftWidth: '3px',
-}))*/
-
-var TR = styled_1.style('tr', 'ba b--black');
-var TD = styled_1.style('td', 'mid-gray pa3 v-mid', {
-  minWidth: '7em'
-});
-var TD_1 = styled_1.style('td', 'dark-blue pa3 v-mid', {
-  minWidth: '7em'
-});
-},{"react":"../../node_modules/react/index.js","../../style/header":"style/header.tsx","../../style/spacer":"style/spacer.tsx","../../style/styled":"style/styled.tsx","../../style/text":"style/text.tsx","./Page":"view/page/Page.tsx"}],"style/button.tsx":[function(require,module,exports) {
-"use strict";
-
-var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  Object.defineProperty(o, k2, {
-    enumerable: true,
-    get: function get() {
-      return m[k];
-    }
-  });
-} : function (o, m, k, k2) {
-  if (k2 === undefined) k2 = k;
-  o[k2] = m[k];
-});
-
-var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
-  Object.defineProperty(o, "default", {
-    enumerable: true,
-    value: v
-  });
-} : function (o, v) {
-  o["default"] = v;
-});
-
-var __importStar = this && this.__importStar || function (mod) {
-  if (mod && mod.__esModule) return mod;
-  var result = {};
-  if (mod != null) for (var k in mod) {
-    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-  }
-
-  __setModuleDefault(result, mod);
-
-  return result;
-};
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Button = void 0;
-
-var React = __importStar(require("react"));
-
-var colors_1 = require("../../../common/src/colors");
-
-var styled_1 = require("./styled");
-
-exports.Button = function (props) {
-  return /*#__PURE__*/React.createElement(ButtonBase, props);
-};
-
-var ButtonBase = styled_1.style('a', 'pointer link dim br3 ph3 pv2 black', function (p) {
-  // return {}
-  // const { $color, $filled, $width, onClick, $small, $block } = p
-  // const fgName = $color || 'sky'
-  // const fg = Colors[fgName]
-  // const fgRgb = ColorsRGB[fgName]
-  // const fgLight = LightColors[fgName]
-  // const fgDark = DarkColors[fgName]
-  // const colBorder = fg
-  // const col = $filled ? Colors.ink : fg
-  // const colBg = $filled ? fg : 'transparent'
-  return {
-    backgroundColor: colors_1.Colors[p.$color || 'lemon']
-  };
-});
-},{"react":"../../node_modules/react/index.js","../../../common/src/colors":"../../common/src/colors.ts","./styled":"style/styled.tsx"}],"view/auth/Login.tsx":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./styled":"style/styled.tsx"}],"view/auth/Login.tsx":[function(require,module,exports) {
 "use strict";
 
 var __assign = this && this.__assign || function () {

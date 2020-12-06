@@ -22,7 +22,7 @@ import { migrate } from './db/migrate'
 import { initORM } from './db/sql'
 import { Day } from './entities/Day'
 import { Itinerary } from './entities/Itinerary'
-import { Arrival, Departure, Stop, Trip } from './entities/Location'
+import { Arrival, Departure, Location, Stop, Trip } from './entities/Location'
 import { Session } from './entities/Session'
 import { User } from './entities/User'
 import { getSchema, graphqlRoot, pubsub } from './graphql/api'
@@ -166,7 +166,7 @@ server.express.post(
     const day = req.body.itinerary
     console.log(day)
     const newItinerary = new Itinerary()
-    const newDay  = new Day
+    var newDay  = new Day
 
     let locations = day.schedule  // locations or trips
     let newLocations = new Array
@@ -203,6 +203,10 @@ server.express.post(
         newLocation.name = location.name
         newLocation.address = location.address
         newLocation.coordinates = location.coordinates
+        console.log(newLocation)
+        //newLocation = await newLocation.save()
+        newLocation = await Location.save(newLocation)
+        console.log(newLocation)
         newLocations.push(newLocation)
       } else {
         var newTrip = new Trip()
@@ -219,6 +223,7 @@ server.express.post(
             return
           }
         }
+        newTrip = await newTrip.save()
         newTrips.push(newTrip)
       }
     }
@@ -232,6 +237,7 @@ server.express.post(
       res.status(403).send('Invalid user')
       return
     }
+    newDay = await newDay.save()
     newItinerary.day = newDay
     await Itinerary.save(newItinerary).then(t => console.log('saved itinerary ' + t.id))
     res.status(200).send('Success')
@@ -243,15 +249,24 @@ server.express.post(
   asyncRoute(async (req, res) => {
     console.log('POST /home/getItineraries')
     const authToken = req.cookies.authToken
-    let user_id
+    let current_user_id
     if (authToken) {
       const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
-      user_id = session?.user.id
+      current_user_id = session?.user.id
     } else {
       res.status(403).send('Login to view your saved itineraries')
       return
     }
-    const itineraries = await Itinerary.findOne({ where: { user_id : user_id }, relations:["day"] })
+    /*const itineraries = await Itinerary.findOne({ where: { 0, current_user_id }, relations:[
+      'day',
+      'day.locations',
+      'day.trips'] })*/
+    const itineraries = await Itinerary.createQueryBuilder('itinerary')
+      .leftJoinAndSelect('itinerary.day', 'day')
+      .leftJoinAndSelect('day.locations', 'location')
+      .leftJoinAndSelect('day.trips', 'trip')
+      .where("user_id = :userId", {userId: current_user_id})
+      .execute()
     res.status(200).type('json').send(itineraries)
   }
 )
