@@ -432,6 +432,13 @@ const SearchForm = (props: {
   )
 }
 
+function addDuration(time:string, minstoAdd:number){
+  function D(J:number) {return (J<10? '0':'') + J;};
+  var rhs = time.split(':');
+  var mins = +rhs[0]*60 + +rhs[1] + minstoAdd;
+  return D(mins%(24*60)/60 | 0) + ':' + D(mins%60);
+}
+
 const DaysAndPlaces = (props: {
   places: Array<string>
   dur: Array<string>
@@ -457,13 +464,21 @@ const DaysAndPlaces = (props: {
 
     //dummy variable
     let departureForLoc: string[] = ['', '09:00', '12:20', '2:00', '4:30', '6:00']
-    let arrivalForLoc: string[] = ['', '10:20', '1:30', '3:20', '5:20', '7:20']
+    //let arrivalForLoc: string[] = ['', '10:20', '1:30', '3:20', '5:20', '7:20']
     let costforstop: number[] = [0, 32.23, 1233, 23.0, 2134.0]
     let duration_trip: number[] = [0, 80, 70, 80, 50, 80]
-    let duration_for_stop: number[] = [0, 80, 70, 80, 50, 80]
+    //let duration_for_stop: number[] = [0, 80, 70, 80, 50, 80]
 
     //for duration user enter, use 'duration' at line15. That one is string array though
+    //use duration_ints for duration now (defined at 468)
 
+    let duration_ints: number[] = []
+    let duration_len = duration.length
+    for( let i = 0; i < duration_len;i++){
+      var temp = duration[i]
+      var y: number = +temp
+      duration_ints[i] = y
+    }
     let x: any[] = []
     let firstime: boolean = true
     for (let i = 1; i < size_of_daylocation; i++) {
@@ -486,22 +501,31 @@ const DaysAndPlaces = (props: {
         })
         firstime = false
       } else if (i == size_of_daylocation - 1) {
+        let prev_departure = departureForLoc[i-1];
+        let prev_trip_time = duration_trip[i];
+        let arrival_time = addDuration(prev_departure, prev_trip_time)
         x.push({
           type: 'arrival',
           name: daylocation[i],
           address: daylocation[i],
           coordinate: coordinateArray_for_realLocation[i],
-          arrival: departureForLoc[i],
+          arrival: arrival_time,
         })
       } else {
+        let prev_departure = departureForLoc[i-1];
+        let prev_trip_time = duration_trip[i];
+        let arrival_time = addDuration(prev_departure, prev_trip_time)
+        let my_departure = addDuration(arrival_time,duration_ints[i])
+        departureForLoc[i] = my_departure
+
         x.push({
           type: 'stop',
           name: daylocation[i],
           address: daylocation[i],
           coordinate: coordinateArray_for_realLocation[i],
-          arrival: arrivalForLoc[i],
-          departure: departureForLoc[i],
-          duration: duration_for_stop[i],
+          arrival: arrival_time,
+          departure: my_departure,
+          duration: duration_ints[i],
         })
       }
     }
