@@ -219,11 +219,6 @@ export type ResolversTypes = {
   SurveyQuestion: ResolverTypeWrapper<SurveyQuestion>
   SurveyAnswer: ResolverTypeWrapper<SurveyAnswer>
   SurveyInput: SurveyInput
-  Itinerary: ResolverTypeWrapper<Itinerary>
-  Day: ResolverTypeWrapper<Day>
-  LocationType: LocationType
-  Location: ResolverTypeWrapper<Location>
-  Trip: Trip
 }
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -234,10 +229,6 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']
   Subscription: {}
   User: User
-  Itinerary: Itinerary
-  Day: Day
-  Location: Location
-  Trip: Trip
   String: Scalars['String']
   Survey: Survey
   SurveyQuestion: SurveyQuestion
@@ -301,49 +292,6 @@ export type UserResolvers<
     __isTypeOf?: IsTypeOfResolverFn<ParentType>
   }
 
-  export type ItineraryResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Itinerary'] = ResolversParentTypes['Itinerary']
-  > = {
-    id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-    day?: Resolver<Maybe<ResolversTypes['Day']>, ParentType, ContextType>
-    __isTypeOf?: IsTypeOfResolverFn<ParentType>
-  }
-
-  export type DayResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Day'] = ResolversParentTypes['Day']
-  > = {
-    id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-    locations?:Resolver<Array<Maybe<ResolversTypes['Location']>>, ParentType, ContextType>
-    trips?: Resolver<Array<Maybe<ResolversTypes['Trip']>>, ParentType, ContextType>
-    __isTypeOf?: IsTypeOfResolverFn<ParentType>
-  }
-
-  export type LocationResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Location'] = ResolversParentTypes['Location']
-  > = {
-    id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-    type?: Resolver<ResolversTypes['LocationType'], ParentType, ContextType>
-    name?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-    address?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-    coordinates?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-    __isTypeOf?: IsTypeOfResolverFn<ParentType>
-  }
-
-  export type TripResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Trip'] = ResolversParentTypes['Trip']
-  > = {
-    id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-    userType?: Resolver<ResolversTypes['UserType'], ParentType, ContextType>
-    transportation?: Resolver<ResolversTypes['String'], ParentType, ContextType>
-    duration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-    cost?: Resolver<ResolversTypes['Int'], ParentType, ContextType>
-    __isTypeOf?: IsTypeOfResolverFn<ParentType>
-  }
-
 export type SurveyResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Survey'] = ResolversParentTypes['Survey']
@@ -384,10 +332,6 @@ export type Resolvers<ContextType = any> = {
   Mutation?: MutationResolvers<ContextType>
   Subscription?: SubscriptionResolvers<ContextType>
   User?: UserResolvers<ContextType>
-  Itinerary?: ItineraryResolvers<ContextType>
-  Day?: DayResolvers<ContextType>
-  Location?: LocationResolvers<ContextType>
-  Trip?: TripResolvers<ContextType>
   Survey?: SurveyResolvers<ContextType>
   SurveyQuestion?: SurveyQuestionResolvers<ContextType>
   SurveyAnswer?: SurveyAnswerResolvers<ContextType>
