@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Day as GraphqlDay } from '../graphql/schema.types'
-import { Location, Trip } from './Location'
+import { Arrival, Departure, Location, Stop, Trip } from './Location'
 
 @Entity()
 export class Day extends BaseEntity implements GraphqlDay {
@@ -20,7 +20,7 @@ export class Day extends BaseEntity implements GraphqlDay {
   date: string
 
   @OneToMany(() => Location, location => location.day, {cascade: true})
-  locations: Location[]
+  locations: (Departure | Stop | Arrival)[]
 
   @OneToMany(() => Trip, trip => trip.day, {cascade: true})
   trips: Trip[]

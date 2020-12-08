@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
+import { Arrival, Departure, Stop } from '../entities/Location'
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } &
@@ -63,7 +64,7 @@ export interface Itinerary {
 export interface Day {
   __typename?: 'Day'
   id: Scalars['Int']
-  locations: Array<Location>
+  locations: (Stop|Departure|Arrival)[]
   trips: Array<Trip>
 }
 

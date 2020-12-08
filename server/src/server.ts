@@ -168,7 +168,6 @@ server.express.post(
     }
 
     const day = req.body.itinerary
-    console.log(day)
     const newItinerary = new Itinerary()
     const newDay  = new Day
 
@@ -244,6 +243,7 @@ server.express.post(
         newTrips.push(newTrip)
       }
     }
+
     newDay.date = day.date
     newDay.locations = newLocations
     newDay.trips = newTrips
@@ -279,7 +279,11 @@ server.express.post(
       return
     }
 
-    const itineraries = await Itinerary.find({ where: { user_id : user_id }, relations:["day", "day.locations", "day.trips"] })
+    const itineraries = await Itinerary.find({
+      where: { user_id : user_id },
+      relations:["day", "day.locations", "day.trips"],
+      order: {id: "DESC"}
+    })
     var itineraries_out = []
     for (let itinerary of itineraries) {
       let day = itinerary.day
@@ -289,9 +293,20 @@ server.express.post(
 
       for (let i = 0; i < locations.length; i++) {
         let location = locations[i]
-        let location_out = JSON.parse(JSON.stringify(location))
+        let location_out
+        if (i == 0) {  // Departure
+          let departure = await Departure.findOne({ where: { id: location.id } })
+          location_out = JSON.parse(JSON.stringify(departure))
+        } else if (i == locations.length - 1) {
+          let arrival = await Arrival.findOne({ where: { id: location.id } })
+          location_out = JSON.parse(JSON.stringify(arrival))
+        } else {
+          let stop = await Stop.findOne({ where: { id: location.id } })
+          location_out = JSON.parse(JSON.stringify(stop))
+        }
         delete location_out["id"]
         schedule_out.push(location_out)
+
         if (i < locations.length - 1) {
           var trip = trips[i]
           var trip_out = JSON.parse(JSON.stringify(trip))
@@ -312,17 +327,14 @@ server.express.post(
   asyncRoute(async (req, res) => {
     console.log('POST /explore/getItineraries')
 
-    const itineraries = await Itinerary.find({ relations:["day", "day.locations", "day.trips"] })
-    var itineraries_reversed
-    if (itineraries.length > 20) {
-      let itineraries_last20 = itineraries.slice(itineraries.length - 20)
-      itineraries_reversed = itineraries_last20.reverse()
-    } else {
-      itineraries_reversed = itineraries.reverse()
-    }
-    var itineraries_out = []
+    const itineraries = await Itinerary.find({
+      relations:["day", "day.locations", "day.trips"],
+      order: {id: "DESC"},
+      take: 20
+    })
 
-    for (let itinerary of itineraries_reversed) {
+    var itineraries_out = []
+    for (let itinerary of itineraries) {
       let day = itinerary.day
       let schedule_out = []
       let locations = day.locations
@@ -330,9 +342,20 @@ server.express.post(
 
       for (let i = 0; i < locations.length; i++) {
         let location = locations[i]
-        let location_out = JSON.parse(JSON.stringify(location))
+        let location_out
+        if (i == 0) {  // Departure
+          let departure = await Departure.findOne({ where: { id: location.id } })
+          location_out = JSON.parse(JSON.stringify(departure))
+        } else if (i == locations.length - 1) {
+          let arrival = await Arrival.findOne({ where: { id: location.id } })
+          location_out = JSON.parse(JSON.stringify(arrival))
+        } else {
+          let stop = await Stop.findOne({ where: { id: location.id } })
+          location_out = JSON.parse(JSON.stringify(stop))
+        }
         delete location_out["id"]
         schedule_out.push(location_out)
+
         if (i < locations.length - 1) {
           var trip = trips[i]
           var trip_out = JSON.parse(JSON.stringify(trip))
@@ -345,7 +368,6 @@ server.express.post(
         res.status(500).send('Error: internal error.')
         return
       }
-      console.log("user email: " + user.email)
       let itinerary_out = {"user_email": user.email, "date": day.date, "schedule": schedule_out}
       itineraries_out.push(itinerary_out)
     }
