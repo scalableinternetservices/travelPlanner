@@ -1,13 +1,14 @@
 /*
 
-  Used the cookie created for user: test1@gmail.com pw: test1
-  Tests saveItinerary Request
+  Tests: create user, login, post itinerary
 
 */
 import http from 'k6/http'
 import { check, sleep } from 'k6'
 import { Counter, Rate } from 'k6/metrics'
 let url = `http://localhost:3000/home/saveItinerary`
+let url1 = `http://localhost:3000/auth/createUser`
+let url2 = `http://localhost:3000/auth/login`
 export const options = {
   scenarios: {
     example_scenario: {
@@ -21,7 +22,7 @@ export const options = {
     },
   },
 }
- /*export const options = {
+  /*export const options = {
    scenarios: {
      example_scenario: {
        executor: 'constant-vus',
@@ -31,8 +32,41 @@ export const options = {
    },
  }*/
 
- function postSchedule(){
-   let req = {
+ function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+ function CreateUserANDLoginANDPOST(){
+
+  let first = makeid(5)
+  console.log('user email: ' + first)
+  let myemail = first + '@gmail.com'
+  let req1 = {email: myemail, password: first}
+
+  let req = req1
+   var payload = JSON.stringify(req)
+   var params = {
+    headers: {
+      'Content-Type': 'application/json',
+     },
+   }
+
+   let resp = http.post(url1, payload, params)
+   //console.log(resp.body)
+   check(resp, { 'status 200': r => r.status == 200 })
+
+   let resp2 = http.post(url2, payload, params)
+   console.log(resp2.body)
+   check(resp2, {'status 200': r => r.status == 200 })
+
+   //posting
+   let req3 = {
     itinerary:{
       date: '2020-12-08',
       schedule: [
@@ -49,18 +83,19 @@ export const options = {
     }
   }
 
-   var payload = JSON.stringify(req)
-   var params = {
+  var payload3 = JSON.stringify(req3)
+   var params3 = {
     headers: {
       'Content-Type': 'application/json',
-      'Cookie': 'authToken=f244e449-e80d-46a4-b333-974b161bc1f6',
      },
    }
 
-   let resp = http.post(url, payload, params)
-   console.log(resp.body)
-   check(resp, { 'status 200': r => r.status == 200 })
+   let resp3 = http.post(url, payload3, params3)
+   console.log(resp3.body)
+   check(resp3, { 'status 200': r => r.status == 200 })
  }
+
+
 
 export default function () {
   // recordRates(
@@ -74,8 +109,8 @@ export default function () {
   //   }
   // )
 
-  postSchedule()
-  sleep(Math.random() * 3)
+  CreateUserANDLoginANDPOST()
+  // sleep(Math.random() * 3)
 }
 
 const count200 = new Counter('status_code_2xx')

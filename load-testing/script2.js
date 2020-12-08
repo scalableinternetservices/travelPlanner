@@ -1,13 +1,13 @@
 /*
 
-  Used the cookie created for user: test1@gmail.com pw: test1
-  Tests saveItinerary Request
+  Tests creating Login/Sign up Request
 
 */
 import http from 'k6/http'
 import { check, sleep } from 'k6'
 import { Counter, Rate } from 'k6/metrics'
-let url = `http://localhost:3000/home/saveItinerary`
+let url1 = `http://localhost:3000/auth/createUser`
+let url2 = `http://localhost:3000/auth/login`
 export const options = {
   scenarios: {
     example_scenario: {
@@ -21,7 +21,7 @@ export const options = {
     },
   },
 }
- /*export const options = {
+  /*export const options = {
    scenarios: {
      example_scenario: {
        executor: 'constant-vus',
@@ -31,36 +31,42 @@ export const options = {
    },
  }*/
 
- function postSchedule(){
-   let req = {
-    itinerary:{
-      date: '2020-12-08',
-      schedule: [
-        {type: 'departure', name: 'ucla', address: 'ucla', coordinates: ' 34.0689° N, 118.4452° W', departure: '09:00'},
-        {type: 'trip', transportation: 'bus', duration: 70, cost: 32.23},
-        {type: 'stop', name: 'ucb', address: 'ucb', coordinates: ' 34.0689° N, 118.4452° W ', arrival: '10:10', departure: '10:20', duration: 10},
-        {type: 'trip', transportation: 'bus', duration: 80, cost: 1233},
-        {type: 'stop', name: 'usc', address: 'usc', coordinates: ' 34.0689° N, 118.4452° W ', arrival: '11:40', departure: '11:50', duration: 10},
-        {type: 'trip', transportation: 'bus', duration: 50, cost: 23},
-        {type: 'stop', name: 'ucsd', address: 'ucsd', coordinates: ' 34.0689° N, 118.4452° W ', arrival: '12:40', departure: '12:50', duration: 10},
-        {type: 'trip', transportation: 'bus', duration: 80, cost: 2134},
-        {type: 'arrival', name: 'uci', address: 'uci', coordinates: '  34.0689° N, 118.4452° W', arrival: '14:10'}
-      ]
-    }
+ function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
+  return result;
+}
 
+ function CreateUserANDLogin(){
+
+  let first = makeid(5)
+  console.log('user email: ' + first)
+  let myemail = first + '@gmail.com'
+  let req1 = {email: myemail, password: first}
+
+  let req = req1
    var payload = JSON.stringify(req)
    var params = {
     headers: {
       'Content-Type': 'application/json',
-      'Cookie': 'authToken=f244e449-e80d-46a4-b333-974b161bc1f6',
      },
    }
 
-   let resp = http.post(url, payload, params)
+   let resp = http.post(url1, payload, params)
    console.log(resp.body)
    check(resp, { 'status 200': r => r.status == 200 })
+
+   let resp2 = http.post(url2, payload, params)
+   console.log(resp2.body)
+   check(resp2, {'status 200': r => r.status == 200 })
+
  }
+
+
 
 export default function () {
   // recordRates(
@@ -74,8 +80,8 @@ export default function () {
   //   }
   // )
 
-  postSchedule()
-  sleep(Math.random() * 3)
+  CreateUserANDLogin()
+  // sleep(Math.random() * 3)
 }
 
 const count200 = new Counter('status_code_2xx')
