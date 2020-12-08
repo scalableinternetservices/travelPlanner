@@ -92,7 +92,7 @@ server.express.post(
     await User.count({email: req.body.email})
       .then(async c => {
         if (c > 0) {
-          res.status(403).send('This email has already been taken.')
+          res.status(403).send('Error: this email has already been taken.')
         } else {
           // create User model with data from HTTP request
           let user = new User()
@@ -124,7 +124,7 @@ server.express.post(
 
     const user = await User.findOne({ where: { email } })
     if (!user || password !== user.password) {
-      res.status(403).send('Invalid email address or password.')
+      res.status(403).send('Error: invalid email address or password.')
       return
     }
 
@@ -157,13 +157,13 @@ server.express.post(
     if (authToken) {
       const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
       if (session == undefined) {
-        res.status(500).send('Internal error.')
+        res.status(403).send('Error: login or signup to save your itinerary.')
         return
       }
       user_id = session.user.id
       console.log("user_email = " + session?.user.email)
     } else {
-      res.status(403).send('Login or signup to save your itinerary.')
+      res.status(403).send('Error: login or signup to save your itinerary.')
       return
     }
 
@@ -198,12 +198,11 @@ server.express.post(
             break
           }
           default: {
-            //console.log("403 status reached: location = "  + location.type)
-            res.status(403).send('Invalid location type')
+            res.status(403).send('Error: invalid location type')
             return
           }
         }
-        newLocation.locationType = location.type
+        newLocation.type = location.type
         newLocation.name = location.name
         newLocation.address = location.address
         newLocation.coordinates = location.coordinates
@@ -222,8 +221,7 @@ server.express.post(
             break
           }
           default: {
-            //console.log("403 status reached: location = "  + location.type)
-            res.status(403).send('Invalid location type')
+            res.status(403).send('Error: invalid location type')
             return
           }
         }
@@ -238,8 +236,7 @@ server.express.post(
             break
           }
           default: {
-            // console.log("403 status reached: trip")
-            res.status(403).send('Invalid trip type')
+            res.status(403).send('Error: invalid trip type')
             return
           }
         }
@@ -255,7 +252,7 @@ server.express.post(
     if (user_id != undefined) {
       newItinerary.user_id = user_id
     } else {
-      res.status(403).send('Invalid user')
+      res.status(403).send('Error: invalid user')
       return
     }
     newItinerary.day = newDay
@@ -273,19 +270,86 @@ server.express.post(
     if (authToken) {
       const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
       if (session == undefined) {
-        res.status(500).send('Internal error.')
+        res.status(403).send('Error: login to view your saved itineraries.')
         return
       }
       user_id = session.user.id
     } else {
-      res.status(403).send('Login or signup to save your itinerary.')
+      res.status(403).send('Error: login to view your saved itineraries.')
       return
     }
-    const itineraries = await Itinerary.find({ where: { user_id : user_id }, relations:["day", "day.trips", "day.locations"] })
-    await Day.find({ where: { id : 6 }, relations:["trips", "locations"] }).then( t => console.log(t) )
-    res.status(200).type('json').send(itineraries)
-  }
+
+    const itineraries = await Itinerary.find({ where: { user_id : user_id }, relations:["day", "day.locations", "day.trips"] })
+    var itineraries_out = []
+    for (let itinerary of itineraries) {
+      let day = itinerary.day
+      let schedule_out = []
+      let locations = day.locations
+      let trips = day.trips
+
+      for (let i = 0; i < locations.length; i++) {
+        let location = locations[i]
+        let location_out = JSON.parse(JSON.stringify(location))
+        delete location_out["id"]
+        schedule_out.push(location_out)
+        if (i < locations.length - 1) {
+          var trip = trips[i]
+          var trip_out = JSON.parse(JSON.stringify(trip))
+          delete trip_out["id"]
+          schedule_out.push(trip_out)
+        }
+      }
+      let itinerary_out = {"date": day.date, "schedule": schedule_out}
+      itineraries_out.push(itinerary_out)
+    }
+
+    res.status(200).type('json').send(itineraries_out)
+  })
 )
+
+server.express.get(
+  '/explore/getItineraries',
+  asyncRoute(async (req, res) => {
+    console.log('GET /explore/getItineraries')
+
+    const itineraries = await Itinerary.find({ relations:["day", "day.locations", "day.trips"] })
+    var itineraries_reversed
+    if (itineraries.length > 20) {
+      let itineraries_last20 = itineraries.slice(itineraries.length - 20)
+      itineraries_reversed = itineraries_last20.reverse()
+    } else {
+      itineraries_reversed = itineraries.reverse()
+    }
+    var itineraries_out = []
+
+    for (let itinerary of itineraries_reversed) {
+      let day = itinerary.day
+      let schedule_out = []
+      let locations = day.locations
+      let trips = day.trips
+
+      for (let i = 0; i < locations.length; i++) {
+        let location = locations[i]
+        let location_out = JSON.parse(JSON.stringify(location))
+        delete location_out["id"]
+        schedule_out.push(location_out)
+        if (i < locations.length - 1) {
+          var trip = trips[i]
+          var trip_out = JSON.parse(JSON.stringify(trip))
+          delete trip_out["id"]
+          schedule_out.push(trip_out)
+        }
+      }
+      let user = await User.findOne({ where: { user_id : itinerary.user_id }})
+      if (user == undefined) {
+        res.status(500).send('Error: internal error.')
+        return
+      }
+      let itinerary_out = {"user_email": user.email, "date": day.date, "schedule": schedule_out}
+      itineraries_out.push(itinerary_out)
+    }
+    res.status(200).type('json').send(itineraries_out)
+  })
 )
 
 server.express.post(
