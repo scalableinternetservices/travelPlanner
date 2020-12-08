@@ -70,7 +70,7 @@ export interface Day {
 export interface Location {
   __typename?: 'Location'
   id: Scalars['Int']
-  type: LocationType
+  locationType: LocationType
   name: Scalars['String']
   address: Scalars['String']
   coordinates: Scalars['String']
@@ -94,8 +94,8 @@ export enum UserType {
 }
 
 export enum LocationType {
-  Stop = 'stop',
   Departure = 'departure',
+  Stop = 'stop',
   Arrival = 'arrival',
 }
 

@@ -1,4 +1,4 @@
-import { BaseEntity, ChildEntity, Column, Entity, PrimaryGeneratedColumn, TableInheritance } from 'typeorm'
+import { BaseEntity, ChildEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, TableInheritance, UpdateDateColumn } from 'typeorm'
 import { Location as GraphqlLocation, LocationType, Trip as GraphqlTrip } from '../graphql/schema.types'
 
 @Entity()
@@ -8,11 +8,17 @@ export class Location extends BaseEntity implements GraphqlLocation {
   @PrimaryGeneratedColumn()
   id: number
 
+  @CreateDateColumn()
+  timeCreated: Date
+
+  @UpdateDateColumn()
+  timeUpdated: Date
+
   @Column({
     type: 'enum',
     enum: LocationType
   })
-  type: LocationType
+  locationType: LocationType
 
   @Column({
     length: 100,
@@ -75,6 +81,15 @@ export class Location extends BaseEntity implements GraphqlLocation {
 // }
 
 @ChildEntity()
+export class Departure extends Location implements GraphqlLocation {
+
+  @Column({
+    length: 100,
+  })
+  departure: string
+}
+
+@ChildEntity()
 export class Stop extends Location implements GraphqlLocation {
 
   @Column({
@@ -92,15 +107,6 @@ export class Stop extends Location implements GraphqlLocation {
 }
 
 @ChildEntity()
-export class Departure extends Location implements GraphqlLocation {
-
-  @Column({
-    length: 100,
-  })
-  departure: string
-}
-
-@ChildEntity()
 export class Arrival extends Location implements GraphqlLocation {
 
   @Column({
@@ -114,6 +120,12 @@ export class Trip extends BaseEntity implements GraphqlTrip {
 
   @PrimaryGeneratedColumn()
   id: number
+
+  @CreateDateColumn()
+  timeCreated: Date
+
+  @UpdateDateColumn()
+  timeUpdated: Date
 
   @Column({
     length: 100,

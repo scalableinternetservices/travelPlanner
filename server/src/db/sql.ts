@@ -2,7 +2,7 @@ import { createPool, PoolConnection, QueryOptions } from 'mysql2'
 import { createConnection } from 'typeorm'
 import { Day } from '../entities/Day'
 import { Itinerary } from '../entities/Itinerary'
-import { Location, Trip } from '../entities/Location'
+import { Arrival, Departure, Location, Stop, Trip } from '../entities/Location'
 import { Session } from '../entities/Session'
 import { Survey } from '../entities/Survey'
 import { SurveyAnswer } from '../entities/SurveyAnswer'
@@ -23,7 +23,7 @@ export async function initORM() {
     username: process.env.MYSQL_USER || 'root',
     synchronize: true,
     logging: false,
-    entities: [Itinerary, Day, Location, Trip, User, Session, Survey, SurveyQuestion, SurveyAnswer],
+    entities: [Itinerary, Day, Location, Departure, Arrival, Stop, Trip, User, Session, Survey, SurveyQuestion, SurveyAnswer],
     extra: {
       connectionLimit: 5,
     },

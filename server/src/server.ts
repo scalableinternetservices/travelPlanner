@@ -156,7 +156,11 @@ server.express.post(
     let user_id
     if (authToken) {
       const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
-      user_id = session?.user.id
+      if (session == undefined) {
+        res.status(500).send('Internal error.')
+        return
+      }
+      user_id = session.user.id
       console.log("user_email = " + session?.user.email)
     } else {
       res.status(403).send('Login or signup to save your itinerary.')
@@ -169,18 +173,13 @@ server.express.post(
     const newDay  = new Day
 
     let locations = day.schedule  // locations or trips
-    let newLocations = new Array
-    let newTrips = new Array
+    let newLocations = []
+    let newTrips = []
     for (let i = 0; i < locations.length; i++) {
       let location = locations[i]
       if (i % 2 == 0) {
         var newLocation
         switch(location.type) {
-          case LocationType.Arrival: {
-            newLocation = new Arrival()
-            newLocation.arrival = location.arrival
-            break
-          }
           case LocationType.Departure: {
             newLocation = new Departure()
             newLocation.departure = location.departure
@@ -193,16 +192,41 @@ server.express.post(
             newLocation.duration = location.duration
             break
           }
+          case LocationType.Arrival: {
+            newLocation = new Arrival()
+            newLocation.arrival = location.arrival
+            break
+          }
           default: {
             //console.log("403 status reached: location = "  + location.type)
             res.status(403).send('Invalid location type')
             return
           }
         }
-        newLocation.type = location.type
+        newLocation.locationType = location.type
         newLocation.name = location.name
         newLocation.address = location.address
         newLocation.coordinates = location.coordinates
+
+        switch(location.type) {
+          case LocationType.Departure: {
+            await Departure.save(newLocation).then(t => console.log('saved departure ' + t.id))
+            break
+          }
+          case LocationType.Stop: {
+            await Stop.save(newLocation).then(t => console.log('saved stop ' + t.id))
+            break
+          }
+          case LocationType.Arrival: {
+            await Arrival.save(newLocation).then(t => console.log('saved arrival ' + t.id))
+            break
+          }
+          default: {
+            //console.log("403 status reached: location = "  + location.type)
+            res.status(403).send('Invalid location type')
+            return
+          }
+        }
         newLocations.push(newLocation)
       } else {
         var newTrip = new Trip()
@@ -219,12 +243,14 @@ server.express.post(
             return
           }
         }
+        await Trip.save(newTrip).then(t => console.log('saved trip ' + t.id))
         newTrips.push(newTrip)
       }
     }
     newDay.date = day.date
     newDay.locations = newLocations
     newDay.trips = newTrips
+    await Day.save(newDay).then(t => console.log('saved day ' + t.id))
 
     if (user_id != undefined) {
       newItinerary.user_id = user_id
@@ -246,12 +272,17 @@ server.express.post(
     let user_id
     if (authToken) {
       const session = await Session.findOne({ where: { authToken }, relations: ['user'] })
-      user_id = session?.user.id
+      if (session == undefined) {
+        res.status(500).send('Internal error.')
+        return
+      }
+      user_id = session.user.id
     } else {
-      res.status(403).send('Login to view your saved itineraries')
+      res.status(403).send('Login or signup to save your itinerary.')
       return
     }
-    const itineraries = await Itinerary.findOne({ where: { user_id : user_id }, relations:["day"] })
+    const itineraries = await Itinerary.find({ where: { user_id : user_id }, relations:["day", "day.trips", "day.locations"] })
+    await Day.find({ where: { id : 6 }, relations:["trips", "locations"] }).then( t => console.log(t) )
     res.status(200).type('json').send(itineraries)
   }
 )

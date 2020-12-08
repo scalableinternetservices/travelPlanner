@@ -465,7 +465,7 @@ const DaysAndPlaces = (props: {
     //dummy variable
     let departureForLoc: string[] = ['', '09:00', '12:20', '2:00', '4:30', '6:00']
     //let arrivalForLoc: string[] = ['', '10:20', '1:30', '3:20', '5:20', '7:20']
-    let costforstop: number[] = [0, 32.23, 1233, 23.0, 2134.0]
+    let costfortrip: number[] = [0, 0, 32.23, 1233, 23.0, 2134.0]
     let duration_trip: number[] = [0, 80, 70, 80, 50, 80]
     //let duration_for_stop: number[] = [0, 80, 70, 80, 50, 80]
 
@@ -487,7 +487,7 @@ const DaysAndPlaces = (props: {
           type: 'trip',
           transportation: 'bus',
           duration: duration_trip[i],
-          cost: costforstop[i],
+          cost: costfortrip[i],
         })
       }
 
@@ -496,7 +496,7 @@ const DaysAndPlaces = (props: {
           type: 'departure',
           name: daylocation[i],
           address: daylocation[i],
-          coordinate: coordinateArray_for_realLocation[i],
+          coordinates: coordinateArray_for_realLocation[i],
           departure: departureForLoc[i],
         })
         firstime = false
@@ -508,7 +508,7 @@ const DaysAndPlaces = (props: {
           type: 'arrival',
           name: daylocation[i],
           address: daylocation[i],
-          coordinate: coordinateArray_for_realLocation[i],
+          coordinates: coordinateArray_for_realLocation[i],
           arrival: arrival_time,
         })
       } else {
@@ -522,7 +522,7 @@ const DaysAndPlaces = (props: {
           type: 'stop',
           name: daylocation[i],
           address: daylocation[i],
-          coordinate: coordinateArray_for_realLocation[i],
+          coordinates: coordinateArray_for_realLocation[i],
           arrival: arrival_time,
           departure: my_departure,
           duration: duration_ints[i],
