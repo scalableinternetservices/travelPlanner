@@ -307,10 +307,10 @@ server.express.post(
   })
 )
 
-server.express.get(
+server.express.post(
   '/explore/getItineraries',
   asyncRoute(async (req, res) => {
-    console.log('GET /explore/getItineraries')
+    console.log('POST /explore/getItineraries')
 
     const itineraries = await Itinerary.find({ relations:["day", "day.locations", "day.trips"] })
     var itineraries_reversed
@@ -340,14 +340,16 @@ server.express.get(
           schedule_out.push(trip_out)
         }
       }
-      let user = await User.findOne({ where: { user_id : itinerary.user_id }})
+      let user = await User.findOne({ where: { id : itinerary.user_id }})
       if (user == undefined) {
         res.status(500).send('Error: internal error.')
         return
       }
+      console.log("user email: " + user.email)
       let itinerary_out = {"user_email": user.email, "date": day.date, "schedule": schedule_out}
       itineraries_out.push(itinerary_out)
     }
+    console.log(itineraries_out)
     res.status(200).type('json').send(itineraries_out)
   })
 )

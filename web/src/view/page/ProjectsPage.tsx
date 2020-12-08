@@ -1,20 +1,31 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-import { Spacer } from '../../style/spacer'
 import { AppRouteParams } from '../nav/route'
-import { Page } from './Page'
 
 interface ProjectsPageProps extends RouteComponentProps, AppRouteParams {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function ProjectsPage(props: ProjectsPageProps) {
+  console.log("Explore Page")
+  fetch('/explore/getItineraries', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+
+  })
+  .then(response => console.log(JSON.stringify(response)))
+  .catch(err => console.log(err))
+
   return (
+    <div> Testing /explore/getItineraries, check client console for json object </div>
+    /*
     <Page>
       <Reviews />
     </Page>
+    */
   )
 }
 
+/*
 function Reviews() {
   const itineraries = getItineraries()
   const ret = []
@@ -79,6 +90,7 @@ class Itinerary {
     )
   }
 }
+*/
 
 /*function ProjectOverview() {
   return (
