@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 import { Day as GraphqlDay } from '../graphql/schema.types'
 import { Location, Trip } from './Location'
 
@@ -8,10 +8,10 @@ export class Day extends BaseEntity implements GraphqlDay {
   @PrimaryGeneratedColumn()
   id: number
 
-  @CreateDateColumn()
+  @CreateDateColumn({select: false})
   timeCreated: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({select: false})
   timeUpdated: Date
 
   @Column({
@@ -19,11 +19,9 @@ export class Day extends BaseEntity implements GraphqlDay {
   })
   date: string
 
-  @OneToOne(() => Location)
-  @JoinColumn()
+  @OneToMany(() => Location, location => location.day, {cascade: true})
   locations: Location[]
 
-  @OneToOne(() => Trip)
-  @JoinColumn()
+  @OneToMany(() => Trip, trip => trip.day, {cascade: true})
   trips: Trip[]
 }

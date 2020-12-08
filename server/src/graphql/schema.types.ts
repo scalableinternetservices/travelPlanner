@@ -70,7 +70,7 @@ export interface Day {
 export interface Location {
   __typename?: 'Location'
   id: Scalars['Int']
-  locationType: LocationType
+  type: LocationType
   name: Scalars['String']
   address: Scalars['String']
   coordinates: Scalars['String']

@@ -1,5 +1,6 @@
-import { BaseEntity, ChildEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, TableInheritance, UpdateDateColumn } from 'typeorm'
+import { BaseEntity, ChildEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, TableInheritance, UpdateDateColumn } from 'typeorm'
 import { Location as GraphqlLocation, LocationType, Trip as GraphqlTrip } from '../graphql/schema.types'
+import { Day } from './Day'
 
 @Entity()
 @TableInheritance({ column: { type: "varchar", name: "type" } })
@@ -8,17 +9,17 @@ export class Location extends BaseEntity implements GraphqlLocation {
   @PrimaryGeneratedColumn()
   id: number
 
-  @CreateDateColumn()
+  @CreateDateColumn({select: false})
   timeCreated: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({select: false})
   timeUpdated: Date
 
   @Column({
     type: 'enum',
     enum: LocationType
   })
-  locationType: LocationType
+  type: LocationType
 
   @Column({
     length: 100,
@@ -34,51 +35,11 @@ export class Location extends BaseEntity implements GraphqlLocation {
     length: 100,
   })
   coordinates: string
+
+  @ManyToOne(() => Day, day => day.locations)
+  @JoinColumn()
+  day: Day
 }
-
-// export abstract class Location extends BaseEntity implements GraphqlLocation {
-
-//   @PrimaryGeneratedColumn()
-//   id: number
-
-//   @Column({
-//     type: 'enum',
-//     enum: LocationType
-//   })
-//   type: LocationType
-
-//   @Column({
-//     length: 100,
-//   })
-//   name: string
-
-//   @Column({
-//     length: 100,
-//   })
-//   address: string
-
-//   @Column({
-//     length: 100,
-//   })
-//   coordinates: string
-
-//   @Column({
-//     length: 100,
-//     nullable: true,
-//   })
-//   arrival: string
-
-//   @Column({
-//     length: 100,
-//     nullable: true,
-//   })
-//   departure: string
-
-//   @Column({
-//     nullable: true,
-//   })
-//   duration: number
-// }
 
 @ChildEntity()
 export class Departure extends Location implements GraphqlLocation {
@@ -121,10 +82,10 @@ export class Trip extends BaseEntity implements GraphqlTrip {
   @PrimaryGeneratedColumn()
   id: number
 
-  @CreateDateColumn()
+  @CreateDateColumn({select: false})
   timeCreated: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({select: false})
   timeUpdated: Date
 
   @Column({
@@ -137,4 +98,8 @@ export class Trip extends BaseEntity implements GraphqlTrip {
 
   @Column()
   cost: number
+
+  @ManyToOne(() => Day, day => day.trips)
+  @JoinColumn()
+  day: Day
 }
