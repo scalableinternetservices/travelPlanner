@@ -1,19 +1,21 @@
 import { RouteComponentProps } from '@reach/router'
 import * as React from 'react'
-//import { itinerary } from '../../graphql/query.gen'
-//import { H2 } from '../../style/header'
-//import { Spacer } from '../../style/spacer'
-//import { style } from '../../style/styled'
-//import { BodyText } from '../../style/text'
+import { H2 } from '../../style/header'
+import { Spacer } from '../../style/spacer'
+import { style } from '../../style/styled'
+import { BodyText } from '../../style/text'
 import { AppRouteParams } from '../nav/route'
+import { Page } from './Page'
 
 interface LecturesPageProps extends RouteComponentProps, AppRouteParams {}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+
 export function LecturesPage(props: LecturesPageProps) {
   const [users, setUsers] = React.useState([] as any[])
 
+  if (users.length == 0){
     fetch('/home/getItineraries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -22,7 +24,7 @@ export function LecturesPage(props: LecturesPageProps) {
     .then(resp => resp.json())
     //resp.then(res => res.json())
     .then(result => {
-      console.log(result)
+      //console.log(result)
     let itineraryListLen = result.length
     //itineraryListLen =
     //console.log('ELEMENTS BELOW')
@@ -91,17 +93,83 @@ export function LecturesPage(props: LecturesPageProps) {
     //console.log(list_its)
     setUsers(list_its)
     })
-  console.log(users)
+  //console.log(users)
+  }
 
   return (
-    <div>
-      hi
-      {users.map(it => (
-        <p key={it.date}>{JSON.stringify(it)}</p>
+    <Page>
+      <H2>My Itineraries </H2>
+      {users.map((it, i) => (
+        <div key={i}>
+          <Itinerary
+            date={it.date}
+            schedule={it.schedule}
+          />
+        </div>
       ))}
-    </div>
+    </Page>
     )
+
+}
+interface pit_stop {
+  name: string
+  type: string
+  address: string
+  coordinates?: string
+  transportation? : number
+  arrival?: string
+  departure?: string
+  duration?: number
+  cost?: number
 }
 
+function Itinerary(props: {
+  date: string
+  schedule: pit_stop[]}
+  ){
+  return (
+  <div>
+      <Spacer $h4 />
 
+      <Spacer $h4 />
+      <Table>
+        <tbody>
+        <BodyText>
+        <TR>
+        <TD_1>{props.date}</TD_1>
 
+          {props.schedule && (
+            <>
+              <Spacer $h2 />
+                <TD>
+                {props.schedule.map((r2, i) => (
+                  <ul key={i}>
+                    {r2.name && <b>⏰ {r2.name}</b>}
+                    {r2.transportation && <b>⏰ {r2.transportation}</b>}
+                    {r2.arrival && <p><Spacer $w2/>🌎  Arrival: {r2.arrival}</p> }
+                    {r2.departure && <p><Spacer $w2/>🌎  Departure: {r2.departure}</p>}
+                    {r2.duration && <p><Spacer $w2/>🌎  Duration: {r2.duration}</p> }
+                    {r2.cost && <p><Spacer $w2/>🌎  Cost: {r2.cost}</p>}
+                    <Spacer $w8/> <b> ⬇️</b>
+                    </ul>))}
+                    </TD>
+            </>
+            )}
+        </TR>
+      </BodyText>
+        </tbody>
+      </Table>
+
+  </div>
+)
+
+}
+
+/*const Section = style('div', 'mb4 mid-gray ba b--mid-gray br2 pa3', (p: { $color?: ColorName }) => ({
+  borderLeftColor: Colors[p.$color || 'lemon'] + '!important',
+  borderLeftWidth: '3px',
+}))*/
+const Table = style('table', 'w-100 ba b--black')
+const TR = style('tr', 'ba b--black')
+const TD = style('td', 'mid-gray pa3 v-mid', { minWidth: '7em' })
+const TD_1 = style('td', 'dark-blue pa3 v-mid', { minWidth: '7em' })
