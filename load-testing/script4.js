@@ -6,10 +6,10 @@
 import http from 'k6/http'
 import { check, sleep } from 'k6'
 import { Counter, Rate } from 'k6/metrics'
-let url = `http://localhost:3000/home/saveItinerary`
-let url4 = `http://localhost:3000/home/getItinerary`
-let url1 = `http://localhost:3000/auth/createUser`
-let url2 = `http://localhost:3000/auth/login`
+let url = `http://travelplanner.cloudcity.computer/home/saveItinerary`
+let url4 = `http://travelplanner.cloudcity.computer/home/getItinerary`
+let url1 = `http://travelplanner.cloudcity.computer/auth/createUser`
+let url2 = `http://travelplanner.cloudcity.computer/auth/login`
 export const options = {
   scenarios: {
     example_scenario: {
@@ -63,7 +63,7 @@ export const options = {
    check(resp, { 'status 200': r => r.status == 200 })
 
    let resp2 = http.post(url2, payload, params)
-   console.log(resp2.body)
+   console.log('login related info: ' + resp2.body)
    check(resp2, {'status 200': r => r.status == 200 })
 
    sleep(Math.random() * 3)
@@ -93,7 +93,7 @@ export const options = {
    }
 
    let resp3 = http.post(url, payload3, params3)
-   console.log(resp3.body)
+   console.log('post request info: ' + resp3.body)
    check(resp3, { 'status 200': r => r.status == 200 })
 
    sleep(Math.random() * 3)
