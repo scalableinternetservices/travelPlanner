@@ -161,8 +161,9 @@ export function LecturesPage(props: LecturesPageProps) {
     console.log(result)
   let itineraryListLen = result.length
   //itineraryListLen =
+  console.log('ELEMENTS BELOW')
   for(let i = 0; i < itineraryListLen; i++){
-    console.log(JSON.stringify(result[i]))
+    console.log(result[i])
     let cur_itin = result[i]
     let cur_date = cur_itin.date
     let cur_sched = cur_itin.schedule
@@ -171,28 +172,28 @@ export function LecturesPage(props: LecturesPageProps) {
     //remember j = 0 and j = len -1 are always departure and arrival
 
     let schedArr = new Array
-    for(let j = 0; j < schedule_len; j++){
+    for(let j = schedule_len-1; j >= 0; j--){
       var cur_pit_stop
       if(j == 0){
         //departure
-        console.log('Departure: ' + JSON.stringify(cur_sched[j]))
+        console.log('Arrival: ' + JSON.stringify(cur_sched[j]))
         cur_pit_stop = {
           name: cur_sched[j].name,
           type: cur_sched[j].type,
           //transportation :cur_sched[j].number,
-          departure: cur_sched[j].departure,
+          arrival: cur_sched[j].arrival,
           //duration: cur_sched[j].number,
           //cost?: number
         }
       }
       else if(j == schedule_len -1){
         //arrival
-        console.log('Arrival: ' + JSON.stringify(cur_sched[j]))
+        console.log('Departure: ' + JSON.stringify(cur_sched[j]))
         cur_pit_stop = {
           name: cur_sched[j].name,
           type: cur_sched[j].type,
-          arrival :cur_sched[j].arrival,
-          //departure: cur_sched[j].departure,
+          // :cur_sched[j].arrival,
+          departure: cur_sched[j].departure,
           //duration: cur_sched[j].number,
           //cost: cur_sched[j].number,
         }
@@ -206,7 +207,7 @@ export function LecturesPage(props: LecturesPageProps) {
           //transportation :cur_sched[j].number,
           departure: cur_sched[j].departure,
           arrival: cur_sched[j].arrival,
-          duration: cur_sched[j].number,
+          duration: cur_sched[j].duration,
           //cost: cur_sched[j].number,
         }
       }
@@ -216,16 +217,15 @@ export function LecturesPage(props: LecturesPageProps) {
         cur_pit_stop = {
           //name: cur_sched[j].name,
           type: cur_sched[j].type,
-          transportation :cur_sched[j].number,
+          transportation :cur_sched[j].transportation,
           //departure: cur_sched[j].departure,
           //arrival: cur_sched[j].arrival,
-          duration: cur_sched[j].number,
-          cost: cur_sched[j].number,
+          duration: cur_sched[j].duration,
+          cost: cur_sched[j].cost,
         }
       }
-      console.log(cur_pit_stop)
+      //console.log(cur_pit_stop)
       schedArr.push(cur_pit_stop)
-      break
     }
     var my_itinerary = {
       date: cur_date,
