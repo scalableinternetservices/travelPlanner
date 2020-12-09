@@ -534,30 +534,3 @@ initORM()
     )
   )
   .catch(err => console.error(err))
-
-// server.express.get(
-//   '/users',
-//   asyncRoute(async (req, res) => {
-//     const users = await User.find()
-//     res.status(200).type('json').send(users)
-//   })
-// )
-
-// server.express.post(
-//   '/throwCandy',
-//   asyncRoute(async (req, res) => {
-//     const email = req.params['email']
-//     const candy = await getRepository(UserCandy)
-//       .createQueryBuilder('candy')
-//       .leftJoinAndSelect('candy.user', 'user')
-//       .where('user.email = :email', { email })
-//       .getOne()
-//     if (!candy) {
-//       return res.status(200).send(false)
-//     }
-//     // give a random amount of candy
-//     candy.candyCount += Math.floor(Math.random() * 4) + 1
-//     await candy.save()
-//     return res.status(200).send(false)
-//   })
-// )
