@@ -3,6 +3,9 @@
   Used the cookie created for user: test1@gmail.com pw: test1
   Tests saveItinerary Request
 
+  for local testing only: (create a user and use breakpoints to figure out the cookie for that user and paste it
+    into the header field)
+
 */
 import http from 'k6/http'
 import { check, sleep } from 'k6'
