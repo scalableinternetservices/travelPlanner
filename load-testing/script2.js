@@ -6,8 +6,8 @@
 import http from 'k6/http'
 import { check, sleep } from 'k6'
 import { Counter, Rate } from 'k6/metrics'
-let url1 = `http://localhost:3000/auth/createUser`
-let url2 = `http://localhost:3000/auth/login`
+let url1 = `http://travelplanner.cloudcity.computer/auth/createUser`
+let url2 = `http://travelplanner.cloudcity.computer/auth/login`
 export const options = {
   scenarios: {
     example_scenario: {
