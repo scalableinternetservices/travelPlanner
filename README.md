@@ -4,7 +4,7 @@ Welcome to Travel Planner
 
 ## Group Members
 ### Aaron Chang
-![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/aaron.png)
+![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/aaron.jpg)
 
 ### Akanksha Dhanwal
 ![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/akanksha.png)
