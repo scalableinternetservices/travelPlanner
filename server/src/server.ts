@@ -282,7 +282,7 @@ server.express.post(
     const itineraries = await Itinerary.find({
       where: { user_id : user_id },
       relations:["day", "day.locations", "day.trips"],
-      order: {id: "DESC"}
+      // order: {id: "DESC"}
     })
     var itineraries_out = []
     for (let itinerary of itineraries) {
@@ -329,7 +329,7 @@ server.express.post(
 
     const itineraries = await Itinerary.find({
       relations:["day", "day.locations", "day.trips"],
-      order: {id: "DESC"},
+      // order: {id: "DESC"},
       take: 20
     })
 
@@ -339,12 +339,15 @@ server.express.post(
       let schedule_out = []
       let locations = day.locations
       let trips = day.trips
+      console.log(locations)
 
       for (let i = 0; i < locations.length; i++) {
         let location = locations[i]
         let location_out
+        console.log("location id: " +  location.id)
         if (i == 0) {  // Departure
           let departure = await Departure.findOne({ where: { id: location.id } })
+          console.log(departure)
           location_out = JSON.parse(JSON.stringify(departure))
         } else if (i == locations.length - 1) {
           let arrival = await Arrival.findOne({ where: { id: location.id } })
