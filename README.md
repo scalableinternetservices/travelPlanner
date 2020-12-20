@@ -15,6 +15,7 @@ Welcome to Travel Planner
 ### Yingge He
 ![](https://github.com/scalableinternetservices/travelPlanner/blob/master/photos/yingge.jpg)
 
+
 ## Dependencies
 
 For the [Quickstart](https://github.com/rothfels/travelPlanner#Quickstart), you will need:
